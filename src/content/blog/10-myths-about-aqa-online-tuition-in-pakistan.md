@@ -35,7 +35,7 @@ The best part of having a virtual classroom is that one can attend classes at an
 
 ## **Not Suitable For Someone Who Is Already Working**
 
-The AQA [online tuition in Pakistan](/online-tuition-services/) understands that students are busy with their professional lives and hence it offers flexible timings to reduce interference in one’s career. Moreover, the virtual classroom provides students with various learning tools such as word processing, PowerPoint presentations, vocabulary banks, etc., which allows them to complete their assignments easily.
+The AQA [online tuition in Pakistan](/subjects/) understands that students are busy with their professional lives and hence it offers flexible timings to reduce interference in one’s career. Moreover, the virtual classroom provides students with various learning tools such as word processing, PowerPoint presentations, vocabulary banks, etc., which allows them to complete their assignments easily.
 
 ## **Cannot Attend Classes Because Of Location**
 

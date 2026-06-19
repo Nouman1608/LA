@@ -37,4 +37,4 @@ Lastly, with online degrees becoming more popular, universities are now acceptin
 
 ## **Conclusion**
 
-Online learning is a great way to pursue your studies, and there are many benefits associated with it. You can find a good **A level [online tuition in Pakistan](/online-tuition-services/)**. It’s also an excellent resource for people who want to study from anywhere in the world. In addition, online courses allow students more time flexibility than traditional on-campus classes because they can work around their schedules more easily without worrying about missing class or having to commute every day.
+Online learning is a great way to pursue your studies, and there are many benefits associated with it. You can find a good **A level [online tuition in Pakistan](/subjects/)**. It’s also an excellent resource for people who want to study from anywhere in the world. In addition, online courses allow students more time flexibility than traditional on-campus classes because they can work around their schedules more easily without worrying about missing class or having to commute every day.

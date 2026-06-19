@@ -1,0 +1,73 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import LandingBody from '../components/sections/LandingBody.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = `AQA Online Tuition in Pakistan — GCSE & A Level | ${site.name}`;
+const description =
+  'Live AQA online tuition in Pakistan for GCSE and A Level. Teachers who know AQA specifications, command words and mark schemes, with past-paper practice. Book a free trial class.';
+
+const points = [
+  {
+    title: 'AQA-aligned teaching',
+    body: 'Lessons follow AQA specifications and assessment objectives, so students learn answers the way AQA examiners reward them.',
+  },
+  {
+    title: 'GCSE & A Level',
+    body: 'Coverage across AQA GCSE and A Level subjects, from sciences and maths to humanities.',
+  },
+  {
+    title: 'Past papers & mark schemes',
+    body: 'Timed AQA past-paper practice with detailed marking, so progress is measured against the real standard.',
+  },
+  {
+    title: 'Live, personal classes',
+    body: 'One-to-one or small group in a virtual classroom, scheduled to suit students in Pakistan and abroad.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Which AQA levels do you cover?',
+    a: 'AQA GCSE and A Level across a range of subjects. Share your subjects and level when booking and we match a specialist teacher.',
+  },
+  {
+    q: 'Do teachers know the AQA mark schemes?',
+    a: 'Yes — teaching focuses on AQA command words, assessment objectives and mark-scheme expectations, with practice against real AQA papers.',
+  },
+  {
+    q: 'Can overseas students join AQA classes?',
+    a: 'Yes. Classes are fully online and timezone-friendly, so students in the UK, Gulf and elsewhere learn alongside our Lahore students.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class to meet your AQA teacher and see a live session before deciding.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/aqa-online-tuition-classes-in-pakistan/" topBar={false}>
+  <PageHeader
+    eyebrow="AQA · GCSE & A Level"
+    crumb="AQA Online Tuition"
+    title="AQA online tuition in Pakistan."
+    sub="Live AQA classes from teachers who teach to the specification, the command words and the mark scheme."
+  />
+  <LandingBody
+    lead="AQA rewards students who answer in its own language — its command words, its assessment objectives, its mark-scheme logic. Our AQA online tuition is taught by specialists who drill exactly that, with timed past-paper practice and detailed marking, in live one-to-one or small-group classes. From GCSE foundations to A Level finals, students across Pakistan and overseas learn with us, starting with a free trial."
+    pointsTitle="Why students choose us for AQA"
+    points={points}
+    relatedTitle="Popular subjects"
+    related={[
+      { label: 'Chemistry', href: '/subjects/chemistry/' },
+      { label: 'Biology', href: '/subjects/biology/' },
+      { label: 'Mathematics', href: '/subjects/mathematics/' },
+      { label: 'Psychology', href: '/subjects/psychology/' },
+      { label: 'All subjects', href: '/subjects/' },
+    ]}
+  />
+  <Faq items={faqs} />
+  <CtaBand title="Get AQA-specialist teaching." />
+</HomeLayout>

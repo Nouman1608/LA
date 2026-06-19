@@ -29,7 +29,7 @@ Studying with someone else can be a great way to learn and motivate each other. 
 
 ## **6\. Stay Positive And Motivated**
 
-It’s easy to get discouraged when you’re struggling with your studies, but it’s important to stay positive and motivated throughout the process with AQA [Online Tuition in Pakistan](/online-tuition-services/). Remind yourself why you’re doing this and how it will benefit you in the long run. Visualize yourself successfully passing your exams and achieving your goals.
+It’s easy to get discouraged when you’re struggling with your studies, but it’s important to stay positive and motivated throughout the process with AQA [Online Tuition in Pakistan](/subjects/). Remind yourself why you’re doing this and how it will benefit you in the long run. Visualize yourself successfully passing your exams and achieving your goals.
 
 ## **7\. Take Notes**
 

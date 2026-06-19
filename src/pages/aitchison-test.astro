@@ -1,0 +1,74 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import LandingBody from '../components/sections/LandingBody.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = `Aitchison College Entry Test Preparation (Online) | ${site.name}`;
+const description =
+  'Structured online Aitchison College entry test preparation from Bahria Town, Lahore — English, Maths, Urdu and interview practice with teachers who have prepared Aitchison entrants since 2016.';
+
+const points = [
+  {
+    title: 'English & comprehension',
+    body: 'Reading comprehension, creative and guided writing, grammar and vocabulary drills tuned to the level Aitchison expects.',
+  },
+  {
+    title: 'Mathematics',
+    body: 'Mental maths speed, problem solving and the core arithmetic and reasoning that come up in the written paper.',
+  },
+  {
+    title: 'Urdu (Tafheem & Mazmoon)',
+    body: 'Urdu comprehension (tafheem), essay/letter writing (mazmoon) and handwriting practice, marked the way examiners mark.',
+  },
+  {
+    title: 'Interview & confidence',
+    body: 'Mock interviews and spoken-English practice so your child walks in calm, articulate and ready for the panel.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What ages and entry points do you prepare for?',
+    a: 'We prepare students for the common Aitchison College entry points, with the syllabus and difficulty matched to your child’s class. Tell us the entry class when you book and we set the right level.',
+  },
+  {
+    q: 'Are classes online or in person?',
+    a: 'Both. We run live online classes for students anywhere, and in-house sessions from our Bahria Town, Lahore campus. The preparation content is the same in both formats.',
+  },
+  {
+    q: 'How early should we start?',
+    a: 'Sooner is better. A few months of consistent weekly practice builds the speed and accuracy the written test rewards, but we also run focused crash preparation closer to the test date.',
+  },
+  {
+    q: 'Who teaches the preparation?',
+    a: 'Teachers experienced with the Aitchison entry standard, including staff who have prepared successful entrants since 2016. You can request a free trial class before committing.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/aitchison-test/" topBar={false}>
+  <PageHeader
+    eyebrow="Test preparation"
+    crumb="Aitchison Test Prep"
+    title="Aitchison College entry test preparation, online."
+    sub="English, Maths, Urdu and interview practice — structured by teachers who have prepared Aitchison entrants from Lahore since 2016."
+  />
+  <LandingBody
+    lead="Getting into Aitchison College is competitive, and the entry test rewards children who are quick, accurate and comfortable across English, Mathematics and Urdu. Our preparation is built around exactly that: weekly live practice, marked written work, and mock interviews that take the surprise out of the real day. Whether you are in Lahore or overseas, your child prepares with a teacher who knows the standard."
+    pointsTitle="What the preparation covers"
+    points={points}
+    relatedTitle="Related preparation"
+    related={[
+      { label: 'Cadet College entry test', href: '/cadet-colleges-test/' },
+      { label: 'Junior subjects', href: '/subjects/' },
+      { label: 'Talk to us', href: '/contact/' },
+    ]}
+  />
+  <Faq items={faqs} />
+  <CtaBand
+    title="Give your child the best shot at Aitchison."
+    sub="Start with a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>

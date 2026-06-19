@@ -1,0 +1,74 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import LandingBody from '../components/sections/LandingBody.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = `A Level Online Tuition in Pakistan — Live Classes | ${site.name}`;
+const description =
+  'Live A Level online tuition in Pakistan across Cambridge (CAIE), Edexcel and AQA. Examiner-aware teachers, small groups and 1:1, with subjects from Chemistry to Economics. Free trial class.';
+
+const points = [
+  {
+    title: 'All three boards',
+    body: 'Cambridge (CAIE), Edexcel and AQA — taught by teachers who know each board’s papers, mark schemes and command words.',
+  },
+  {
+    title: 'Live, not recorded',
+    body: 'Real-time classes in a virtual classroom, 1:1 or small group, so your child can ask questions and stay accountable week to week.',
+  },
+  {
+    title: 'Exam-focused teaching',
+    body: 'Past-paper drilling, structured answer technique and timed practice — the things that move grades, not just content coverage.',
+  },
+  {
+    title: 'Sciences & humanities',
+    body: 'From Chemistry, Physics and Maths to Economics, Business and Law — pick single subjects or a full A Level combination.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Which exam boards do you teach for A Level?',
+    a: 'Cambridge International (CAIE), Pearson Edexcel and AQA. Tell us your board and subjects and we match you with a teacher who specialises in them.',
+  },
+  {
+    q: 'Are classes one-to-one or in groups?',
+    a: 'Both options are available. One-to-one gives fully personalised pace; small groups are more affordable and still highly interactive.',
+  },
+  {
+    q: 'Can overseas Pakistani students join?',
+    a: 'Yes. Classes are fully online and we schedule around your timezone, so students in the Gulf, UK and beyond learn alongside our Lahore-based students.',
+  },
+  {
+    q: 'How do I start?',
+    a: 'Book a free trial class. You meet the teacher, see how a session runs, and only continue if it’s the right fit.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/a-level-online-tuition-classes-in-pakistan/" topBar={false}>
+  <PageHeader
+    eyebrow="A Level · CAIE · Edexcel · AQA"
+    crumb="A Level Online Tuition"
+    title="A Level online tuition in Pakistan."
+    sub="Live, examiner-aware A Level classes across Cambridge, Edexcel and AQA — taught from Lahore to students at home and overseas since 2016."
+  />
+  <LandingBody
+    lead="A Level grades open or close university doors, and the difference between a B and an A* is usually technique, not effort. Our A Level online tuition pairs your child with a teacher who knows their exact board and subject, runs live classes built around past papers and answer structure, and tracks progress every week. Whether you need a single subject shored up or a full combination taught from scratch, you start with a free trial and only continue if it’s working."
+    pointsTitle="Why students choose us for A Level"
+    points={points}
+    relatedTitle="Popular A Level subjects"
+    related={[
+      { label: 'Chemistry', href: '/subjects/chemistry/' },
+      { label: 'Physics', href: '/subjects/physics/' },
+      { label: 'Mathematics', href: '/subjects/mathematics/' },
+      { label: 'Biology', href: '/subjects/biology/' },
+      { label: 'Economics', href: '/subjects/economics/' },
+      { label: 'All subjects', href: '/subjects/' },
+    ]}
+  />
+  <Faq items={faqs} />
+  <CtaBand title="Ready to lift your A Level grades?" />
+</HomeLayout>

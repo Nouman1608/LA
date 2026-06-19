@@ -1,0 +1,73 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import LandingBody from '../components/sections/LandingBody.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = `Edexcel Online Tuition in Pakistan — IGCSE & A Level | ${site.name}`;
+const description =
+  'Live Pearson Edexcel online tuition in Pakistan for International GCSE and A Level. Teachers fluent in Edexcel specifications, mark schemes and past papers. Free trial class.';
+
+const points = [
+  {
+    title: 'Edexcel specialists',
+    body: 'Teachers who work specifically with Pearson Edexcel specifications, so lessons map exactly to your syllabus and assessment objectives.',
+  },
+  {
+    title: 'IGCSE & A Level',
+    body: 'International GCSE and International A Level both covered, across sciences, maths, business and humanities.',
+  },
+  {
+    title: 'Edexcel past papers',
+    body: 'Practice and marking against real Edexcel papers and grade boundaries — not generic question banks.',
+  },
+  {
+    title: 'Live & flexible',
+    body: 'One-to-one or small group, scheduled around your timezone for students in Pakistan and overseas.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you teach both Edexcel IGCSE and A Level?',
+    a: 'Yes — Pearson Edexcel International GCSE and International A Level, across a wide range of subjects. Tell us your level and subjects when you book.',
+  },
+  {
+    q: 'Can I mix Edexcel with another board?',
+    a: 'Yes. Many students take subjects across Edexcel, Cambridge and AQA. We assign the right specialist teacher per subject and board.',
+  },
+  {
+    q: 'Is the teaching aligned to current Edexcel specifications?',
+    a: 'Yes. Lessons follow the current Edexcel specification and assessment style, with practice against recent Edexcel papers and grade boundaries.',
+  },
+  {
+    q: 'How do I try a class?',
+    a: 'Book a free trial — meet your Edexcel teacher and experience a live session before committing.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/edexcel-online-tuition-classes-in-pakistan/" topBar={false}>
+  <PageHeader
+    eyebrow="Pearson Edexcel · IGCSE & A Level"
+    crumb="Edexcel Online Tuition"
+    title="Edexcel online tuition in Pakistan."
+    sub="Live Pearson Edexcel classes from teachers who know the specifications, mark schemes and papers inside out."
+  />
+  <LandingBody
+    lead="Edexcel’s specifications and mark schemes have their own rhythm, and students do best with a teacher who teaches to them directly. Our Edexcel online tuition covers International GCSE and A Level with specialists who drill against real Edexcel papers and grade boundaries, in live one-to-one or small-group classes. Students across Pakistan and overseas learn with us — and every family starts with a free trial."
+    pointsTitle="Why students choose us for Edexcel"
+    points={points}
+    relatedTitle="Popular subjects"
+    related={[
+      { label: 'Chemistry', href: '/subjects/chemistry/' },
+      { label: 'Physics', href: '/subjects/physics/' },
+      { label: 'Mathematics', href: '/subjects/mathematics/' },
+      { label: 'Economics', href: '/subjects/economics/' },
+      { label: 'All subjects', href: '/subjects/' },
+    ]}
+  />
+  <Faq items={faqs} />
+  <CtaBand title="Get Edexcel-specialist teaching." />
+</HomeLayout>

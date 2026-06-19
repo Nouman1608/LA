@@ -1,0 +1,74 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import LandingBody from '../components/sections/LandingBody.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = `Cadet College Entry Test Preparation (Online) | ${site.name}`;
+const description =
+  'Online Cadet College entry test preparation — English, Maths, Science, Urdu and intelligence/reasoning practice, plus interview and medical guidance, from teachers in Bahria Town, Lahore.';
+
+const points = [
+  {
+    title: 'English & Urdu',
+    body: 'Comprehension, grammar, vocabulary and writing in both languages, drilled to the standard cadet college papers demand.',
+  },
+  {
+    title: 'Mathematics & Science',
+    body: 'Core maths, general science and the applied reasoning that the written entrance papers test under time pressure.',
+  },
+  {
+    title: 'Intelligence & reasoning',
+    body: 'Verbal and non-verbal reasoning practice — the question types many students see for the first time in the test.',
+  },
+  {
+    title: 'Interview & ISSB-style prep',
+    body: 'Mock interviews, spoken confidence and guidance on the selection and medical stages so nothing catches you off guard.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Which cadet colleges does this prepare for?',
+    a: 'The written-test syllabus is broadly similar across major cadet colleges (English, Maths, Science, Urdu and reasoning). Tell us your target college and entry class and we tailor the focus.',
+  },
+  {
+    q: 'Do you cover the interview and selection stages?',
+    a: 'Yes. Alongside the written paper we run mock interviews and prepare students for the spoken and selection stages so they present themselves with confidence.',
+  },
+  {
+    q: 'Is preparation available online across Pakistan?',
+    a: 'Yes — live online classes are open to students anywhere in Pakistan or overseas, and we also teach in person from our Bahria Town, Lahore campus.',
+  },
+  {
+    q: 'Can we try before enrolling?',
+    a: 'Absolutely. Book a free trial class to meet the teacher and see the method before you commit to a plan.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/cadet-colleges-test/" topBar={false}>
+  <PageHeader
+    eyebrow="Test preparation"
+    crumb="Cadet College Test Prep"
+    title="Cadet College entry test preparation, online."
+    sub="English, Maths, Science, Urdu and reasoning — plus interview practice — from teachers who know what the entrance boards look for."
+  />
+  <LandingBody
+    lead="Cadet college entrance tests reward broad, solid fundamentals and steady nerves: a written paper spanning English, Mathematics, Science and Urdu, reasoning questions many students have never seen, then an interview. Our preparation covers all of it with live weekly classes, marked practice papers and mock interviews — so your child arrives prepared for every stage, not just the parts that are easy to revise."
+    pointsTitle="What the preparation covers"
+    points={points}
+    relatedTitle="Related preparation"
+    related={[
+      { label: 'Aitchison College entry test', href: '/aitchison-test/' },
+      { label: 'Junior subjects', href: '/subjects/' },
+      { label: 'Talk to us', href: '/contact/' },
+    ]}
+  />
+  <Faq items={faqs} />
+  <CtaBand
+    title="Prepare for the cadet college test with people who’ve done it before."
+    sub="Start with a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>

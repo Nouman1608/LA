@@ -41,7 +41,7 @@ It can be easy to get distracted when you are studying online. However, it’s i
 
 ## **9\. Take Breaks**
 
-Although it’s important to stay focused when you are studying in IGCSE [Online Tuition in Pakistan](/online-tuition-services/), it’s also essential to take breaks regularly. This will help refresh your mind and make it easier to focus again. Get up and move around every 30 minutes or so and take a break for at least an hour each day.
+Although it’s important to stay focused when you are studying in IGCSE [Online Tuition in Pakistan](/subjects/), it’s also essential to take breaks regularly. This will help refresh your mind and make it easier to focus again. Get up and move around every 30 minutes or so and take a break for at least an hour each day.
 
 ## **10\. Use A Timer**
 

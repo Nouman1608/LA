@@ -49,4 +49,4 @@ The benefits of online tutoring are simple. They’re accessible, affordable and
 
 **Read More**:
 
-[8 Way To Score Well In IGCSE Online Tuition In Pakistan!](/8-ways-to-score-well-in-igcse-online-tuition-in-pakistan/)
+[8 Way To Score Well In IGCSE Online Tuition In Pakistan!](/blog/8-ways-to-score-well-in-igcse-online-tuition-in-pakistan/)

@@ -31,7 +31,7 @@ It is important to take breaks during your study time otherwise, you will quickl
 
 ## **6) Set goals**
 
-Make sure to set goals for yourself and then track your progress as you work towards them. This will give you a sense of accomplishment and keep you motivated throughout your course to perform better in IGCSE [Online Tuition in Pakistan](/online-tuition-services/).
+Make sure to set goals for yourself and then track your progress as you work towards them. This will give you a sense of accomplishment and keep you motivated throughout your course to perform better in IGCSE [Online Tuition in Pakistan](/subjects/).
 
 ## **7) Get organized**
 

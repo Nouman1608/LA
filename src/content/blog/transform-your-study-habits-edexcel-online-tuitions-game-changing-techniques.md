@@ -102,8 +102,8 @@ Embrace these strategies to excel academically and reach your goals.
 
 **Read More:**
 
-[Edexcel Online Tuition In Pakistan: Future Of Learning?](/edexcel-online-tuition-in-pakistan-the-future-of-learning/)
+[Edexcel Online Tuition In Pakistan: Future Of Learning?](/blog/edexcel-online-tuition-in-pakistan-the-future-of-learning/)
 
-[AQA Online Tuition In Pakistan: 10 Common Myths](/10-myths-about-aqa-online-tuition-in-pakistan/)
+[AQA Online Tuition In Pakistan: 10 Common Myths](/blog/10-myths-about-aqa-online-tuition-in-pakistan/)
 
-[Online Tuition In Pakistan: Pros And Cons](/online-tuition-in-pakistan-for-and-against/)
+[Online Tuition In Pakistan: Pros And Cons](/blog/online-tuition-in-pakistan-for-and-against/)

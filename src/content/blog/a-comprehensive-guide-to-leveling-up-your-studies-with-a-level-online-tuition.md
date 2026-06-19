@@ -31,7 +31,7 @@ Employers are starting to recognize the value of [A Level Online Tuition In Paki
 
 ## **Cost-Effective**
 
-One of the great things about A Level [Online Tuition In Pakistan](/online-tuition-services/) is that they are often more cost-effective than traditional degrees. This is because you don’t have to pay for things like transport or accommodation, and many platforms offer discounts on course materials. So if you’re looking for a cost-effective way to level up your studies, online education is the way to go!
+One of the great things about A Level [Online Tuition In Pakistan](/subjects/) is that they are often more cost-effective than traditional degrees. This is because you don’t have to pay for things like transport or accommodation, and many platforms offer discounts on course materials. So if you’re looking for a cost-effective way to level up your studies, online education is the way to go!
 
 ## **More Connected Than Ever**
 

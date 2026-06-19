@@ -17,7 +17,7 @@ You can also consider [IGCSE tuition](/igcse-online-tuition-classes-in-pakistan/
 
 ## **Why enrolling for IGCSE online tuition is the best decision that you will ever make**
 
-If you are struggling academically, **IGCSE [online tuition in Pakistan](/online-tuition-services/)** will be the best decision that you will ever make. Online private tutoring and coaching is the best option for those who are already struggling academically. Besides, with the increasing cost of living around the world, it’s important that we try to reduce as many expenses as possible!
+If you are struggling academically, **IGCSE [online tuition in Pakistan](/subjects/)** will be the best decision that you will ever make. Online private tutoring and coaching is the best option for those who are already struggling academically. Besides, with the increasing cost of living around the world, it’s important that we try to reduce as many expenses as possible!
 
 For those who don’t know, IGCSE is a highly respected qualification and is accepted as the standard GCSE equivalency throughout the world. The course was designed to meet the requirements of both British and international schools. IGCSE stands for International General Certificate of Secondary Education. It’s an alternative to O-levels and A-levels and is designed to be studied over two years. It offers the flexibility of studying a wide range of subjects in one session and covers all major subject areas: languages, humanities, sciences, mathematics, and arts.
 

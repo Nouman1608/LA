@@ -1,0 +1,74 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import LandingBody from '../components/sections/LandingBody.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = `IGCSE & O Level Online Tuition in Pakistan | ${site.name}`;
+const description =
+  'Live IGCSE and O Level online tuition in Pakistan across Cambridge, Edexcel and AQA. Small-group and 1:1 classes with examiner-aware teachers, from Chemistry to Accounting. Free trial.';
+
+const points = [
+  {
+    title: 'IGCSE & O Level',
+    body: 'Full coverage of Cambridge IGCSE / O Level, Edexcel International GCSE and AQA — matched to your child’s exact syllabus.',
+  },
+  {
+    title: 'Strong foundations',
+    body: 'We build the core understanding O & A Level success is later built on, not just rote answers for the next test.',
+  },
+  {
+    title: 'Past-paper technique',
+    body: 'Marked practice, command-word training and timed papers so students know exactly how marks are won and lost.',
+  },
+  {
+    title: '20+ subjects',
+    body: 'Sciences, maths, business, humanities and languages — take a single subject or your whole IGCSE combination.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What’s the difference between IGCSE and O Level here?',
+    a: 'Both are covered. Cambridge offers O Level and IGCSE variants of many subjects, and Edexcel offers International GCSE; we teach to whichever your school or exam centre enters you for.',
+  },
+  {
+    q: 'Which boards do you support?',
+    a: 'Cambridge (CAIE), Pearson Edexcel and AQA. Share your board and subjects and we assign a specialist teacher.',
+  },
+  {
+    q: 'Do you teach single subjects?',
+    a: 'Yes. Many students join for one or two tricky subjects; others take a full combination. You choose, and pricing scales with the number of subjects.',
+  },
+  {
+    q: 'How do we begin?',
+    a: 'Book a free trial class to meet the teacher and see the virtual classroom before committing.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/igcse-online-tuition-classes-in-pakistan/" topBar={false}>
+  <PageHeader
+    eyebrow="IGCSE / O Level · CAIE · Edexcel · AQA"
+    crumb="IGCSE Online Tuition"
+    title="IGCSE & O Level online tuition in Pakistan."
+    sub="Live small-group and one-to-one classes across every major board — building the foundations that carry through to A Level."
+  />
+  <LandingBody
+    lead="IGCSE and O Level are where strong study habits and real subject understanding are built — or where gaps quietly form that resurface at A Level. Our online tuition keeps classes live and interactive, pairs each student with a teacher who knows their board, and drills past-paper technique alongside genuine understanding. From a single difficult subject to a full combination, students across Pakistan and overseas learn with us, and every family starts with a free trial."
+    pointsTitle="Why families choose us for IGCSE"
+    points={points}
+    relatedTitle="Popular subjects"
+    related={[
+      { label: 'Chemistry', href: '/subjects/chemistry/' },
+      { label: 'Mathematics', href: '/subjects/mathematics/' },
+      { label: 'Biology', href: '/subjects/biology/' },
+      { label: 'Accounting', href: '/subjects/accounting/' },
+      { label: 'Computer Science', href: '/subjects/computer-science/' },
+      { label: 'All subjects', href: '/subjects/' },
+    ]}
+  />
+  <Faq items={faqs} />
+  <CtaBand title="Build IGCSE foundations that last." />
+</HomeLayout>

@@ -20,3 +20,13 @@ export const footerExplore: NavLink[] = [
   { label: 'Blog', href: '/blog/' },
   { label: 'Free Trial', href: '/contact/' },
 ];
+
+/** Curriculum & test-prep landing pages — kept internally linked so they aren't orphaned. */
+export const footerPrograms: NavLink[] = [
+  { label: 'A Level Tuition', href: '/a-level-online-tuition-classes-in-pakistan/' },
+  { label: 'IGCSE / O Level Tuition', href: '/igcse-online-tuition-classes-in-pakistan/' },
+  { label: 'Edexcel Tuition', href: '/edexcel-online-tuition-classes-in-pakistan/' },
+  { label: 'AQA Tuition', href: '/aqa-online-tuition-classes-in-pakistan/' },
+  { label: 'Aitchison Test Prep', href: '/aitchison-test/' },
+  { label: 'Cadet College Prep', href: '/cadet-colleges-test/' },
+];

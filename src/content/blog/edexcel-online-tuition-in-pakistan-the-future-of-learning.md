@@ -47,4 +47,4 @@ One of the most important things to remember is to stay positive throughout your
 
 ## **Closing Paragraph** 
 
-The future of learning is Edexcel [online tuition in Pakistan](/online-tuition-services/). We can help you get started on the right platform with our extensive range of tutorials, activities, and assessments that are designed to engage learners from all walks of life. Get organized by taking advantage of your personal learning portal where you’ll be able to connect with other students around the world who have similar interests as yours. Remember to stay positive!
+The future of learning is Edexcel [online tuition in Pakistan](/subjects/). We can help you get started on the right platform with our extensive range of tutorials, activities, and assessments that are designed to engage learners from all walks of life. Get organized by taking advantage of your personal learning portal where you’ll be able to connect with other students around the world who have similar interests as yours. Remember to stay positive!

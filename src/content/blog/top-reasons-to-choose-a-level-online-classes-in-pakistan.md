@@ -41,7 +41,7 @@ All the necessary resources that you will need for your course are easily access
 
 ## **Increased Job Opportunities**
 
-Completing an [A level online course](/a-level-subjects/) in Pakistan will give you an edge over other candidates when it comes to job applications. It shows that you are willing to go the extra mile and have the dedication and commitment to finish what you started. Thus, employers will see you as an ambitious and determined individual who is capable of succeeding in any field.
+Completing an [A level online course](/subjects/) in Pakistan will give you an edge over other candidates when it comes to job applications. It shows that you are willing to go the extra mile and have the dedication and commitment to finish what you started. Thus, employers will see you as an ambitious and determined individual who is capable of succeeding in any field.
 
 So if you’re looking for a more flexible and affordable way to complete your A level education, then online classes are the perfect choice for you. With so many advantages over traditional schooling, there’s no reason not to consider them. Do your research, find a reputable institution, and get started on your path to success today!
 
@@ -51,6 +51,6 @@ If you want a high-quality education at an affordable price with plenty of flexi
 
 **Read More**:
 
-[Top 11 Reasons To Choose A Level Tuition In Pakistan](/11-reasons-a-level-tuition-in-pakistan-instead-of-home-school-system/)
+[Top 11 Reasons To Choose A Level Tuition In Pakistan](/blog/11-reasons-a-level-tuition-in-pakistan-instead-of-home-school-system/)
 
-[Take IGCSE Online Tuition In Pakistan – Improve Your Grades](/take-igcse-online-tuition-in-pakistan-and-improve-your-grades-at-high-school-or-university/)
+[Take IGCSE Online Tuition In Pakistan – Improve Your Grades](/blog/take-igcse-online-tuition-in-pakistan-and-improve-your-grades-at-high-school-or-university/)

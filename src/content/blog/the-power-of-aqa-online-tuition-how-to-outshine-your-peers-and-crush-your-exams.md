@@ -40,8 +40,8 @@ AQA online tuition is a powerful tool for students who want to outshine their pe
 
 **Read More:**
 
-[AQA Online Tuition In Pakistan Over Traditional Schooling](/aqa-online-tuition-in-pakistan-over-traditional-schooling/)
+[AQA Online Tuition In Pakistan Over Traditional Schooling](/blog/aqa-online-tuition-in-pakistan-over-traditional-schooling/)
 
-[Why Taking Your A Level Online Classes In Pakistan Is Better](/why-taking-your-a-level-online-classes-in-pakistan-is-better-than-regular-school/)
+[Why Taking Your A Level Online Classes In Pakistan Is Better](/blog/why-taking-your-a-level-online-classes-in-pakistan-is-better-than-regular-school/)
 
-[Top 7 Reasons To Take A Levels Online Classes In Pakistan](/7-reasons-to-get-your-a-levels-online-classes-in-pakistan/)
+[Top 7 Reasons To Take A Levels Online Classes In Pakistan](/blog/7-reasons-to-get-your-a-levels-online-classes-in-pakistan/)

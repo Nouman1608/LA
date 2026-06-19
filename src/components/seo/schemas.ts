@@ -7,19 +7,33 @@ import { site } from '../../data/site';
 export function educationalOrganization() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'EducationalOrganization',
+    '@type': ['EducationalOrganization', 'Organization'],
+    '@id': `${site.domain}/#organization`,
     name: site.name,
     alternateName: 'Learners Academy Online Tuition',
     description: site.description,
     url: site.domain,
-    logo: `${site.domain}/favicon.svg`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${site.domain}/apple-touch-icon.png`,
+      caption: site.name,
+    },
+    image: `${site.domain}/og/og-default.jpg`,
     telephone: site.contact.phone,
     email: site.contact.email,
     foundingDate: String(site.founded),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: site.location,
-      addressCountry: site.country,
+      streetAddress: site.address.street,
+      addressLocality: site.address.locality,
+      addressRegion: site.address.region,
+      postalCode: site.address.postalCode,
+      addressCountry: site.address.country,
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: site.geo.lat,
+      longitude: site.geo.lng,
     },
     sameAs: [site.social.facebook, site.social.instagram],
   };
@@ -60,7 +74,7 @@ export function blogPosting(opts: {
     publisher: {
       '@type': 'Organization',
       name: site.name,
-      logo: { '@type': 'ImageObject', url: `${site.domain}/favicon.svg` },
+      logo: { '@type': 'ImageObject', url: `${site.domain}/apple-touch-icon.png` },
     },
   };
 }

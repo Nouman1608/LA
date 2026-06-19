@@ -4,6 +4,12 @@
 # Verify after deploy: BASE=<preview-url> ./scripts/check-redirects.sh
 
 # ============================================================
+# Host canonicalisation — force www -> apex (WordPress did this).
+# Cloudflare handles http->https separately (enable "Always Use HTTPS").
+# ============================================================
+https://www.learnersacademy.com.pk/*  https://learnersacademy.com.pk/:splat  301!
+
+# ============================================================
 # Subject pages  (old: /{subject}-online-classes-for-o-level-a-level/)
 # ============================================================
 /chemistry-online-classes-for-o-level-a-level/               /subjects/chemistry/                301
@@ -46,18 +52,16 @@
 /online-tuition-services/   /subjects/   301
 
 # ============================================================
-# Curriculum / board landing pages → home (primary keyword target)
+# Curriculum / board landing pages
+# These are now REAL pages at their original URLs (max equity, no redirect).
+# Only the short /igcse/ alias redirects, into the full IGCSE landing page.
 # ============================================================
-/a-level-online-tuition-classes-in-pakistan/  /   301
-/igcse-online-tuition-classes-in-pakistan/    /   301
-/edexcel-online-tuition-classes-in-pakistan/  /   301
-/aqa-online-tuition-classes-in-pakistan/      /   301
-/igcse/                                        /   301
+/igcse/   /igcse-online-tuition-classes-in-pakistan/   301
 
 # ============================================================
 # Utility / company pages
 # ============================================================
-/about-atp/             /about/      301
+/about-atp/             /aitchison-test/   301
 /locations/             /contact/    301
 /live-chat/             /contact/    301
 /thank-you/             /contact/    301
@@ -66,9 +70,7 @@
 /terms-and-conditions/  /terms/      301
 /privacy-policy/        /privacy/    301
 
-# Test-prep pages — no equivalent yet (content gap; consider building).
-/aitchison-test/        /            301
-/cadet-colleges-test/   /            301
+# Test-prep pages are now REAL pages at their original URLs (no redirect).
 
 # ============================================================
 # Blog  (migrated 1:1 from WordPress — old root slug -> /blog/<slug>/)

@@ -7,7 +7,7 @@ draft: false
 
 In today’s rapidly evolving world, staying ahead in the job market and securing a successful career require continuous learning and skill development. One field of study that holds immense promise and can significantly impact your future earnings and opportunities in economics. Whether you’re a student looking to explore the intricacies of supply and demand or a professional aiming to enhance your financial decision-making skills, investing in online economics classes can be a game-changer. 
 
-This article delves into the top ten[ economics online courses](/economics-online-classes-for-o-level-a-level/) that offer valuable insights, practical knowledge, and dividends for your future.
+This article delves into the top ten[ economics online courses](/subjects/economics/) that offer valuable insights, practical knowledge, and dividends for your future.
 
 ## 1\. The Fundamentals of Microeconomics
 

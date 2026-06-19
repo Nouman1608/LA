@@ -5,7 +5,7 @@ pubDate: 2026-06-07
 draft: false
 ---
 
-According to a recent study, the number of people who are choosing [online tuition in Pakistan](/online-tuition-services/) is on the rise. This is because more and more people are realizing the importance of getting a good education. There are many different platforms that offer online tuition, and students can find tutors for all subjects. This is a great way to get personalized attention and learn in a comfortable environment.
+According to a recent study, the number of people who are choosing [online tuition in Pakistan](/subjects/) is on the rise. This is because more and more people are realizing the importance of getting a good education. There are many different platforms that offer online tuition, and students can find tutors for all subjects. This is a great way to get personalized attention and learn in a comfortable environment.
 
 ## **How To Find A Tutor?**
 

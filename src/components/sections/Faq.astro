@@ -1,0 +1,75 @@
+---
+import JsonLd from '../seo/JsonLd.astro';
+import { faqPage } from '../seo/schemas';
+
+interface Props {
+  title?: string;
+  items: { q: string; a: string }[];
+}
+const { title = 'Frequently asked questions', items } = Astro.props;
+---
+<JsonLd slot="head" data={faqPage(items)} />
+
+<section class="faq">
+  <div class="container container--narrow">
+    <h2 class="section-title">{title}</h2>
+    <div class="faq__list">
+      {
+        items.map((it) => (
+          <details class="faq__item">
+            <summary class="faq__q">{it.q}</summary>
+            <p class="faq__a">{it.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .faq__list {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq__item {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-sm);
+    padding: 6px 20px;
+  }
+  .faq__q {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 0;
+    font-weight: 600;
+    color: var(--c-primary);
+    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+  .faq__q::after {
+    content: '+';
+    font-size: 22px;
+    color: var(--c-muted);
+    transition: transform 0.2s var(--ease);
+  }
+  .faq__item[open] .faq__q::after {
+    transform: rotate(45deg);
+  }
+  .faq__a {
+    margin: 0 0 18px;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+</style>

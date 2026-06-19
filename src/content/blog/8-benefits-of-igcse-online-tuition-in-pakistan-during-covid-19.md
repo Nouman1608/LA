@@ -33,7 +33,7 @@ If you are looking for a way to provide your child with a more well-rounded and 
 
 ## **7\. The Course Content Is Proven To Work**
 
-One reason why so many students struggle is because the content taught during an IGCSE [Online Tuition In Pakistan](/online-tuition-services/) does not necessarily help them later on in life. However, we make sure that each online tutorial we produce is proven to work and is linked to the latest industry practices. So, rather than simply learning about the past, your child will be given lessons that are specifically tailored to their needs and which can help them develop professionally in the future!
+One reason why so many students struggle is because the content taught during an IGCSE [Online Tuition In Pakistan](/subjects/) does not necessarily help them later on in life. However, we make sure that each online tutorial we produce is proven to work and is linked to the latest industry practices. So, rather than simply learning about the past, your child will be given lessons that are specifically tailored to their needs and which can help them develop professionally in the future!
 
 ## **8\. Your Child Can Work At Their Own Pace**
 

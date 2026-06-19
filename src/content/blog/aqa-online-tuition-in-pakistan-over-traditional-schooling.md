@@ -29,7 +29,7 @@ However, one major disadvantage of traditional schooling is the commute time whi
 
 This could be because there is more interaction with classmates and the instructor since online courses typically have discussion boards, chatrooms, and/or social media groups where everyone can share their thoughts on the readings or assigned projects. It’s also important to note that not all subjects are offered in an online format, so it’s best to check with your school of choice before making a decision.
 
-The number of people enrolling in AQA [online tuition in Pakistan](/online-tuition-services/) is rapidly changing the way we learn. With this in mind, it’s time to consider these new learning methods as a legitimate alternative for those who find traditional schooling difficult. In addition to flexible scheduling options and bypassing commuting time, online courses often have more interaction between classmates and the instructor than traditional lecture-style classes.
+The number of people enrolling in AQA [online tuition in Pakistan](/subjects/) is rapidly changing the way we learn. With this in mind, it’s time to consider these new learning methods as a legitimate alternative for those who find traditional schooling difficult. In addition to flexible scheduling options and bypassing commuting time, online courses often have more interaction between classmates and the instructor than traditional lecture-style classes.
 
 ## Conclusion
 
