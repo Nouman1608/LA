@@ -1,0 +1,145 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../../data/site';
+import { footerExplore } from '../../data/nav';
+
+interface Props {
+  /** Slim single-row footer used on subject pages. */
+  slim?: boolean;
+}
+const { slim = false } = Astro.props;
+const year = new Date().getFullYear();
+---
+{
+  slim ? (
+    <footer class="footer footer--slim">
+      <div class="container container--narrow footer__slim">
+        <span>© {year} {site.name}. All rights reserved.</span>
+        <div class="footer__slimlinks">
+          <a href="/">Home</a>
+          <a href={site.contact.phoneHref}>{site.contact.phone}</a>
+        </div>
+      </div>
+    </footer>
+  ) : (
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div>
+            <Logo tone="invert" />
+            <p class="footer__blurb">
+              Online tuition for IGCSE, O &amp; A Level — Cambridge, Edexcel &amp; AQA. Based in
+              {' '}{site.location}, teaching students worldwide since {site.founded}.
+            </p>
+          </div>
+          <div>
+            <h2 class="footer__h">Explore</h2>
+            <div class="footer__links">
+              {footerExplore.map((l) => <a href={l.href}>{l.label}</a>)}
+            </div>
+          </div>
+          <div>
+            <h2 class="footer__h">Get in touch</h2>
+            <div class="footer__links">
+              <a href={site.contact.phoneHref}>{site.contact.phone}</a>
+              <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              <a href={site.social.facebook} target="_blank" rel="noopener">Facebook</a>
+              <a href={site.social.instagram} target="_blank" rel="noopener">Instagram</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <span>© {year} {site.name}. All rights reserved.</span>
+          <div class="footer__legal">
+            <a href="/privacy/">Privacy policy</a>
+            <a href="/terms/">Terms &amp; conditions</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+<style>
+  .footer {
+    background: var(--c-footer);
+    color: rgba(255, 255, 255, 0.66);
+  }
+  .footer .container {
+    padding-block: 60px 30px;
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer__blurb {
+    margin: 18px 0 0;
+    font-size: 14.5px;
+    line-height: 1.7;
+    max-width: 40ch;
+  }
+  .footer__h {
+    margin: 0 0 14px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+  .footer__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14.5px;
+  }
+  .footer__links a:hover {
+    color: #fff;
+  }
+  .footer__bottom {
+    margin-top: 44px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .footer__legal {
+    display: flex;
+    gap: 18px;
+  }
+  .footer__legal a:hover {
+    color: #fff;
+  }
+
+  /* slim */
+  .footer--slim .container {
+    padding-block: 36px;
+  }
+  .footer__slim {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13.5px;
+  }
+  .footer__slimlinks {
+    display: flex;
+    gap: 18px;
+  }
+  .footer__slimlinks a:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 760px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

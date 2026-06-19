@@ -1,0 +1,26 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import BoardStrip from '../components/sections/BoardStrip.astro';
+import AboutWhyUs from '../components/sections/AboutWhyUs.astro';
+import Boards from '../components/sections/Boards.astro';
+import Subjects from '../components/sections/Subjects.astro';
+import Team from '../components/sections/Team.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import TrialContact from '../components/sections/TrialContact.astro';
+
+const title =
+  'Online O & A Level, IGCSE Tuition — Cambridge, Edexcel, AQA | Learners Academy';
+const description =
+  'Learners Academy offers live online classes for IGCSE and O & A Level across Cambridge (CAIE), Edexcel and AQA. Expert vetted teachers, 23 subjects, transparent pricing. Book a free demo class.';
+---
+<HomeLayout title={title} description={description} canonical="/">
+  <Hero />
+  <BoardStrip />
+  <AboutWhyUs />
+  <Boards />
+  <Subjects />
+  <Team />
+  <Pricing />
+  <TrialContact />
+</HomeLayout>

@@ -1,0 +1,76 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+  crumb: string;
+}
+const { eyebrow, title, sub, crumb } = Astro.props;
+---
+<section class="phead">
+  <div class="phead__glow" aria-hidden="true"></div>
+  <div class="container phead__inner">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <span class="crumb__current">{crumb}</span>
+    </nav>
+    <p class="phead__eyebrow">{eyebrow}</p>
+    <h1 class="phead__title">{title}</h1>
+    {sub && <p class="phead__sub">{sub}</p>}
+  </div>
+</section>
+
+<style>
+  .phead {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .phead__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px 420px at 85% -10%, rgba(58, 72, 133, 0.2), transparent 60%);
+  }
+  .phead__inner {
+    position: relative;
+    padding-block: 30px 64px;
+  }
+  .crumb {
+    font-size: 13px;
+    color: var(--c-on-primary-faint);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .crumb a:hover {
+    color: #fff;
+  }
+  .crumb__current {
+    color: var(--c-accent);
+  }
+  .phead__eyebrow {
+    margin: 36px 0 14px;
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+  .phead__title {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(34px, 5vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    max-width: 18ch;
+  }
+  .phead__sub {
+    margin: 20px 0 0;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--c-on-primary-soft);
+    max-width: 58ch;
+  }
+</style>

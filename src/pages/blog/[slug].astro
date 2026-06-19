@@ -1,0 +1,132 @@
+---
+import { getCollection, render } from 'astro:content';
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import { blogPosting, breadcrumbList } from '../../components/seo/schemas';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const canonical = `/blog/${entry.id}/`;
+const url = new URL(canonical, site.domain).href;
+const dateLabel = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(data.pubDate);
+const isoDate = data.pubDate.toISOString().slice(0, 10);
+
+const posting = blogPosting({
+  title: data.title,
+  description: data.description,
+  url,
+  datePublished: isoDate,
+  dateModified: data.updatedDate?.toISOString().slice(0, 10),
+});
+const crumbs = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Blog', url: `${site.domain}/blog/` },
+  { name: data.title, url },
+]);
+---
+<HomeLayout
+  title={`${data.title} | ${site.name}`}
+  description={data.description}
+  canonical={canonical}
+  ogType="article"
+  topBar={false}
+>
+  <JsonLd slot="head" data={posting} />
+  <JsonLd slot="head" data={crumbs} />
+
+  <article>
+    <header class="phead">
+      <div class="phead__glow" aria-hidden="true"></div>
+      <div class="container phead__inner">
+        <nav class="crumb" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span>
+          <a href="/blog/">Blog</a><span aria-hidden="true">/</span>
+          <span class="crumb__current">Article</span>
+        </nav>
+        <p class="phead__date">{dateLabel}</p>
+        <h1 class="phead__title">{data.title}</h1>
+      </div>
+    </header>
+
+    <div class="postbody">
+      <div class="container postbody__inner">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <CtaBand
+    title="Want results like these for your child?"
+    sub="Book a free trial class with a vetted teacher — no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .phead {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .phead__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px 420px at 85% -10%, rgba(58, 72, 133, 0.2), transparent 60%);
+  }
+  .phead__inner {
+    position: relative;
+    padding-block: 30px 56px;
+    max-width: 820px;
+  }
+  .crumb {
+    font-size: 13px;
+    color: var(--c-on-primary-faint);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .crumb a:hover {
+    color: #fff;
+  }
+  .crumb__current {
+    color: var(--c-accent);
+  }
+  .phead__date {
+    margin: 30px 0 12px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+  .phead__title {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(30px, 4.4vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  .postbody {
+    background: var(--c-bg);
+    padding-block: 64px;
+  }
+  .postbody__inner {
+    max-width: 760px;
+  }
+</style>

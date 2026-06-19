@@ -1,0 +1,67 @@
+---
+---
+<section class="strip">
+  <div class="container strip__inner">
+    <span class="strip__label">Preparing students for</span>
+    <div class="strip__boards">
+      <span class="strip__board">
+        Cambridge <span class="strip__sub">CAIE</span>
+      </span>
+      <span class="strip__rule" aria-hidden="true"></span>
+      <span class="strip__board">Edexcel</span>
+      <span class="strip__rule" aria-hidden="true"></span>
+      <span class="strip__board">AQA</span>
+      <span class="strip__rule" aria-hidden="true"></span>
+      <span class="strip__board">SAT</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .strip {
+    background: var(--c-panel);
+    border-bottom: 1px solid var(--c-border-strong);
+  }
+  .strip__inner {
+    padding-block: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .strip__label {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    font-weight: 600;
+  }
+  .strip__boards {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    color: var(--c-primary);
+  }
+  .strip__sub {
+    font-size: 13px;
+    color: var(--c-muted);
+    font-family: var(--font-sans);
+  }
+  .strip__rule {
+    width: 1px;
+    height: 22px;
+    background: var(--c-border-strong);
+  }
+  @media (max-width: 620px) {
+    .strip__boards {
+      gap: 22px;
+    }
+    .strip__rule {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+/**
+ * Section wrapper. Carries the anchor id, background variant, and vertical
+ * padding. `tone` maps to the design's alternating surfaces.
+ */
+interface Props {
+  id?: string;
+  tone?: 'bg' | 'panel' | 'primary';
+  narrow?: boolean;
+  bordered?: boolean;
+  class?: string;
+}
+const { id, tone = 'bg', narrow = false, bordered = false, class: extra } = Astro.props;
+---
+<section
+  id={id}
+  class:list={['section', `section--${tone}`, bordered && 'section--bordered', extra]}
+>
+  <div class:list={['container', narrow && 'container--narrow']}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--section-y);
+  }
+  .section--bg {
+    background: var(--c-bg);
+  }
+  .section--panel {
+    background: var(--c-panel);
+  }
+  .section--primary {
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+  }
+  .section--bordered {
+    border-top: 1px solid var(--c-border-strong);
+  }
+  .section--primary :global(.section-title) {
+    color: #fff;
+  }
+</style>

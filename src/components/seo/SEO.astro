@@ -1,0 +1,45 @@
+---
+import { site } from '../../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Canonical path or absolute URL. Defaults to the current page URL. */
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og/og-default.jpg',
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, site.domain);
+const ogImageURL = new URL(ogImage, site.domain);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL.href} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL.href} />
+<meta property="og:image" content={ogImageURL.href} />
+<meta property="og:locale" content="en_GB" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL.href} />

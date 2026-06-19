@@ -1,0 +1,91 @@
+---
+import Section from '../ui/Section.astro';
+import Pill from '../ui/Pill.astro';
+import { boards } from '../../data/boards';
+---
+<Section id="boards" tone="primary">
+  <div class="boards__head">
+    <p class="eyebrow eyebrow--on-primary">Exam boards</p>
+    <h2 class="section-title">We teach every major board.</h2>
+    <p class="boards__intro">
+      Whichever syllabus your school follows, our teachers know the mark schemes, past papers and
+      examiner expectations inside out.
+    </p>
+  </div>
+
+  <div class="boards__grid">
+    {
+      boards.map((b) => (
+        <a href="/contact/" class="board">
+          <div class="board__name">{b.name}</div>
+          <div class="board__tag">{b.tag}</div>
+          <p class="board__blurb">{b.blurb}</p>
+          <div class="board__pills">
+            {b.levels.map((lvl) => (
+              <Pill tone="outline-light">{lvl}</Pill>
+            ))}
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .boards__head {
+    max-width: 640px;
+  }
+  .boards__intro {
+    margin: 18px 0 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--c-on-primary-soft);
+  }
+  .boards__grid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .board {
+    display: block;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 30px;
+    transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .board:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-4px);
+  }
+  .board__name {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    color: #fff;
+  }
+  .board__tag {
+    margin-top: 4px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+  .board__blurb {
+    margin: 18px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--c-on-primary-soft);
+  }
+  .board__pills {
+    margin-top: 22px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 880px) {
+    .boards__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

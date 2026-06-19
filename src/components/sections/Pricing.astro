@@ -1,0 +1,232 @@
+---
+import Section from '../ui/Section.astro';
+import { regions } from '../../data/pricing';
+import { site } from '../../data/site';
+
+const defaultRegion = regions[0].key;
+
+// Generate the show/hide rules for the active region's price values.
+const regionCSS = regions
+  .map(
+    (r) =>
+      `.pricing[data-active-region="${r.key}"] .pcard__price[data-price-region="${r.key}"]{display:flex}`
+  )
+  .join('\n');
+---
+<Section id="pricing" tone="panel" bordered>
+  <div class="pricing" data-active-region={defaultRegion}>
+    <div class="pricing__head">
+      <p class="eyebrow">Rate card</p>
+      <h2 class="section-title">Transparent pricing, per subject.</h2>
+      <p class="pricing__sub">Choose your region to see monthly fees.</p>
+    </div>
+
+    <div class="pricing__toggle" role="group" aria-label="Choose your region">
+      {
+        regions.map((r) => (
+          <button
+            type="button"
+            class="rtab"
+            data-region-btn={r.key}
+            aria-pressed={r.key === defaultRegion ? 'true' : 'false'}
+          >
+            {r.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="pricing__cards">
+      <article class="pcard">
+        <h3 class="pcard__label">IGCSE</h3>
+        <div class="pcard__pricewrap">
+          {
+            regions.map((r) => (
+              <div class="pcard__price" data-price-region={r.key}>
+                <span class="pcard__cur">{r.currency}</span>
+                <span class="pcard__num">{r.igcse}</span>
+              </div>
+            ))
+          }
+        </div>
+        <p class="pcard__per">per subject / month</p>
+      </article>
+
+      <article class="pcard pcard--accent">
+        <div class="pcard__glow" aria-hidden="true"></div>
+        <h3 class="pcard__label">A Level</h3>
+        <div class="pcard__pricewrap">
+          {
+            regions.map((r) => (
+              <div class="pcard__price" data-price-region={r.key}>
+                <span class="pcard__cur">{r.currency}</span>
+                <span class="pcard__num">{r.alevel}</span>
+              </div>
+            ))
+          }
+        </div>
+        <p class="pcard__per pcard__per--accent">per subject / month</p>
+      </article>
+    </div>
+
+    <div class="pricing__discounts">
+      {
+        site.pricing.discounts.map((d) => (
+          <span class="discount">
+            <strong>{d.strong}</strong> {d.rest}
+          </span>
+        ))
+      }
+    </div>
+    <p class="pricing__note">*All prices are per subject, per month.</p>
+  </div>
+</Section>
+
+<style set:html={`.pcard__price{display:none}\n${regionCSS}`} is:inline></style>
+
+<style>
+  .pricing__head {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .pricing__sub {
+    margin: 16px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .pricing__toggle {
+    margin: 34px auto 0;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-pill);
+    padding: 6px;
+    width: max-content;
+    max-width: 100%;
+  }
+  .rtab {
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: var(--r-pill);
+    background: transparent;
+    color: var(--c-text);
+    transition: all 0.2s var(--ease);
+  }
+  .rtab[aria-pressed='true'] {
+    background: var(--c-primary);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(15, 31, 61, 0.18);
+  }
+
+  .pricing__cards {
+    margin: 38px auto 0;
+    max-width: 760px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .pcard {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 34px;
+    box-shadow: var(--shadow-pop);
+  }
+  .pcard--accent {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-primary);
+    border-color: transparent;
+    box-shadow: 0 14px 40px rgba(15, 31, 61, 0.18);
+  }
+  .pcard__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(400px 200px at 100% 0%, rgba(58, 72, 133, 0.22), transparent 60%);
+  }
+  .pcard__label {
+    position: relative;
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    font-weight: 700;
+  }
+  .pcard--accent .pcard__label {
+    color: var(--c-accent);
+  }
+  .pcard__pricewrap {
+    position: relative;
+    margin: 14px 0 4px;
+    min-height: 48px;
+  }
+  .pcard__price {
+    align-items: baseline;
+    gap: 8px;
+  }
+  .pcard__cur {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .pcard__num {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    line-height: 1;
+    color: var(--c-primary);
+  }
+  .pcard--accent .pcard__cur,
+  .pcard--accent .pcard__num {
+    color: #fff;
+  }
+  .pcard__per {
+    position: relative;
+    margin: 0;
+    font-size: 14px;
+    color: var(--c-muted);
+  }
+  .pcard__per--accent {
+    color: var(--c-on-primary-faint);
+  }
+
+  .pricing__discounts {
+    margin: 26px auto 0;
+    max-width: 760px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .discount {
+    font-size: 14px;
+    padding: 9px 16px;
+    border-radius: var(--r-pill);
+    background: #fff;
+    border: 1px solid var(--c-border);
+  }
+  .discount strong {
+    color: var(--c-primary);
+  }
+  .pricing__note {
+    margin: 18px 0 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--c-muted);
+  }
+  @media (max-width: 560px) {
+    .pricing__cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script src="../../scripts/pricing-toggle.ts"></script>

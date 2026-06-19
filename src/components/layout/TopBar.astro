@@ -1,0 +1,63 @@
+---
+import { site, whatsappLink } from '../../data/site';
+---
+<div class="topbar">
+  <div class="container topbar__inner">
+    <div class="topbar__group">
+      <a href={site.contact.phoneHref} class="topbar__link">
+        <span class="topbar__icon" aria-hidden="true">✆</span> {site.contact.phone}
+      </a>
+      <a href={`mailto:${site.contact.email}`} class="topbar__link">
+        <span class="topbar__icon" aria-hidden="true">✉</span> {site.contact.email}
+      </a>
+    </div>
+    <div class="topbar__group">
+      <span class="topbar__muted">Trusted since {site.founded} · {site.location}</span>
+      <a href={whatsappLink()} class="topbar__wa" target="_blank" rel="noopener">WhatsApp →</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .topbar {
+    background: var(--c-primary);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+  }
+  .topbar__inner {
+    padding-block: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .topbar__group {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .topbar__link,
+  .topbar__wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .topbar__icon {
+    color: var(--c-accent);
+  }
+  .topbar__muted {
+    opacity: 0.7;
+  }
+  .topbar__wa {
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+  @media (max-width: 760px) {
+    .topbar__muted {
+      display: none;
+    }
+  }
+</style>

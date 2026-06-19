@@ -1,0 +1,111 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { faqPage } from '../components/seo/schemas';
+import { site } from '../data/site';
+
+const title = `Pricing & Fees — IGCSE & A Level Online Tuition | ${site.name}`;
+const description =
+  'Transparent per-subject monthly fees for IGCSE and A Level online classes at Learners Academy, by region (Pakistan, Saudi, UAE, Europe). Sibling and multi-subject discounts available.';
+
+const faqs = [
+  {
+    q: 'Is the trial class really free?',
+    a: 'Yes — your first demo class is free with no commitment, so you can meet the teacher and see the virtual classroom before deciding.',
+  },
+  {
+    q: 'Are prices per subject?',
+    a: 'All fees are per subject, per month. Take as many or as few subjects as you need.',
+  },
+  {
+    q: 'Do you offer discounts?',
+    a: 'We offer 20% off when you enrol in 3 or more subjects, and 10% off for up to 2 siblings.',
+  },
+  {
+    q: 'How do I pay from outside Pakistan?',
+    a: 'We support international families across the Gulf and Europe — message us on WhatsApp and we’ll share the payment options for your region.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/pricing/" topBar={false}>
+  <JsonLd slot="head" data={faqPage(faqs.map((f) => ({ q: f.q, a: f.a })))} />
+  <PageHeader
+    eyebrow="Rate card"
+    crumb="Pricing"
+    title="Transparent pricing, per subject."
+    sub="Pick your region to see monthly fees. No hidden charges — and your first class is free."
+  />
+  <Pricing />
+
+  <section class="faq">
+    <div class="container faq__inner">
+      <h2 class="section-title faq__title">Pricing questions</h2>
+      <div class="faq__list">
+        {
+          faqs.map((f) => (
+            <details class="faq__item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Start with a free trial class." sub="See the teaching before you pay for anything." />
+</HomeLayout>
+
+<style>
+  .faq {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .faq__inner {
+    max-width: 760px;
+  }
+  .faq__title {
+    text-align: center;
+  }
+  .faq__list {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq__item {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .faq__item summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--c-primary);
+    font-size: 16px;
+    list-style: none;
+  }
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__item summary::after {
+    content: '+';
+    float: right;
+    color: var(--c-accent-soft);
+    font-size: 20px;
+    line-height: 1;
+  }
+  .faq__item[open] summary::after {
+    content: '–';
+  }
+  .faq__item p {
+    margin: 14px 0 0;
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+</style>

@@ -1,0 +1,121 @@
+---
+import Section from '../ui/Section.astro';
+import Icon from '../ui/Icon.astro';
+import { features } from '../../data/features';
+---
+<Section id="about" tone="bg">
+  <div class="about">
+    <div class="about__lead">
+      <p class="eyebrow">About us</p>
+      <h2 class="section-title">
+        One of Lahore's finest O &amp; A Level academies — now fully online.
+      </h2>
+      <p class="about__body">
+        Learners Academy is an online tutoring portal providing a Virtual Learning Environment (VLE)
+        for IGCSE and A Level (Cambridge CAIE, Edexcel, AQA) and SAT students. We've guided learners
+        both in-house and internationally since 2016.
+      </p>
+      <blockquote class="about__quote">
+        <p>
+          "We help students instill four essential qualities — knowledge, reflection, adaptability
+          and determination."
+        </p>
+        <footer><strong>Nouman Ahmed</strong> · Principal</footer>
+      </blockquote>
+    </div>
+
+    <div class="about__features">
+      {
+        features.map((f) => (
+          <article class="feature">
+            <div class="feature__icon">
+              <Icon name={f.icon} size={22} />
+            </div>
+            <h3 class="feature__title">{f.title}</h3>
+            <p class="feature__body">{f.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .about__body {
+    margin: 22px 0 0;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .about__quote {
+    margin: 28px 0 0;
+    padding: 22px 26px;
+    background: #fff;
+    border-left: 3px solid var(--c-primary);
+    border-radius: 0 12px 12px 0;
+    box-shadow: var(--shadow-pop);
+  }
+  .about__quote p {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--c-primary);
+  }
+  .about__quote footer {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--c-muted);
+  }
+  .about__quote strong {
+    color: var(--c-primary-ink);
+  }
+
+  .about__features {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .feature {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .feature__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--c-primary);
+    color: var(--c-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature__title {
+    margin: 16px 0 8px;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--c-primary);
+  }
+  .feature__body {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 880px) {
+    .about {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+</style>

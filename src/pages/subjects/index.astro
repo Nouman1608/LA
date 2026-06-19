@@ -1,0 +1,169 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../../data/site';
+
+const subjects = (await getCollection('subjects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const title = `All Subjects — IGCSE & A Level Online Tuition | ${site.name}`;
+const description = `Browse all ${subjects.length} IGCSE and O & A Level subjects taught live online at Learners Academy — Cambridge, Edexcel and AQA. Book a free demo class in any subject.`;
+---
+<HomeLayout title={title} description={description} canonical="/subjects/" topBar={false}>
+  <section class="hub-hero">
+    <div class="hub-hero__glow" aria-hidden="true"></div>
+    <div class="container hub-hero__inner">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span>
+        <span class="crumb__current">Subjects</span>
+      </nav>
+      <p class="hub-hero__eyebrow">Subjects</p>
+      <h1 class="hub-hero__title">{subjects.length} subjects, taught live online.</h1>
+      <p class="hub-hero__sub">
+        Full IGCSE and O &amp; A Level coverage across Cambridge (CAIE), Edexcel and AQA — each
+        taught by vetted, examiner-aware teachers. Pick a subject to see what we cover.
+      </p>
+    </div>
+  </section>
+
+  <section class="hub">
+    <div class="container hub__grid">
+      {
+        subjects.map((s) => (
+          <a href={`/subjects/${s.id}/`} class="scard">
+            <h2 class="scard__name">{s.data.name}</h2>
+            <p class="scard__sub">{s.data.subcopy}</p>
+            <span class="scard__meta">
+              {s.data.levels.join(' · ')}
+              <span class="scard__arrow" aria-hidden="true">→</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="container hub__cta">
+      <p>Don't see your subject? We add classes on request.</p>
+      <Button href="/contact/" variant="primary" size="lg">Request a subject</Button>
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .hub-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .hub-hero__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px 420px at 85% -10%, rgba(58, 72, 133, 0.2), transparent 60%);
+  }
+  .hub-hero__inner {
+    position: relative;
+    padding-block: 30px 70px;
+  }
+  .crumb {
+    font-size: 13px;
+    color: var(--c-on-primary-faint);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .crumb a:hover {
+    color: #fff;
+  }
+  .crumb__current {
+    color: var(--c-accent);
+  }
+  .hub-hero__eyebrow {
+    margin: 36px 0 14px;
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+  .hub-hero__title {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(34px, 5vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+  }
+  .hub-hero__sub {
+    margin: 20px 0 0;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--c-on-primary-soft);
+    max-width: 60ch;
+  }
+
+  .hub {
+    background: var(--c-bg);
+    padding-block: 64px;
+  }
+  .hub__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .scard {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .scard:hover {
+    transform: translateY(-3px);
+    border-color: var(--c-accent);
+  }
+  .scard__name {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    color: var(--c-primary);
+  }
+  .scard__sub {
+    margin: 10px 0 18px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    flex: 1;
+  }
+  .scard__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .scard__arrow {
+    color: var(--c-accent-soft);
+    font-size: 16px;
+  }
+
+  .hub__cta {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .hub__cta p {
+    margin: 0;
+    font-size: 16px;
+  }
+</style>

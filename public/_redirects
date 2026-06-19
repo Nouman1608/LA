@@ -1,0 +1,123 @@
+# Cloudflare Pages redirects — WordPress → Astro 301 map
+# Built from the LIVE WP sitemaps (post-/page-/a_level-sitemap.xml), 2026-06-18.
+# Format: /source  /destination  301   (most-specific first; first match wins)
+# Verify after deploy: BASE=<preview-url> ./scripts/check-redirects.sh
+
+# ============================================================
+# Subject pages  (old: /{subject}-online-classes-for-o-level-a-level/)
+# ============================================================
+/chemistry-online-classes-for-o-level-a-level/               /subjects/chemistry/                301
+/physics-online-classes-for-o-level-a-level/                 /subjects/physics/                  301
+/biology-online-classes-for-o-level-a-level/                 /subjects/biology/                  301
+/maths-online-classes-for-o-level-a-level/                   /subjects/mathematics/              301
+/statistics-online-classes-for-o-level-a-level/              /subjects/statistics/               301
+/computer-science-online-classes-for-o-level-a-level/        /subjects/computer-science/         301
+/english-language-online-classes-for-o-level-a-level/        /subjects/english-language/         301
+/english-literature-online-classes-for-o-level-a-level/      /subjects/english-literature/       301
+/business-online-classes-for-o-level-a-level/                /subjects/business/                 301
+/economics-online-classes-for-o-level-a-level/               /subjects/economics/                301
+/accounting-online-classes-for-o-level-a-level/              /subjects/accounting/               301
+/commerce-online-classes-for-o-level-a-level/                /subjects/commerce/                 301
+/sociology-online-classes-for-o-level-a-level/               /subjects/sociology/                301
+/psychology-online-classes-for-o-level-a-level/              /subjects/psychology/               301
+/law-online-classes-for-o-level-a-level/                     /subjects/law/                      301
+/geography-online-classes-for-o-level-a-level/               /subjects/geography/                301
+/world-history-online-classes-for-o-level-a-level/           /subjects/world-history/            301
+/global-perspectives-online-classes-for-o-level-a-level/     /subjects/global-perspectives/      301
+/pakistan-studies-online-classes-for-o-level-a-level/        /subjects/pakistan-studies/         301
+/islamiyat-online-classes-for-o-level-a-level/               /subjects/islamiyat/                301
+/environmental-management-online-classes-for-o-level-a-level/ /subjects/environmental-management/ 301
+/urdu-language-online-classes-for-o-level-a-level/           /subjects/urdu-language/            301
+/urdu-literature-online-classes-for-o-level-a-level/         /subjects/urdu-literature/          301
+
+# ============================================================
+# Junior classes  (no dedicated junior pages yet → nearest subject)
+# ============================================================
+/maths-online-classes-for-juniors/             /subjects/mathematics/        301
+/computer-science-online-classes-for-juniors/  /subjects/computer-science/   301
+/english-online-classes-for-juniors/           /subjects/english-language/   301
+/science-online-classes-for-juniors/           /subjects/                    301
+
+# ============================================================
+# Subject directories / service pages → subjects hub
+# ============================================================
+/a-level-subjects/          /subjects/   301
+/a-level-o-level-subjects/  /subjects/   301
+/online-tuition-services/   /subjects/   301
+
+# ============================================================
+# Curriculum / board landing pages → home (primary keyword target)
+# ============================================================
+/a-level-online-tuition-classes-in-pakistan/  /   301
+/igcse-online-tuition-classes-in-pakistan/    /   301
+/edexcel-online-tuition-classes-in-pakistan/  /   301
+/aqa-online-tuition-classes-in-pakistan/      /   301
+/igcse/                                        /   301
+
+# ============================================================
+# Utility / company pages
+# ============================================================
+/about-atp/             /about/      301
+/locations/             /contact/    301
+/live-chat/             /contact/    301
+/thank-you/             /contact/    301
+/home-tution/           /            301
+/ppc/                   /            301
+/terms-and-conditions/  /terms/      301
+/privacy-policy/        /privacy/    301
+
+# Test-prep pages — no equivalent yet (content gap; consider building).
+/aitchison-test/        /            301
+/cadet-colleges-test/   /            301
+
+# ============================================================
+# Blog  (migrated 1:1 from WordPress — old root slug -> /blog/<slug>/)
+# ============================================================
+/10-economics-online-courses-that-will-pay-dividends/                                       /blog/10-economics-online-courses-that-will-pay-dividends/  301
+/10-influential-tips-to-improve-your-igcse-online-tuition-scores/                           /blog/10-influential-tips-to-improve-your-igcse-online-tuition-scores/  301
+/10-key-reasons-why-you-should-consider-igcse-online-tuition-in-pakistan/                   /blog/10-key-reasons-why-you-should-consider-igcse-online-tuition-in-pakistan/  301
+/10-myths-about-aqa-online-tuition-in-pakistan/                                             /blog/10-myths-about-aqa-online-tuition-in-pakistan/  301
+/11-reasons-a-level-tuition-in-pakistan-instead-of-home-school-system/                      /blog/11-reasons-a-level-tuition-in-pakistan-instead-of-home-school-system/  301
+/4-reasons-why-you-should-study-igcse-online-in-pakistan/                                   /blog/4-reasons-why-you-should-study-igcse-online-in-pakistan/  301
+/7-reasons-to-get-your-a-levels-online-classes-in-pakistan/                                 /blog/7-reasons-to-get-your-a-levels-online-classes-in-pakistan/  301
+/8-benefits-of-igcse-online-tuition-in-pakistan-during-covid-19/                            /blog/8-benefits-of-igcse-online-tuition-in-pakistan-during-covid-19/  301
+/8-ways-to-score-well-in-igcse-online-tuition-in-pakistan/                                  /blog/8-ways-to-score-well-in-igcse-online-tuition-in-pakistan/  301
+/a-comprehensive-guide-to-leveling-up-your-studies-with-a-level-online-tuition/             /blog/a-comprehensive-guide-to-leveling-up-your-studies-with-a-level-online-tuition/  301
+/a-level-online-tuition-in-pakistan-the-best-tactics-for-online-learning/                   /blog/a-level-online-tuition-in-pakistan-the-best-tactics-for-online-learning/  301
+/aqa-online-tuition-in-pakistan-over-traditional-schooling/                                 /blog/aqa-online-tuition-in-pakistan-over-traditional-schooling/  301
+/aqa-online-tuition-the-best-way-to-pass-your-aqa-exams/                                    /blog/aqa-online-tuition-the-best-way-to-pass-your-aqa-exams/  301
+/edexcel-online-tuition-in-pakistan-the-future-of-learning/                                 /blog/edexcel-online-tuition-in-pakistan-the-future-of-learning/  301
+/eight-proven-advices-to-boost-your-online-classroom-performance/                           /blog/eight-proven-advices-to-boost-your-online-classroom-performance/  301
+/embarking-on-your-online-a-level-journey-a-comprehensive-guide/                            /blog/embarking-on-your-online-a-level-journey-a-comprehensive-guide/  301
+/get-online-tuition-in-pakistan-for-hassle-free-learning/                                   /blog/get-online-tuition-in-pakistan-for-hassle-free-learning/  301
+/how-can-a-level-online-classes-in-pakistan-help-you-succeed-in-the-future/                 /blog/how-can-a-level-online-classes-in-pakistan-help-you-succeed-in-the-future/  301
+/how-online-tuition-in-pakistan-can-improve-your-grades/                                    /blog/how-online-tuition-in-pakistan-can-improve-your-grades/  301
+/how-to-get-started-with-a-level-online-classes-in-pakistan/                                /blog/how-to-get-started-with-a-level-online-classes-in-pakistan/  301
+/how-to-prepare-for-the-aqa-exam-in-pakistan/                                               /blog/how-to-prepare-for-the-aqa-exam-in-pakistan/  301
+/igcse-online-classes-a-gateway-to-global-education/                                        /blog/igcse-online-classes-a-gateway-to-global-education/  301
+/igcse-online-tuition-in-pakistan-11-effective-tips-to-boost-your-success/                  /blog/igcse-online-tuition-in-pakistan-11-effective-tips-to-boost-your-success/  301
+/online-a-level-tuition-your-path-to-academic-excellence/                                   /blog/online-a-level-tuition-your-path-to-academic-excellence/  301
+/online-tuition-in-pakistan-for-and-against/                                                /blog/online-tuition-in-pakistan-for-and-against/   301
+/revolutionizing-legal-education-the-benefits-of-taking-law-online-classes/                 /blog/revolutionizing-legal-education-the-benefits-of-taking-law-online-classes/  301
+/take-igcse-online-tuition-in-pakistan-and-improve-your-grades-at-high-school-or-university/  /blog/take-igcse-online-tuition-in-pakistan-and-improve-your-grades-at-high-school-or-university/  301
+/the-power-of-aqa-online-tuition-how-to-outshine-your-peers-and-crush-your-exams/           /blog/the-power-of-aqa-online-tuition-how-to-outshine-your-peers-and-crush-your-exams/  301
+/top-7-legal-subjects-covered-in-law-online-classes-in-pakistan/                            /blog/top-7-legal-subjects-covered-in-law-online-classes-in-pakistan/  301
+/top-reasons-to-choose-a-level-online-classes-in-pakistan/                                  /blog/top-reasons-to-choose-a-level-online-classes-in-pakistan/  301
+/transform-your-study-habits-edexcel-online-tuitions-game-changing-techniques/              /blog/transform-your-study-habits-edexcel-online-tuitions-game-changing-techniques/  301
+/why-igcse-online-tuitions-in-pakistan-is-the-best-for-your-child/                          /blog/why-igcse-online-tuitions-in-pakistan-is-the-best-for-your-child/  301
+/why-is-a-level-online-tuition-in-pakistan-a-good-option-for-your-future-career/            /blog/why-is-a-level-online-tuition-in-pakistan-a-good-option-for-your-future-career/  301
+/why-taking-your-a-level-online-classes-in-pakistan-is-better-than-regular-school/          /blog/why-taking-your-a-level-online-classes-in-pakistan-is-better-than-regular-school/  301
+/why-you-should-think-about-taking-a-level-online-classes-in-pakistan/                      /blog/why-you-should-think-about-taking-a-level-online-classes-in-pakistan/  301
+
+# ============================================================
+# WordPress cruft cleanup
+# ============================================================
+/wp-content/*  /  301
+/wp-admin/*    /  301
+/wp-login.php  /  301
+/category/*    /  301
+/tag/*         /  301
+/author/*      /  301
+/feed/         /  301
+/comments/feed/  /  301
+/xmlrpc.php    /  301

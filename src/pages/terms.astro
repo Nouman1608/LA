@@ -1,0 +1,67 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import { site } from '../data/site';
+---
+<HomeLayout
+  title={`Terms & Conditions | ${site.name}`}
+  description="The terms that apply when you use the Learners Academy website and our online tuition services."
+  canonical="/terms/"
+  topBar={false}
+>
+  <PageHeader eyebrow="Legal" crumb="Terms" title="Terms & conditions" />
+  <section class="legal">
+    <div class="container legal__inner">
+      <p>
+        These terms apply to your use of the Learners Academy website and the online tuition we
+        provide. By booking a class you agree to them.
+      </p>
+      <h2>Our services</h2>
+      <p>
+        We provide live online tuition for IGCSE and O &amp; A Level subjects. Class times, fees and
+        teacher allocation are agreed with you before tuition begins.
+      </p>
+      <h2>Fees & trials</h2>
+      <p>
+        Fees are charged per subject, per month. Your first trial class is free with no obligation.
+        Discounts apply as described on our pricing page.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        Questions about these terms? Email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
+      </p>
+      <p class="legal__note">
+        This is a starter document and should be reviewed by a qualified professional before launch.
+      </p>
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .legal {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .legal__inner {
+    max-width: 720px;
+  }
+  .legal h2 {
+    margin: 32px 0 10px;
+    font-size: 24px;
+  }
+  .legal p {
+    margin: 0 0 14px;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  .legal a {
+    color: var(--c-primary);
+    font-weight: 600;
+  }
+  .legal__note {
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--c-muted);
+    font-style: italic;
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../components/seo/schemas';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  /** Subject display name for breadcrumb + Course schema. */
+  subjectName: string;
+  courseName: string;
+  ogImage?: string;
+}
+const { title, description, canonical, subjectName, courseName, ogImage } = Astro.props;
+const url = new URL(canonical, site.domain).href;
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Subjects', url: `${site.domain}/subjects/` },
+  { name: subjectName, url },
+]);
+const courseSchema = course({ name: courseName, description, url });
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+  ogType="article"
+>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <Header />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer slim />
+</BaseLayout>

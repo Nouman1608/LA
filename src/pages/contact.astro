@@ -1,0 +1,19 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import TrialContact from '../components/sections/TrialContact.astro';
+import { site } from '../data/site';
+
+const title = `Book a Free Trial Class — Contact | ${site.name}`;
+const description =
+  'Request a free trial class at Learners Academy. Tell us about the student and we’ll respond fast to schedule your demo — or reach us on WhatsApp, phone or email.';
+---
+<HomeLayout title={title} description={description} canonical="/contact/" topBar={false}>
+  <PageHeader
+    eyebrow="Free trial"
+    crumb="Contact"
+    title="Book your free trial class."
+    sub="One quick form and we’ll be in touch with an instant response — or message us directly, whatever’s easiest."
+  />
+  <TrialContact source="contact-page" />
+</HomeLayout>

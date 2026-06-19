@@ -1,0 +1,79 @@
+---
+import Section from '../ui/Section.astro';
+import { team } from '../../data/team';
+---
+<Section id="team" tone="bg">
+  <div class="team__head">
+    <p class="eyebrow">Our team</p>
+    <h2 class="section-title">Meet the people behind the academy.</h2>
+    <p class="team__intro">
+      A passionate, meticulously-vetted group of educators and leaders running real-time classes
+      every day.
+    </p>
+  </div>
+
+  <div class="team__grid">
+    {
+      team.map((t) => (
+        <article class="member">
+          <div class="member__avatar" aria-hidden="true">{t.initials}</div>
+          <h3 class="member__name">{t.name}</h3>
+          <p class="member__role">{t.role}</p>
+        </article>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .team__head {
+    max-width: 640px;
+  }
+  .team__intro {
+    margin: 18px 0 0;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .team__grid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+  }
+  .member {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+  }
+  .member__avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: #e9edf9;
+    border: 1px solid var(--c-border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 28px;
+    color: var(--c-primary);
+  }
+  .member__name {
+    margin: 16px 0 4px;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .member__role {
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+</style>

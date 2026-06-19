@@ -1,0 +1,130 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+interface Props {
+  showStats?: boolean;
+}
+const { showStats = true } = Astro.props;
+
+const stats: Stat[] = [
+  { value: '9+', label: 'Years teaching' },
+  { value: '23', label: 'Subjects offered' },
+  { value: '3', label: 'Exam boards' },
+  { value: '4', label: 'Countries served' },
+];
+---
+<section class="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="container hero__inner">
+    <p class="hero__eyebrow">Online Academy · Est. 2016</p>
+    <h1 class="hero__title">
+      Top grades in <em>IGCSE</em> &amp; <em>A&nbsp;Level</em>, taught live online.
+    </h1>
+    <p class="hero__sub">
+      A virtual learning environment for Cambridge (CAIE), Edexcel &amp; AQA students — guided by
+      vetted teachers from Aitchison, KGS, LGS, Beaconhouse and more.
+    </p>
+    <div class="hero__cta">
+      <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+      <Button href="/#boards" variant="outline" size="lg">Explore boards</Button>
+    </div>
+
+    {
+      showStats && (
+        <dl class="hero__stats">
+          {stats.map((s) => (
+            <div class="hero__stat">
+              <dt class="hero__statval">{s.value}</dt>
+              <dd class="hero__statlabel">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .hero__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(900px 500px at 82% -10%, rgba(58, 72, 133, 0.22), transparent 60%);
+  }
+  .hero__inner {
+    position: relative;
+    padding-block: 84px 76px;
+  }
+  .hero__eyebrow {
+    margin: 0 0 18px;
+    font-size: 13px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+  .hero__title {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(40px, 6.4vw, 82px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    max-width: 15ch;
+  }
+  .hero__title em {
+    font-style: italic;
+    color: var(--c-accent);
+  }
+  .hero__sub {
+    margin: 26px 0 0;
+    font-size: clamp(17px, 1.7vw, 21px);
+    line-height: 1.6;
+    color: var(--c-on-primary-soft);
+    max-width: 60ch;
+  }
+  .hero__cta {
+    margin-top: 36px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .hero__stats {
+    margin: 60px 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 32px;
+    max-width: 760px;
+  }
+  .hero__stat {
+    margin: 0;
+  }
+  .hero__statval {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    color: #fff;
+    line-height: 1;
+  }
+  .hero__statlabel {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: var(--c-on-primary-faint);
+  }
+  @media (max-width: 620px) {
+    .hero__stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 20px;
+    }
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import Logo from './Logo.astro';
+import { headerNav } from '../../data/nav';
+---
+<header class="header">
+  <div class="container header__inner">
+    <Logo tone="light" withTagline />
+
+    <button
+      class="header__toggle"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      data-menu-toggle
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav class="header__nav" id="primary-nav" data-menu>
+      {headerNav.map((l) => <a href={l.href} class="header__link">{l.label}</a>)}
+      <a href="/contact/" class="header__cta">Free Trial Class</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(246, 248, 252, 0.86);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--c-border-strong);
+  }
+  .header__inner {
+    padding-block: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--c-primary-ink);
+  }
+  .header__link {
+    padding: 6px 0;
+  }
+  .header__link:hover {
+    color: var(--c-primary);
+  }
+  .header__cta {
+    background: var(--c-primary);
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: var(--r-pill);
+    box-shadow: 0 6px 18px rgba(58, 72, 133, 0.32);
+  }
+  .header__cta:hover {
+    transform: translateY(-1px);
+  }
+
+  /* hamburger */
+  .header__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    background: transparent;
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--r-sm);
+    cursor: pointer;
+  }
+  .header__toggle span {
+    height: 2px;
+    background: var(--c-primary);
+    border-radius: 2px;
+    transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+  }
+
+  @media (max-width: 880px) {
+    .header__toggle {
+      display: flex;
+    }
+    .header__nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 16px var(--gutter) 22px;
+      background: var(--c-panel);
+      border-bottom: 1px solid var(--c-border-strong);
+      box-shadow: var(--shadow-pop);
+      display: none;
+    }
+    .header__nav[data-open] {
+      display: flex;
+    }
+    .header__link {
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .header__cta {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .header__toggle[aria-expanded='true'] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .header__toggle[aria-expanded='true'] span:nth-child(2) {
+      opacity: 0;
+    }
+    .header__toggle[aria-expanded='true'] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script src="../../scripts/header-menu.ts"></script>

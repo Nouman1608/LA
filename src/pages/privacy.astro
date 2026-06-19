@@ -1,0 +1,67 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import { site } from '../data/site';
+---
+<HomeLayout
+  title={`Privacy Policy | ${site.name}`}
+  description="How Learners Academy collects, uses and protects the information you share with us."
+  canonical="/privacy/"
+  topBar={false}
+>
+  <PageHeader eyebrow="Legal" crumb="Privacy" title="Privacy policy" />
+  <section class="legal">
+    <div class="container legal__inner">
+      <p>
+        Learners Academy ("we", "us") respects your privacy. This page explains what information we
+        collect when you contact us or request a trial class, and how we use it.
+      </p>
+      <h2>Information we collect</h2>
+      <p>
+        When you submit our contact form we collect the name, email, phone number, class/grade and
+        any details you provide, so that we can respond and schedule your class.
+      </p>
+      <h2>How we use it</h2>
+      <p>
+        We use your information only to reply to your enquiry and arrange tuition. We do not sell
+        your data. We may contact you by phone, email or WhatsApp using the details you provide.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        For any privacy request, email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
+      </p>
+      <p class="legal__note">
+        This is a starter policy and should be reviewed by a qualified professional before launch.
+      </p>
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .legal {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .legal__inner {
+    max-width: 720px;
+  }
+  .legal h2 {
+    margin: 32px 0 10px;
+    font-size: 24px;
+  }
+  .legal p {
+    margin: 0 0 14px;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  .legal a {
+    color: var(--c-primary);
+    font-weight: 600;
+  }
+  .legal__note {
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--c-muted);
+    font-style: italic;
+  }
+</style>

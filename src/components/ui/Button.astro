@@ -1,0 +1,101 @@
+---
+/**
+ * Pill CTA. Renders an <a> when `href` is set, otherwise a <button>.
+ * variants: primary (indigo), white (on dark), outline (on dark), ghost.
+ */
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'white' | 'outline' | 'ghost';
+  size?: 'md' | 'lg';
+  block?: boolean;
+  class?: string;
+  rel?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  block = false,
+  class: extra,
+  ...rest
+} = Astro.props;
+
+const cls = ['btn', `btn--${variant}`, `btn--${size}`, block ? 'btn--block' : '', extra]
+  .filter(Boolean)
+  .join(' ');
+const Tag = href ? 'a' : 'button';
+---
+<Tag
+  class={cls}
+  href={href}
+  type={href ? undefined : type}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    border-radius: var(--r-pill);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease),
+      background 0.18s var(--ease);
+    white-space: nowrap;
+  }
+  .btn--md {
+    font-size: 15px;
+    padding: 13px 24px;
+  }
+  .btn--lg {
+    font-size: 16px;
+    padding: 15px 30px;
+  }
+  .btn--block {
+    display: flex;
+    width: 100%;
+  }
+
+  .btn--primary {
+    background: var(--c-primary);
+    color: #fff;
+    box-shadow: var(--shadow-cta-sm);
+  }
+  .btn--white {
+    background: #fff;
+    color: var(--c-primary-deep);
+    box-shadow: var(--shadow-cta);
+  }
+  .btn--outline {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+  .btn--ghost {
+    background: transparent;
+    color: var(--c-primary);
+    font-weight: 700;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn--outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .btn--ghost:hover {
+    transform: none;
+    opacity: 0.8;
+  }
+</style>

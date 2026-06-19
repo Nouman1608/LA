@@ -1,0 +1,37 @@
+---
+/** Small pill label — subject/level/tag chips. */
+interface Props {
+  tone?: 'light' | 'outline-light' | 'soft';
+  class?: string;
+}
+const { tone = 'light', class: extra } = Astro.props;
+---
+<span class:list={['pill', `pill--${tone}`, extra]}><slot /></span>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: var(--r-pill);
+    border: 1px solid transparent;
+  }
+  /* on light surfaces */
+  .pill--light {
+    background: #fff;
+    border-color: var(--c-border);
+    color: var(--c-primary-ink);
+  }
+  /* outline on dark/primary surfaces */
+  .pill--outline-light {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  /* soft fill on dark/primary surfaces */
+  .pill--soft {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: #fff;
+  }
+</style>

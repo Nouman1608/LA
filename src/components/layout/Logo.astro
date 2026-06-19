@@ -1,0 +1,72 @@
+---
+import { site } from '../../data/site';
+interface Props {
+  /** 'light' = indigo on light surfaces (header); 'invert' = white (footer). */
+  tone?: 'light' | 'invert';
+  /** Show the small uppercase tagline under the wordmark. */
+  withTagline?: boolean;
+  href?: string;
+}
+const { tone = 'light', withTagline = false, href = '/' } = Astro.props;
+---
+<a class:list={['logo', `logo--${tone}`]} href={href} aria-label={`${site.name} — home`}>
+  <span class="logo__mark" aria-hidden="true">L</span>
+  <span class="logo__text">
+    <span class="logo__name">{site.name}</span>
+    {withTagline && <span class="logo__tagline">{site.tagline}</span>}
+  </span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo__mark {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+  }
+  .logo__name {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .logo__tagline {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  /* light (header) */
+  .logo--light .logo__mark {
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .logo--light .logo__name {
+    color: var(--c-primary);
+  }
+
+  /* invert (footer) */
+  .logo--invert .logo__mark {
+    background: #fff;
+    color: var(--c-primary-deep);
+  }
+  .logo--invert .logo__name {
+    color: #fff;
+  }
+</style>

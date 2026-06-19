@@ -1,0 +1,56 @@
+/* ============================================================
+   Design tokens — Learners Academy
+   Ported from the Claude Design prototype (Learners Academy.dc.html)
+   ============================================================ */
+:root {
+  /* Brand palette */
+  --c-primary: #47589b;        /* indigo — primary brand */
+  --c-primary-deep: #3a4885;   /* darker CTA text on light */
+  --c-primary-ink: #3a4577;    /* nav / strong body */
+  --c-footer: #39477f;         /* footer background */
+  --c-accent: #c6cfee;         /* light periwinkle accent */
+  --c-accent-soft: #aab4da;
+
+  /* Surfaces */
+  --c-bg: #eef1f9;             /* page background */
+  --c-panel: #f6f8fc;          /* alternating section panel */
+  --c-card: #ffffff;
+  --c-border: #e2e7f3;
+  --c-border-strong: #dde3f2;
+  --c-field: #f6f8fc;          /* form field background */
+  --c-field-border: #d3daed;
+
+  /* Text */
+  --c-text: #586189;           /* body */
+  --c-muted: #8a93b5;          /* muted labels */
+  --c-on-primary: #ffffff;
+  --c-on-primary-soft: rgba(255, 255, 255, 0.78);
+  --c-on-primary-faint: rgba(255, 255, 255, 0.62);
+
+  /* Typography */
+  --font-sans: 'Hanken Grotesk Variable', system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+
+  /* Radii */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --shadow-card: 0 8px 24px rgba(15, 31, 61, 0.04);
+  --shadow-pop: 0 14px 40px rgba(15, 31, 61, 0.06);
+  --shadow-cta: 0 10px 28px rgba(58, 72, 133, 0.34);
+  --shadow-cta-sm: 0 10px 24px rgba(58, 72, 133, 0.3);
+  --shadow-float: 0 30px 70px rgba(0, 0, 0, 0.3);
+
+  /* Layout */
+  --maxw: 1200px;
+  --maxw-narrow: 1100px;
+  --gutter: 28px;
+  --section-y: 88px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}

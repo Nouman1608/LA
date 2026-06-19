@@ -1,0 +1,362 @@
+---
+import { getCollection, render } from 'astro:content';
+import SubjectLayout from '../../layouts/SubjectLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import { site, whatsappLink } from '../../data/site';
+
+export async function getStaticPaths() {
+  const subjects = await getCollection('subjects', ({ data }) => !data.draft);
+  return subjects.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const canonical = `/subjects/${entry.id}/`;
+const seoTitle = data.seo?.title ?? `${data.title} | ${site.name}`;
+const seoDesc = data.seo?.description ?? data.subcopy;
+const wa = whatsappLink(`Hi! I'd like to ask about ${data.name} classes.`);
+---
+<SubjectLayout
+  title={seoTitle}
+  description={seoDesc}
+  canonical={canonical}
+  subjectName={data.name}
+  courseName={data.title}
+>
+  <!-- Breadcrumb + hero -->
+  <section class="shero">
+    <div class="shero__glow" aria-hidden="true"></div>
+    <div class="container container--narrow shero__inner">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span>
+        <a href="/subjects/">Subjects</a><span aria-hidden="true">/</span>
+        <span class="crumb__current">{data.name}</span>
+      </nav>
+      <p class="shero__eyebrow">{data.eyebrow}</p>
+      <h1 class="shero__title">{data.title}</h1>
+      <p class="shero__sub">{data.subcopy}</p>
+      <div class="shero__cta">
+        <Button href="/contact/" variant="white" size="lg">Book a free {data.name} demo</Button>
+        <Button href="#syllabus" variant="outline" size="lg">See what we cover</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick facts -->
+  <section class="facts">
+    <div class="container container--narrow facts__grid">
+      {
+        data.quickFacts.map((f) => (
+          <div class="fact">
+            <div class="fact__value">{f.value}</div>
+            <div class="fact__label">{f.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Body + syllabus -->
+  <section id="syllabus" class="body">
+    <div class="container container--narrow body__grid">
+      <div class="body__main">
+        <h2 class="body__h2">How we teach {data.name}</h2>
+        <div class="prose"><Content /></div>
+
+        <h3 class="body__h3">Topics we cover</h3>
+        <div class="topics">
+          {
+            data.topics.map((t) => (
+              <div class="topic">
+                <span class="topic__bullet" aria-hidden="true">›</span>
+                {t}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <aside class="glance">
+        <h3 class="glance__title">At a glance</h3>
+        <dl class="glance__rows">
+          <div class="glance__row">
+            <dt>Levels</dt><dd>{data.levels.join(' · ')}</dd>
+          </div>
+          <div class="glance__row">
+            <dt>Boards</dt><dd>{data.boards.join(' · ')}</dd>
+          </div>
+          <div class="glance__row">
+            <dt>Format</dt><dd>{data.format}</dd>
+          </div>
+          <div class="glance__row glance__row--last">
+            <dt>From</dt>
+            <dd>{data.priceFrom.currency} {data.priceFrom.amount} / {data.priceFrom.per}</dd>
+          </div>
+        </dl>
+        <Button href="/contact/" variant="primary" block class="glance__cta">Book free trial</Button>
+        <a href={wa} class="glance__ask" target="_blank" rel="noopener">Ask a question</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="cta">
+    <div class="container container--narrow cta__inner">
+      <h2 class="cta__title">See if {data.name} online is right for your child.</h2>
+      <p class="cta__sub">Your first class is free — no commitment, instant response.</p>
+      <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+    </div>
+  </section>
+</SubjectLayout>
+
+<style>
+  /* hero */
+  .shero {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .shero__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px 420px at 85% -10%, rgba(58, 72, 133, 0.2), transparent 60%);
+  }
+  .shero__inner {
+    position: relative;
+    padding-block: 30px 76px;
+  }
+  .crumb {
+    font-size: 13px;
+    color: var(--c-on-primary-faint);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .crumb a:hover {
+    color: #fff;
+  }
+  .crumb__current {
+    color: var(--c-accent);
+  }
+  .shero__eyebrow {
+    margin: 40px 0 16px;
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+  .shero__title {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(38px, 5.6vw, 72px);
+    line-height: 1.03;
+    letter-spacing: -0.015em;
+    max-width: 16ch;
+  }
+  .shero__sub {
+    margin: 24px 0 0;
+    font-size: clamp(17px, 1.7vw, 20px);
+    line-height: 1.6;
+    color: var(--c-on-primary-soft);
+    max-width: 58ch;
+  }
+  .shero__cta {
+    margin-top: 32px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* facts */
+  .facts {
+    background: var(--c-panel);
+    border-bottom: 1px solid var(--c-border-strong);
+  }
+  .facts__grid {
+    padding-block: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .fact__value {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    color: var(--c-primary);
+    line-height: 1;
+  }
+  .fact__label {
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: var(--c-muted);
+  }
+
+  /* body */
+  .body {
+    background: var(--c-bg);
+  }
+  .body__grid {
+    padding-block: 80px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .body__h2 {
+    margin: 0;
+    font-size: clamp(28px, 3.2vw, 40px);
+    line-height: 1.1;
+  }
+  .prose {
+    margin-top: 20px;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+  .prose :global(p) {
+    margin: 0 0 16px;
+  }
+  .prose :global(em) {
+    color: var(--c-primary);
+    font-style: italic;
+  }
+  .body__h3 {
+    margin: 36px 0 16px;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 23px;
+    color: var(--c-primary);
+  }
+  .topics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .topic {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-sm);
+    padding: 12px 14px;
+    font-size: 15px;
+    color: var(--c-primary-ink);
+  }
+  .topic__bullet {
+    color: var(--c-primary);
+    font-weight: 700;
+  }
+
+  /* glance aside */
+  .glance {
+    position: sticky;
+    top: 90px;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-pop);
+  }
+  .glance__title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--c-primary);
+  }
+  .glance__rows {
+    margin: 18px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15px;
+  }
+  .glance__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eaeef8;
+    margin: 0;
+  }
+  .glance__row--last {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .glance__row dt {
+    color: var(--c-muted);
+  }
+  .glance__row dd {
+    margin: 0;
+    font-weight: 600;
+    color: var(--c-primary);
+    text-align: right;
+  }
+  .glance__cta {
+    margin-top: 24px;
+  }
+  .glance__ask {
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    border: 1px solid var(--c-field-border);
+    color: var(--c-primary);
+    font-weight: 600;
+    padding: 14px;
+    border-radius: var(--r-sm);
+  }
+  .glance__ask:hover {
+    border-color: var(--c-accent);
+  }
+
+  /* cta band */
+  .cta {
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .cta__inner {
+    padding-block: 64px;
+    text-align: center;
+  }
+  .cta__title {
+    margin: 0 auto;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.1;
+    max-width: 20ch;
+  }
+  .cta__sub {
+    margin: 16px auto 28px;
+    font-size: 17px;
+    color: var(--c-on-primary-soft);
+    max-width: 50ch;
+  }
+
+  @media (max-width: 880px) {
+    .body__grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .glance {
+      position: static;
+    }
+  }
+  @media (max-width: 560px) {
+    .facts__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    .topics {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

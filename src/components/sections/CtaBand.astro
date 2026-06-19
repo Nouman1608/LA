@@ -1,0 +1,47 @@
+---
+import Button from '../ui/Button.astro';
+interface Props {
+  title: string;
+  sub?: string;
+  cta?: string;
+  href?: string;
+}
+const {
+  title,
+  sub = 'Your first class is free — no commitment, instant response.',
+  cta = 'Book a free demo class',
+  href = '/contact/',
+} = Astro.props;
+---
+<section class="ctaband">
+  <div class="container ctaband__inner">
+    <h2 class="ctaband__title">{title}</h2>
+    {sub && <p class="ctaband__sub">{sub}</p>}
+    <Button href={href} variant="white" size="lg">{cta}</Button>
+  </div>
+</section>
+
+<style>
+  .ctaband {
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .ctaband__inner {
+    padding-block: 64px;
+    text-align: center;
+  }
+  .ctaband__title {
+    margin: 0 auto;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.1;
+    max-width: 22ch;
+  }
+  .ctaband__sub {
+    margin: 16px auto 28px;
+    font-size: 17px;
+    color: var(--c-on-primary-soft);
+    max-width: 50ch;
+  }
+</style>

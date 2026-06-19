@@ -1,0 +1,87 @@
+---
+import Section from '../ui/Section.astro';
+import Icon from '../ui/Icon.astro';
+import ContactForm from './ContactForm.astro';
+import { site, whatsappLink } from '../../data/site';
+
+interface Props {
+  source?: string;
+}
+const { source = 'homepage' } = Astro.props;
+---
+<Section id="trial" tone="primary">
+  <div class="trial">
+    <div class="trial__info">
+      <p class="eyebrow eyebrow--on-primary">Free trial</p>
+      <h2 class="section-title">Request a free trial class.</h2>
+      <p class="trial__copy">
+        Tell us a little about the student and we'll get back to you with an instant response to
+        schedule your demo.
+      </p>
+      <div class="trial__links">
+        <a href={site.contact.phoneHref} class="trial__link">
+          <span class="trial__ico"><Icon name="phone" size={18} /></span>
+          {site.contact.phone}
+        </a>
+        <a href={`mailto:${site.contact.email}`} class="trial__link">
+          <span class="trial__ico"><Icon name="mail" size={18} /></span>
+          {site.contact.email}
+        </a>
+        <a href={whatsappLink()} class="trial__link" target="_blank" rel="noopener">
+          <span class="trial__ico"><Icon name="whatsapp" size={18} /></span>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <ContactForm source={source} />
+  </div>
+</Section>
+
+<style>
+  .trial {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .trial__copy {
+    margin: 18px 0 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--c-on-primary-soft);
+    max-width: 46ch;
+  }
+  .trial__links {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15.5px;
+  }
+  .trial__link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .trial__link:hover {
+    color: var(--c-accent);
+  }
+  .trial__ico {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--r-sm);
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-accent);
+    flex-shrink: 0;
+  }
+  @media (max-width: 880px) {
+    .trial {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+</style>

@@ -1,0 +1,184 @@
+---
+interface Props {
+  heading?: string;
+  /** Tag identifying which page/section the lead came from. */
+  source?: string;
+}
+const { heading = 'Book your demo', source = 'homepage' } = Astro.props;
+
+// Cloudflare Turnstile sitekey. Falls back to the public test key so the form
+// renders in dev/preview before real keys are set in the Pages dashboard.
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000000AA';
+---
+<div class="formwrap">
+  <!-- Success panel (revealed by JS after a successful fetch; also the
+       no-JS server redirect lands on /contact/?sent=1). -->
+  <div class="thanks" data-form-success hidden>
+    <div class="thanks__check" aria-hidden="true">✓</div>
+    <h3 class="thanks__title">Thank you!</h3>
+    <p class="thanks__body">
+      We've received your request and will respond shortly to schedule your free demo class.
+    </p>
+  </div>
+
+  <form
+    class="leadform"
+    action="/api/contact"
+    method="POST"
+    data-contact-form
+    novalidate
+  >
+    <h3 class="leadform__title">{heading}</h3>
+
+    <input type="hidden" name="source" value={source} />
+    <input type="hidden" name="redirect" value="/contact/?sent=1" />
+
+    <!-- Honeypot: hidden from users; bots fill it and get rejected. -->
+    <div class="hp" aria-hidden="true">
+      <label>Leave this field empty<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <div class="leadform__fields">
+      <label class="field">
+        <span class="visually-hidden">Full name</span>
+        <input name="name" placeholder="Full name" autocomplete="name" required />
+      </label>
+      <div class="field-row">
+        <label class="field">
+          <span class="visually-hidden">Email</span>
+          <input name="email" type="email" placeholder="Email" autocomplete="email" required />
+        </label>
+        <label class="field">
+          <span class="visually-hidden">Phone</span>
+          <input name="phone" type="tel" placeholder="Phone" autocomplete="tel" required />
+        </label>
+      </div>
+      <label class="field">
+        <span class="visually-hidden">Class or grade</span>
+        <input name="class" placeholder="Class / grade (e.g. A Level Year 1)" />
+      </label>
+      <label class="field">
+        <span class="visually-hidden">Subjects of interest or other details</span>
+        <textarea name="details" rows="3" placeholder="Subjects of interest / other details"></textarea>
+      </label>
+
+      <div class="cf-turnstile" data-sitekey={sitekey} data-theme="light"></div>
+
+      <p class="leadform__error" data-form-error hidden role="alert"></p>
+
+      <button type="submit" class="leadform__submit" data-form-submit>
+        Request free trial class
+      </button>
+    </div>
+  </form>
+</div>
+
+<style>
+  .formwrap {
+    background: #fff;
+    border-radius: var(--r-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-float);
+  }
+  .leadform__title {
+    margin: 0 0 18px;
+    font-family: var(--font-serif);
+    font-size: 23px;
+    color: var(--c-primary);
+  }
+  .leadform__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .field {
+    display: block;
+  }
+  .field-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .field-row .field {
+    flex: 1;
+    min-width: 140px;
+  }
+  .leadform input,
+  .leadform textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--c-field-border);
+    border-radius: var(--r-sm);
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--c-primary);
+    background: var(--c-field);
+  }
+  .leadform textarea {
+    resize: vertical;
+  }
+  .leadform input::placeholder,
+  .leadform textarea::placeholder {
+    color: var(--c-muted);
+  }
+  .leadform__submit {
+    margin-top: 4px;
+    background: var(--c-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    padding: 15px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    box-shadow: var(--shadow-cta-sm);
+  }
+  .leadform__submit:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+  .leadform__error {
+    margin: 0;
+    color: #b4232a;
+    font-size: 14px;
+  }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .thanks {
+    text-align: center;
+    padding: 40px 10px;
+  }
+  .thanks__check {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: var(--c-primary);
+    color: var(--c-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+  .thanks__title {
+    margin: 20px 0 6px;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    color: var(--c-primary);
+  }
+  .thanks__body {
+    margin: 0;
+    color: var(--c-text);
+    font-size: 15.5px;
+  }
+</style>
+
+<!-- Cloudflare Turnstile widget script (loads only on pages with the form). -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+<script src="../../scripts/contact-form.ts"></script>

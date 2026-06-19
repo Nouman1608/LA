@@ -1,0 +1,23 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import AboutWhyUs from '../components/sections/AboutWhyUs.astro';
+import Team from '../components/sections/Team.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+
+const title = `About Learners Academy — Online O & A Level Academy, Lahore | ${site.name}`;
+const description =
+  'Learners Academy is an online tutoring academy from Bahria Town, Lahore, teaching IGCSE and O & A Level (Cambridge, Edexcel, AQA) live since 2016. Meet our vetted teachers and leadership team.';
+---
+<HomeLayout title={title} description={description} canonical="/about/" topBar={false}>
+  <PageHeader
+    eyebrow="About us"
+    crumb="About"
+    title="A Lahore academy, teaching the world online since 2016."
+    sub="We bring examiner-aware teachers and a real virtual classroom to IGCSE and A Level students wherever they are."
+  />
+  <AboutWhyUs />
+  <Team />
+  <CtaBand title="Ready to see a class for yourself?" />
+</HomeLayout>

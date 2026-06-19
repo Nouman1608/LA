@@ -1,0 +1,100 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../../data/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(d);
+
+const title = `Blog — IGCSE & A Level Study Tips | ${site.name}`;
+const description =
+  'Study tips, exam technique and guidance for IGCSE and O & A Level students — from the Learners Academy teaching team.';
+---
+<HomeLayout title={title} description={description} canonical="/blog/" topBar={false}>
+  <PageHeader
+    eyebrow="Blog"
+    crumb="Blog"
+    title="Study tips & exam guidance."
+    sub="Advice on IGCSE and A Level study, exam technique and online learning from our teachers."
+  />
+
+  <section class="bloglist">
+    <div class="container bloglist__inner">
+      <ul class="postlist">
+        {
+          posts.map((p) => (
+            <li class="postitem">
+              <a href={`/blog/${p.id}/`} class="postcard">
+                <time class="postcard__date" datetime={p.data.pubDate.toISOString()}>
+                  {fmt(p.data.pubDate)}
+                </time>
+                <h2 class="postcard__title">{p.data.title}</h2>
+                <p class="postcard__desc">{p.data.description}</p>
+                <span class="postcard__more">Read article →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</HomeLayout>
+
+<style>
+  .bloglist {
+    background: var(--c-bg);
+    padding-block: 64px;
+  }
+  .bloglist__inner {
+    max-width: 820px;
+  }
+  .postlist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .postcard {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .postcard:hover {
+    transform: translateY(-3px);
+    border-color: var(--c-accent);
+  }
+  .postcard__date {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .postcard__title {
+    margin: 10px 0 8px;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.2;
+    color: var(--c-primary);
+  }
+  .postcard__desc {
+    margin: 0 0 14px;
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+  .postcard__more {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--c-primary);
+  }
+</style>
