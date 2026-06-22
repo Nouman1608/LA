@@ -1,7 +1,37 @@
 ---
+import { getCollection } from 'astro:content';
 import Logo from './Logo.astro';
-import { headerNav } from '../../data/nav';
+
+// Get all board pages to drive the dropdowns dynamically
+const boardPages = await getCollection('subjectBoards', ({ data }) => !data.draft);
+
+// Group: levelSlug → board → sorted subjects
+type BoardEntry = { subject: string; subjectName: string; board: string; boardName: string; levelSlug: string };
+const byLevel: Record<string, Record<string, BoardEntry[]>> = {};
+
+for (const page of boardPages) {
+  const { levelSlug, board, boardName, subject, subjectName } = page.data;
+  if (!byLevel[levelSlug]) byLevel[levelSlug] = {};
+  if (!byLevel[levelSlug][board]) byLevel[levelSlug][board] = [];
+  byLevel[levelSlug][board].push({ subject, subjectName, board, boardName, levelSlug });
+}
+
+// Sort subjects alphabetically within each board
+for (const level of Object.values(byLevel)) {
+  for (const board of Object.values(level)) {
+    board.sort((a, b) => a.subjectName.localeCompare(b.subjectName));
+  }
+}
+
+const levelOrder = ['a-levels', 'igcse', 'o-levels'] as const;
+const levelLabels: Record<string, string> = {
+  'a-levels': 'A Levels',
+  'igcse': 'IGCSE',
+  'o-levels': 'O Levels',
+};
+const boardOrder = ['cambridge', 'edexcel', 'aqa'];
 ---
+
 <header class="header">
   <div class="container header__inner">
     <Logo tone="light" withTagline />
@@ -20,114 +50,165 @@ import { headerNav } from '../../data/nav';
     </button>
 
     <nav class="header__nav" id="primary-nav" data-menu>
-      {headerNav.map((l) => <a href={l.href} class="header__link">{l.label}</a>)}
+      <a href="/about/" class="header__link">About Us</a>
+
+      {levelOrder.map((levelSlug) => {
+        const levelBoards = byLevel[levelSlug];
+        if (!levelBoards) return null;
+        const boards = boardOrder.filter((b) => levelBoards[b]);
+        return (
+          <div class="header__dropdown">
+            <button class="header__link header__dropbtn" aria-expanded="false" aria-haspopup="true">
+              {levelLabels[levelSlug]}
+              <svg class="header__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="header__menu">
+              <div class="header__menu-inner">
+                {boards.map((board) => (
+                  <div class="header__col">
+                    <p class="header__col-head">{levelBoards[board][0].boardName}</p>
+                    {levelBoards[board].map((p) => (
+                      <a href={`/${p.levelSlug}/${p.board}/${p.subject}/`} class="header__item">
+                        {p.subjectName}
+                      </a>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+
+      <a href="/junior-classes/" class="header__link">Junior Classes <span class="header__badge">Gr 6–8</span></a>
+      <a href="/aitchison-test/" class="header__link">Aitchison Test Prep</a>
+      <a href="/pricing/" class="header__link">Pricing</a>
       <a href="/contact/" class="header__cta">Free Trial Class</a>
     </nav>
   </div>
 </header>
 
+<script>
+  // Dropdown toggle (click) + close on outside click
+  document.querySelectorAll<HTMLButtonElement>('.header__dropbtn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      // Close all
+      document.querySelectorAll<HTMLButtonElement>('.header__dropbtn').forEach((b) => {
+        b.setAttribute('aria-expanded', 'false');
+        b.closest('.header__dropdown')?.classList.remove('header__dropdown--open');
+      });
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.closest('.header__dropdown')?.classList.add('header__dropdown--open');
+      }
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll<HTMLButtonElement>('.header__dropbtn').forEach((b) => {
+      b.setAttribute('aria-expanded', 'false');
+      b.closest('.header__dropdown')?.classList.remove('header__dropdown--open');
+    });
+  });
+
+  // Mobile hamburger
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu   = document.querySelector<HTMLElement>('[data-menu]');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    menu?.classList.toggle('header__nav--open', !open);
+  });
+</script>
+
 <style>
   .header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(246, 248, 252, 0.86);
-    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(246,248,252,.92);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--c-border-strong);
   }
   .header__inner {
-    padding-block: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    padding-block: 13px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
   }
   .header__nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--c-primary-ink);
+    display: flex; align-items: center; gap: 4px;
+    font-size: 14.5px; font-weight: 500; color: var(--c-primary-ink);
   }
   .header__link {
-    padding: 6px 0;
+    padding: 7px 10px; border-radius: 6px; white-space: nowrap;
+    display: flex; align-items: center; gap: 4px;
+    background: none; border: none; cursor: pointer; font: inherit; color: inherit;
   }
-  .header__link:hover {
-    color: var(--c-primary);
+  .header__link:hover { background: var(--c-panel); }
+  .header__badge {
+    font-size: 11px; font-weight: 700; background: var(--c-accent);
+    color: var(--c-primary); padding: 2px 6px; border-radius: 20px;
   }
   .header__cta {
-    background: var(--c-primary);
-    color: #fff;
-    font-weight: 700;
-    padding: 10px 20px;
-    border-radius: var(--r-pill);
-    box-shadow: 0 6px 18px rgba(58, 72, 133, 0.32);
+    background: var(--c-primary); color: #fff; font-weight: 700;
+    padding: 10px 18px; border-radius: var(--r-pill);
+    box-shadow: 0 4px 14px rgba(58,72,133,.28); white-space: nowrap;
+    margin-left: 6px;
   }
-  .header__cta:hover {
-    transform: translateY(-1px);
-  }
+  .header__cta:hover { transform: translateY(-1px); }
+  .header__chevron { transition: transform .18s; flex-shrink: 0; }
+  .header__dropbtn[aria-expanded="true"] .header__chevron { transform: rotate(180deg); }
 
-  /* hamburger */
+  /* Dropdown panel */
+  .header__dropdown { position: relative; }
+  .header__menu {
+    display: none; position: absolute; top: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%);
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-lg); box-shadow: 0 12px 40px rgba(0,0,0,.14);
+    padding: 20px; min-width: 480px; z-index: 200;
+  }
+  .header__dropdown--open .header__menu { display: block; }
+  .header__menu-inner { display: flex; gap: 28px; }
+  .header__col { flex: 1; min-width: 130px; }
+  .header__col-head {
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--c-muted); font-weight: 700; margin: 0 0 10px; padding: 0 8px;
+  }
+  .header__item {
+    display: block; padding: 7px 8px; border-radius: 6px;
+    font-size: 14px; color: var(--c-primary-ink); white-space: nowrap;
+  }
+  .header__item:hover { background: var(--c-panel); color: var(--c-primary); }
+
+  /* Hamburger */
   .header__toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 44px;
-    height: 44px;
-    padding: 0 10px;
-    background: transparent;
-    border: 1px solid var(--c-border-strong);
-    border-radius: var(--r-sm);
-    cursor: pointer;
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 0 10px;
+    background: transparent; border: none; cursor: pointer;
   }
   .header__toggle span {
-    height: 2px;
-    background: var(--c-primary);
-    border-radius: 2px;
-    transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+    display: block; height: 2px; background: var(--c-primary-ink); border-radius: 2px;
+    transition: .25s;
   }
 
-  @media (max-width: 880px) {
-    .header__toggle {
-      display: flex;
-    }
+  @media (max-width: 900px) {
+    .header__toggle { display: flex; }
     .header__nav {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 4px;
-      padding: 16px var(--gutter) 22px;
-      background: var(--c-panel);
-      border-bottom: 1px solid var(--c-border-strong);
-      box-shadow: var(--shadow-pop);
-      display: none;
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid var(--c-border);
+      flex-direction: column; align-items: stretch; gap: 0; padding: 12px 0 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
     }
-    .header__nav[data-open] {
-      display: flex;
+    .header__nav--open { display: flex; }
+    .header__link, .header__dropbtn { padding: 12px 20px; border-radius: 0; justify-content: space-between; }
+    .header__dropdown { width: 100%; }
+    .header__menu {
+      position: static; transform: none; box-shadow: none; border: none;
+      border-top: 1px solid var(--c-border); border-radius: 0;
+      padding: 12px 20px; min-width: 0;
     }
-    .header__link {
-      padding: 12px 4px;
-      border-bottom: 1px solid var(--c-border);
-    }
-    .header__cta {
-      margin-top: 10px;
-      text-align: center;
-    }
-    .header__toggle[aria-expanded='true'] span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-    .header__toggle[aria-expanded='true'] span:nth-child(2) {
-      opacity: 0;
-    }
-    .header__toggle[aria-expanded='true'] span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
+    .header__menu-inner { flex-direction: column; gap: 16px; }
+    .header__cta { margin: 8px 16px 0; display: block; text-align: center; padding: 14px; }
   }
 </style>
-
-<script src="../../scripts/header-menu.ts"></script>

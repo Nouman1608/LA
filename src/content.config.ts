@@ -1,22 +1,12 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-/**
- * Subject pages. Structured data lives in frontmatter; the teaching
- * narrative ("How we teach X") is the MDX body.
- * Chemistry is fully written; the other 22 are scaffolds (valid facts +
- * topics + thin prose) — mature the prose over time.
- */
 const subjects = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/subjects' }),
   schema: z.object({
-    /** Short label for pills, breadcrumb, headings — e.g. "Chemistry". */
     name: z.string(),
-    /** Page H1 — e.g. "Chemistry online classes". */
     title: z.string(),
-    /** Hero eyebrow — e.g. "IGCSE & A Level · Cambridge · Edexcel · AQA". */
     eyebrow: z.string(),
-    /** Hero sub-headline. */
     subcopy: z.string(),
     levels: z.array(z.string()).default(['IGCSE', 'A Level']),
     boards: z.array(z.string()).default(['CAIE', 'Edexcel', 'AQA']),
@@ -38,7 +28,6 @@ const subjects = defineCollection({
         { value: '2016', label: 'teaching since' },
       ]),
     topics: z.array(z.string()).min(1),
-    /** Optional SEO overrides; fall back to title/subcopy. */
     seo: z
       .object({
         title: z.string().optional(),
@@ -50,10 +39,6 @@ const subjects = defineCollection({
   }),
 });
 
-/**
- * Blog posts — migrated 1:1 from the old WordPress blog via the REST API
- * (see scripts/import-blog.mjs). Markdown, rendered at /blog/<slug>/.
- */
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
@@ -65,4 +50,36 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { subjects, blog };
+/**
+ * Board-specific subject pages — one per (subject × board × level) combo.
+ * 71 pages total: Cambridge 37, Edexcel 12, AQA 22.
+ */
+const subjectBoards = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/subject-boards' }),
+  schema: z.object({
+    subject: z.string(),
+    subjectName: z.string(),
+    board: z.string(),
+    boardName: z.string(),
+    title: z.string(),
+    eyebrow: z.string(),
+    subcopy: z.string(),
+    level: z.string(),
+    levelSlug: z.enum(['a-levels', 'igcse', 'o-levels']),
+    syllabusCode: z.string(),
+    assessment: z.array(
+      z.object({ label: z.string(), value: z.string() })
+    ),
+    priceFrom: z.string(),
+    oneToOne: z.string(),
+    topics: z.array(z.string()).min(1),
+    seo: z.object({
+      title: z.string(),
+      description: z.string(),
+      canonical: z.string(),
+    }),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { subjects, blog, subjectBoards };

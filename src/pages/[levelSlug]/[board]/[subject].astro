@@ -1,0 +1,259 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import JsonLd from '../../../components/seo/JsonLd.astro';
+import Button from '../../../components/ui/Button.astro';
+import { site, whatsappLink } from '../../../data/site';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('subjectBoards', ({ data }) => !data.draft);
+  return pages.map((entry) => ({
+    params: {
+      levelSlug: entry.data.levelSlug,
+      board: entry.data.board,
+      subject: entry.data.subject,
+    },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const canonical = `/${data.levelSlug}/${data.board}/${data.subject}/`;
+const url = new URL(canonical, site.domain).href;
+const wa = whatsappLink(`Hi! I'd like to ask about ${data.subjectName} ${data.level} ${data.boardName} classes.`);
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain + '/' },
+    { '@type': 'ListItem', position: 2, name: data.level, item: site.domain + `/${data.levelSlug}/` },
+    { '@type': 'ListItem', position: 3, name: data.boardName, item: site.domain + `/${data.levelSlug}/${data.board}/` },
+    { '@type': 'ListItem', position: 4, name: data.subjectName, item: url },
+  ],
+};
+
+const courseJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: data.title,
+  description: data.seo.description,
+  url: url,
+  provider: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.domain,
+  },
+};
+---
+
+<BaseLayout title={data.seo.title} description={data.seo.description} canonical={canonical}>
+  <JsonLd schema={breadcrumbJsonLd} />
+  <JsonLd schema={courseJsonLd} />
+
+  <Header />
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="bhero">
+      <div class="bhero__glow" aria-hidden="true"></div>
+      <div class="container container--narrow bhero__inner">
+        <nav class="crumb" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span>
+          <a href={`/${data.levelSlug}/`}>{data.level}</a><span aria-hidden="true">/</span>
+          <a href={`/${data.levelSlug}/${data.board}/`}>{data.boardName}</a><span aria-hidden="true">/</span>
+          <span class="crumb__current">{data.subjectName}</span>
+        </nav>
+        <p class="bhero__eyebrow">{data.eyebrow}</p>
+        <h1 class="bhero__title">{data.title}</h1>
+        <p class="bhero__sub">{data.subcopy}</p>
+        <div class="bhero__cta">
+          <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+          <Button href="#syllabus" variant="outline" size="lg">View syllabus</Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body: prose + sidebar -->
+    <section id="syllabus" class="body">
+      <div class="container container--narrow body__grid">
+        <div class="body__main">
+
+          <h2 class="body__h2">How we teach {data.subjectName}</h2>
+          <div class="prose"><Content /></div>
+
+          <!-- Assessment -->
+          <h3 class="body__h3">Assessment structure</h3>
+          <p class="body__intro">Syllabus code <strong>{data.syllabusCode}</strong> — all papers are external written examinations unless noted.</p>
+          <table class="assess">
+            <tbody>
+              {data.assessment.map((row) => (
+                <tr>
+                  <td class="assess__label">{row.label}</td>
+                  <td class="assess__value">{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <!-- Topics -->
+          <h3 class="body__h3">Topics we cover</h3>
+          <div class="topics">
+            {data.topics.map((t) => (
+              <div class="topic">
+                <span class="topic__bullet" aria-hidden="true">›</span>
+                {t}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="glance">
+          <h3 class="glance__title">At a glance</h3>
+          <dl class="glance__rows">
+            <div class="glance__row">
+              <dt>Level</dt><dd>{data.level}</dd>
+            </div>
+            <div class="glance__row">
+              <dt>Board</dt><dd>{data.boardName}</dd>
+            </div>
+            <div class="glance__row">
+              <dt>Spec code</dt><dd>{data.syllabusCode}</dd>
+            </div>
+            <div class="glance__row">
+              <dt>Format</dt><dd>Live online</dd>
+            </div>
+            <div class="glance__row">
+              <dt>Group classes</dt><dd>₨ {data.priceFrom} / month</dd>
+            </div>
+            <div class="glance__row glance__row--last">
+              <dt>1-to-1</dt><dd>₨ {data.oneToOne} / class</dd>
+            </div>
+          </dl>
+          <Button href="/contact/" variant="primary" block class="glance__cta">Book free trial</Button>
+          <a href={wa} class="glance__ask" target="_blank" rel="noopener">Ask on WhatsApp</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CTA band -->
+    <section class="cta">
+      <div class="container container--narrow cta__inner">
+        <h2 class="cta__title">Ready to get started with {data.subjectName}?</h2>
+        <p class="cta__sub">Your first class is free — no commitment, instant response.</p>
+        <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .bhero {
+    position: relative;
+    overflow: hidden;
+    background: var(--c-primary);
+    color: #fff;
+  }
+  .bhero__glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(800px 420px at 85% -10%, rgba(58,72,133,.2), transparent 60%);
+  }
+  .bhero__inner { position: relative; padding-block: 30px 76px; }
+
+  .crumb {
+    font-size: 13px; color: var(--c-on-primary-faint);
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .crumb a { color: inherit; }
+  .crumb a:hover { color: #fff; }
+  .crumb__current { color: var(--c-accent); }
+
+  .bhero__eyebrow {
+    margin: 40px 0 16px; font-size: 13px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--c-accent); font-weight: 600;
+  }
+  .bhero__title {
+    margin: 0; color: #fff; font-weight: 500;
+    font-size: clamp(34px, 5vw, 64px); line-height: 1.05;
+    letter-spacing: -.015em; max-width: 18ch;
+  }
+  .bhero__sub {
+    margin: 20px 0 0; font-size: clamp(16px,1.6vw,19px);
+    line-height: 1.6; color: var(--c-on-primary-soft); max-width: 60ch;
+  }
+  .bhero__cta { margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .body { background: var(--c-bg); }
+  .body__grid {
+    padding-block: 72px;
+    display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; align-items: start;
+  }
+  .body__h2 { margin: 0; font-size: clamp(26px,3vw,38px); line-height: 1.1; }
+  .body__h3 {
+    margin: 40px 0 14px; font-family: var(--font-serif);
+    font-weight: 600; font-size: 22px; color: var(--c-primary);
+  }
+  .body__intro { margin: 0 0 16px; font-size: 15px; color: var(--c-muted); }
+  .prose { margin-top: 20px; font-size: 17px; line-height: 1.75; }
+  .prose :global(p) { margin: 0 0 16px; }
+
+  .assess { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+  .assess tr { border-bottom: 1px solid var(--c-border); }
+  .assess__label { padding: 10px 12px 10px 0; font-size: 14.5px; font-weight: 500; color: var(--c-primary-ink); width: 55%; }
+  .assess__value { padding: 10px 0; font-size: 14px; color: var(--c-muted); text-align: right; }
+
+  .topics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .topic {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-sm); padding: 11px 14px;
+    font-size: 14.5px; color: var(--c-primary-ink);
+  }
+  .topic__bullet { color: var(--c-primary); font-weight: 700; }
+
+  .glance {
+    position: sticky; top: 90px;
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-lg); padding: 28px; box-shadow: var(--shadow-pop);
+  }
+  .glance__title { margin: 0; font-family: var(--font-serif); font-weight: 600; font-size: 21px; color: var(--c-primary); }
+  .glance__rows { margin: 16px 0 0; display: flex; flex-direction: column; gap: 12px; font-size: 14.5px; }
+  .glance__row {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding-bottom: 12px; border-bottom: 1px solid #eaeef8; margin: 0;
+  }
+  .glance__row--last { padding-bottom: 0; border-bottom: none; }
+  .glance__row dt { color: var(--c-muted); }
+  .glance__row dd { margin: 0; font-weight: 600; color: var(--c-primary); text-align: right; }
+  .glance__cta { margin-top: 22px; }
+  .glance__ask {
+    margin-top: 10px; display: block; text-align: center;
+    border: 1px solid var(--c-field-border); color: var(--c-primary);
+    font-weight: 600; padding: 13px; border-radius: var(--r-sm);
+  }
+  .glance__ask:hover { border-color: var(--c-accent); }
+
+  .cta { background: var(--c-primary); color: #fff; }
+  .cta__inner { padding-block: 60px; text-align: center; }
+  .cta__title {
+    margin: 0 auto; color: #fff; font-weight: 500;
+    font-size: clamp(26px,3.2vw,40px); line-height: 1.1; max-width: 22ch;
+  }
+  .cta__sub { margin: 14px auto 26px; font-size: 17px; color: var(--c-on-primary-soft); max-width: 50ch; }
+
+  @media (max-width: 880px) {
+    .body__grid { grid-template-columns: 1fr; gap: 36px; }
+    .glance { position: static; }
+  }
+  @media (max-width: 560px) {
+    .topics { grid-template-columns: 1fr; }
+  }
+</style>

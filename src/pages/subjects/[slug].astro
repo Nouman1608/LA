@@ -6,13 +6,34 @@ import { site, whatsappLink } from '../../data/site';
 
 export async function getStaticPaths() {
   const subjects = await getCollection('subjects', ({ data }) => !data.draft);
+  const boardPages = await getCollection('subjectBoards', ({ data }) => !data.draft);
   return subjects.map((entry) => ({
     params: { slug: entry.id },
-    props: { entry },
+    props: { entry, boardPages },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, boardPages } = Astro.props;
+
+// Board pages for this subject, grouped by level
+const subjectSlug = entry.id;
+const LEVEL_ORDER = ['a-levels', 'igcse', 'o-levels'];
+const LEVEL_LABELS: Record<string, string> = { 'a-levels': 'A Level', 'igcse': 'IGCSE', 'o-levels': 'O Level' };
+const BOARD_LABELS: Record<string, string> = { cambridge: 'Cambridge', edexcel: 'Edexcel', aqa: 'AQA' };
+type BoardEntry = { subject: string; board: string; levelSlug: string; levelLabel: string; boardLabel: string; syllabusCode: string; subjectName: string; };
+const grouped: Record<string, BoardEntry[]> = {};
+for (const bp of boardPages) {
+  if (bp.data.subject !== subjectSlug) continue;
+  const ls = bp.data.levelSlug;
+  if (!grouped[ls]) grouped[ls] = [];
+  grouped[ls].push({
+    subject: bp.data.subject, board: bp.data.board,
+    levelSlug: ls, levelLabel: LEVEL_LABELS[ls] ?? ls,
+    boardLabel: BOARD_LABELS[bp.data.board] ?? bp.data.board,
+    syllabusCode: bp.data.syllabusCode, subjectName: bp.data.subjectName,
+  });
+}
+const boardLevels = LEVEL_ORDER.filter((l) => grouped[l]?.length);
 const { data } = entry;
 const { Content } = await render(entry);
 
@@ -103,6 +124,30 @@ const wa = whatsappLink(`Hi! I'd like to ask about ${data.name} classes.`);
       </aside>
     </div>
   </section>
+
+
+  <!-- Choose your exam board -->
+  {boardLevels.length > 0 && (
+    <section class="boards">
+      <div class="container container--narrow">
+        <h2 class="boards__title">Choose your exam board</h2>
+        {boardLevels.map((ls) => (
+          <div class="boards__level">
+            <h3 class="boards__level-head">{LEVEL_LABELS[ls]}</h3>
+            <div class="boards__cards">
+              {grouped[ls].map((bp) => (
+                <a href={`/${bp.levelSlug}/${bp.board}/${bp.subject}/`} class="boards__card">
+                  <span class="boards__card-board">{bp.boardLabel}</span>
+                  <span class="boards__card-code">{bp.syllabusCode}</span>
+                  <span class="boards__card-arrow">→</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 
   <!-- CTA band -->
   <section class="cta">
@@ -359,4 +404,35 @@ const wa = whatsappLink(`Hi! I'd like to ask about ${data.name} classes.`);
       grid-template-columns: 1fr;
     }
   }
+
+  /* choose your board */
+  .boards {
+    background: var(--c-panel);
+    border-top: 1px solid var(--c-border-strong);
+    padding-block: 56px;
+  }
+  .boards__title {
+    margin: 0 0 32px;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.1;
+  }
+  .boards__level { margin-bottom: 32px; }
+  .boards__level:last-child { margin-bottom: 0; }
+  .boards__level-head {
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--c-muted); font-weight: 700; margin: 0 0 14px;
+  }
+  .boards__cards { display: flex; flex-wrap: wrap; gap: 12px; }
+  .boards__card {
+    display: flex; align-items: center; gap: 12px;
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-md); padding: 14px 18px;
+    font-size: 15px; color: var(--c-primary-ink); min-width: 180px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .boards__card:hover { border-color: var(--c-primary); box-shadow: 0 2px 12px rgba(58,72,133,.12); }
+  .boards__card-board { font-weight: 600; flex: 1; }
+  .boards__card-code { font-size: 13px; color: var(--c-muted); font-family: monospace; }
+  .boards__card-arrow { color: var(--c-primary); font-weight: 700; margin-left: auto; }
+
 </style>

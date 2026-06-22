@@ -18,7 +18,8 @@
     "@fontsource-variable/hanken-grotesk": "^5.2.8",
     "@fontsource-variable/newsreader": "^5.2.10",
     "astro": "^5.0.0",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "wrangler": "^4.103.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
