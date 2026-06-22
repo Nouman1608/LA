@@ -65,4 +65,36 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { subjects, blog };
+
+/**
+ * Board-specific subject pages.
+ * Each file covers one subject × one board × one level.
+ * Route: /<levelSlug>/<board>/<subject>/
+ */
+const subjectBoards = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/subject-boards' }),
+  schema: z.object({
+    subject: z.string(),
+    subjectName: z.string(),
+    board: z.string(),
+    boardName: z.string(),
+    title: z.string(),
+    eyebrow: z.string(),
+    subcopy: z.string(),
+    level: z.string(),
+    levelSlug: z.string(),
+    syllabusCode: z.string(),
+    assessment: z.array(z.object({ label: z.string(), value: z.string() })),
+    priceFrom: z.string(),
+    oneToOne: z.string(),
+    topics: z.array(z.string()).min(1),
+    seo: z.object({
+      title: z.string(),
+      description: z.string(),
+      canonical: z.string(),
+    }),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { subjects, blog, subjectBoards };
