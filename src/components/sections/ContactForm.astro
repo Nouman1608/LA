@@ -26,7 +26,6 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
     action="/api/contact"
     method="POST"
     data-contact-form
-    novalidate
   >
     <h3 class="leadform__title">{heading}</h3>
 
@@ -55,11 +54,11 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
       </div>
       <label class="field">
         <span class="visually-hidden">Class or grade</span>
-        <input name="class" placeholder="Class / grade (e.g. A Level Year 1)" />
+        <input name="class" placeholder="Class / grade (e.g. A Level Year 1)" required />
       </label>
       <label class="field">
         <span class="visually-hidden">Subjects of interest or other details</span>
-        <textarea name="details" rows="3" placeholder="Subjects of interest / other details"></textarea>
+        <textarea name="details" rows="3" placeholder="Subjects of interest / other details" required></textarea>
       </label>
 
       <div class="cf-turnstile" data-sitekey={sitekey} data-theme="light"></div>
