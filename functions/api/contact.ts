@@ -69,15 +69,17 @@ export const onRequestPost: PagesFn = async ({ request, env }) => {
 
   const redirect = () =>
     new Response(null, { status: 303, headers: { location: redirectTo } });
+  const redirectFail = () =>
+    new Response(null, { status: 303, headers: { location: '/contact/' } });
 
   // 1) Honeypot — pretend success, send nothing.
   if (honeypot) return wantsJson ? json({ ok: true }) : redirect();
 
   // 2) Basic validation.
-  if (!name || !email || !phone) {
+  if (!name || !email || !phone || !klass || !details) {
     return wantsJson
       ? json({ ok: false, error: 'Missing required fields.' }, 400)
-      : redirect();
+      : redirectFail();
   }
 
   // 3) Turnstile.
@@ -85,7 +87,7 @@ export const onRequestPost: PagesFn = async ({ request, env }) => {
   if (!ok) {
     return wantsJson
       ? json({ ok: false, error: 'Verification failed. Please try again.' }, 400)
-      : redirect();
+      : redirectFail();
   }
 
   // 4) Email via Resend.
