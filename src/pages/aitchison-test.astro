@@ -4,11 +4,90 @@ import PageHeader from '../components/sections/PageHeader.astro';
 import LandingBody from '../components/sections/LandingBody.astro';
 import Faq from '../components/sections/Faq.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../components/seo/schemas';
 import { site } from '../data/site';
 
-const title = `Aitchison College Entry Test Preparation (Online) | ${site.name}`;
+const title = `Aitchison College Entry Test 2027-28: Guide & Prep | ${site.name}`;
 const description =
-  'Structured online Aitchison College entry test preparation from Bahria Town, Lahore — English, Maths, Urdu and interview practice with teachers who have prepared Aitchison entrants since 2016.';
+  'Complete Aitchison College entry test guide for 2027-28: subjects, syllabus, timeline, documents and fees — plus structured online preparation. Book a free trial.';
+
+const courseSchema = course({
+  name: 'Aitchison College Entry Test Preparation',
+  description:
+    'Structured online preparation for the Aitchison College admission test — English, Mathematics, Urdu and interview practice for all entry classes.',
+  url: `${site.domain}/aitchison-test/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Aitchison Test Prep', url: `${site.domain}/aitchison-test/` },
+]);
+
+const glance = [
+  { label: 'Written papers', value: 'English, Mathematics, Urdu' },
+  { label: 'After the papers', value: 'Interview before the final decision' },
+  { label: 'Attempts allowed', value: 'One appearance per admission cycle' },
+  { label: 'Age criteria', value: 'Strictly enforced — no waivers' },
+  { label: 'Test venue', value: 'Aitchison College, Lahore (on campus)' },
+  { label: 'Results', value: 'Letters by courier — no public merit list' },
+];
+
+const subjects = [
+  {
+    title: 'English',
+    body: 'Reading comprehension, vocabulary, spelling, sentence construction and grammar. Younger applicants (K1/K2) are tested on words and simple sentences; older boys face full comprehension passages and guided writing.',
+  },
+  {
+    title: 'Mathematics',
+    body: 'For K1: pre-number concepts, sets, whole numbers and shapes. For higher classes: numbers, fractions, time, money, graphs and patterns — with the speed and accuracy a timed paper demands.',
+  },
+  {
+    title: 'Urdu',
+    body: 'Comprehension (tafheem), essay and letter writing (mazmoon), grammar and neat handwriting. Boys educated overseas, or in Pakistan for under two years, may qualify for an Urdu exemption with school records as proof.',
+  },
+  {
+    title: 'Interview',
+    body: 'Boys who clear the written papers are interviewed before the Principal makes the final decision. Confidence, spoken English and general awareness all count.',
+  },
+];
+
+const timeline = [
+  {
+    when: 'September – October 2026',
+    what: 'Application forms expected to be released on aitchison.edu.pk. Check age eligibility and seat availability before applying.',
+  },
+  {
+    when: 'Late November 2026',
+    what: 'Expected deadline for day scholar applications (last cycle: 30 November).',
+  },
+  {
+    when: 'Late December 2026',
+    what: 'Expected deadline for boarding applications (last cycle: 31 December).',
+  },
+  {
+    when: 'A few weeks before the test',
+    what: 'Roll number slips arrive by courier with the test date and venue for your child’s class.',
+  },
+  {
+    when: 'Test dates (per class)',
+    what: 'Written papers in English, Mathematics and Urdu, held on campus. Each boy sits the test once per cycle.',
+  },
+  {
+    when: 'After testing',
+    what: 'Shortlisted boys are interviewed; acceptance or regret letters follow by courier within weeks.',
+  },
+];
+
+const documents = [
+  'Completed application form (from aitchison.edu.pk)',
+  'Three photographs of your son',
+  'Last school report and games record',
+  'Photocopies of both parents’ CNICs',
+  'Copies of income tax return or land revenue challans',
+  'School declaration form, filled and signed by the current school',
+  'Bank draft for the application fee (last cycle: Rs 55,000 day scholars, Rs 27,500 boarding)',
+];
 
 const points = [
   {
@@ -31,32 +110,126 @@ const points = [
 
 const faqs = [
   {
-    q: 'What ages and entry points do you prepare for?',
-    a: 'We prepare students for the common Aitchison College entry points, with the syllabus and difficulty matched to your child’s class. Tell us the entry class when you book and we set the right level.',
+    q: 'What subjects are on the Aitchison College entry test?',
+    a: 'Every applicant sits written papers in English, Mathematics and Urdu, matched to the class he is applying for. Boys educated overseas, or in Pakistan for less than two years, may qualify for an Urdu exemption — verified against school records. Shortlisted boys are then interviewed.',
   },
   {
-    q: 'Are classes online or in person?',
-    a: 'Both. We run live online classes for students anywhere, and in-house sessions from our Bahria Town, Lahore campus. The preparation content is the same in both formats.',
+    q: 'When do Aitchison admissions open for 2027-28?',
+    a: 'Aitchison has not announced 2027-28 dates yet. In the last cycle, forms were released in September–October, with deadlines of 30 November for day scholars and 31 December for boarding. Watch aitchison.edu.pk — and start preparation well before the forms come out.',
   },
   {
-    q: 'How early should we start?',
-    a: 'Sooner is better. A few months of consistent weekly practice builds the speed and accuracy the written test rewards, but we also run focused crash preparation closer to the test date.',
+    q: 'Which classes can my son apply to?',
+    a: 'The main entry points are in Junior School (K1 and K2), with places in higher classes — Prep School and Senior School, up to A Level/FSc (H1) — offered when seats are available. Check seat availability for your son’s class on the Aitchison website before applying.',
   },
   {
-    q: 'Who teaches the preparation?',
-    a: 'Teachers experienced with the Aitchison entry standard, including staff who have prepared successful entrants since 2016. You can request a free trial class before committing.',
+    q: 'How strict are the age criteria?',
+    a: 'Very. Aitchison follows its published age guidelines rigorously and grants no waivers. Boys suspected of being over-age undergo a medical assessment, and an offer is withdrawn if a boy is found over-age for his entry year. Confirm your son’s eligibility before paying the application fee.',
+  },
+  {
+    q: 'Can my son retake the test if he does not pass?',
+    a: 'Not in the same cycle — each boy is allowed one appearance per testing cycle. He can apply again in a future cycle if he still meets the age criteria for the next entry class, which is why focused preparation before the first attempt matters so much.',
+  },
+  {
+    q: 'What does the application cost?',
+    a: 'In the 2026-27 cycle the non-refundable application fee was Rs 55,000 for day scholar applications and Rs 27,500 for boarding, paid by bank draft to Aitchison College, Lahore. Expect similar figures for 2027-28 once official forms are released.',
+  },
+  {
+    q: 'My son studies overseas — can he still apply?',
+    a: 'Yes. Overseas boys apply through the same process, travel to Lahore for testing on the scheduled dates, and may qualify for the Urdu exemption. Our live online classes are built for exactly this — your son prepares from anywhere on a schedule that fits your time zone.',
+  },
+  {
+    q: 'Are your preparation classes online or in person?',
+    a: 'Both. We run live online classes for families anywhere in the world, and in-house sessions from our Bahria Town, Lahore campus. The preparation content — weekly practice, marked written work and mock interviews — is the same in both formats.',
+  },
+  {
+    q: 'How early should we start preparing?',
+    a: 'Ideally several months before the test: consistent weekly practice builds the speed and accuracy the written papers reward. If the test is close, we also run focused crash preparation. Either way, start with a free trial class so we can assess your son’s current level.',
   },
 ];
 ---
 <HomeLayout title={title} description={description} canonical="/aitchison-test/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
   <PageHeader
     eyebrow="Test preparation"
     crumb="Aitchison Test Prep"
-    title="Aitchison College entry test preparation, online."
-    sub="English, Maths, Urdu and interview practice — structured by teachers who have prepared Aitchison entrants from Lahore since 2016."
+    title="Aitchison College entry test: the complete 2027-28 guide."
+    sub="What the test covers, how the admission cycle runs, and how to prepare — from teachers who have coached Aitchison entrants since 2016."
   />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Aitchison College is Pakistan&rsquo;s most sought-after boys&rsquo; school, and its entry
+        test is competitive at every level. Places are limited, age criteria are enforced without
+        exception, and each boy gets exactly one attempt per admission cycle. The good news: the
+        test rewards preparation. It examines a defined set of skills in English, Mathematics and
+        Urdu — and a child who has practised those skills under timed conditions walks in with a
+        real advantage. This guide covers everything parents ask us, based on the most recent
+        admission cycle.
+      </p>
+
+      <h2 class="guide__h2">The test at a glance</h2>
+      <dl class="glance">
+        {
+          glance.map((g) => (
+            <div class="glance__item">
+              <dt class="glance__label">{g.label}</dt>
+              <dd class="glance__value">{g.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <h2 class="guide__h2">What the entry test covers</h2>
+      <div class="guide__grid">
+        {
+          subjects.map((s) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{s.title}</h3>
+              <p class="gcard__body">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How the 2027-28 admission cycle will run</h2>
+      <p class="guide__note">
+        Aitchison has not yet published 2027-28 dates. The timeline below reflects the most recent
+        cycle — confirm exact dates on
+        <a href="https://www.aitchison.edu.pk/" rel="nofollow noopener" target="_blank">aitchison.edu.pk</a>
+        once forms are released.
+      </p>
+      <ol class="timeline">
+        {
+          timeline.map((t) => (
+            <li class="timeline__row">
+              <span class="timeline__when">{t.when}</span>
+              <span class="timeline__what">{t.what}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <h2 class="guide__h2">Documents you&rsquo;ll need</h2>
+      <ul class="doclist">
+        {documents.map((d) => <li>{d}</li>)}
+      </ul>
+
+      <h2 class="guide__h2">What it takes to get in</h2>
+      <p class="guide__text">
+        Three things decide the outcome: the written papers, the interview, and eligibility. Recent
+        school reports matter — boys applying to higher classes are expected to show consistently
+        strong marks — and the medical team verifies age and general fitness as part of the
+        process. There is no published merit list; families receive an acceptance or regret letter
+        by courier. Because there is only one attempt per cycle, most families we work with treat
+        preparation as a months-long project rather than a last-minute sprint.
+      </p>
+    </div>
+  </section>
+
   <LandingBody
-    lead="Getting into Aitchison College is competitive, and the entry test rewards children who are quick, accurate and comfortable across English, Mathematics and Urdu. Our preparation is built around exactly that: weekly live practice, marked written work, and mock interviews that take the surprise out of the real day. Whether you are in Lahore or overseas, your child prepares with a teacher who knows the standard."
+    lead="Our preparation is built around exactly what the test rewards: weekly live practice in English, Mathematics and Urdu, marked written work, timed past-style papers, and mock interviews that take the surprise out of the real day. Whether you are in Lahore or overseas, your child prepares with a teacher who knows the Aitchison standard — and you see the progress week by week."
     pointsTitle="What the preparation covers"
     points={points}
     relatedTitle="Related preparation"
@@ -72,3 +245,133 @@ const faqs = [
     sub="Start with a free trial class — meet the teacher, see the method, no commitment."
   />
 </HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text,
+  .guide__note {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__note {
+    margin-bottom: 20px;
+    color: var(--c-muted);
+    font-size: 15px;
+  }
+  .guide__note a {
+    color: var(--c-primary);
+    text-decoration: underline;
+  }
+
+  .glance {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .glance__item {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .glance__label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c-muted);
+  }
+  .glance__value {
+    margin: 6px 0 0;
+    font-weight: 600;
+    color: var(--c-primary-ink);
+    line-height: 1.4;
+  }
+
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .timeline__row {
+    display: grid;
+    grid-template-columns: minmax(180px, 240px) 1fr;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--c-card);
+  }
+  .timeline__row:nth-child(even) {
+    background: var(--c-panel);
+  }
+  .timeline__row + .timeline__row {
+    border-top: 1px solid var(--c-border);
+  }
+  .timeline__when {
+    font-weight: 700;
+    color: var(--c-primary-ink);
+  }
+  .timeline__what {
+    line-height: 1.6;
+    color: var(--c-text);
+  }
+  @media (max-width: 560px) {
+    .timeline__row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+
+  .doclist {
+    margin: 0;
+    padding-left: 22px;
+    max-width: 70ch;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    line-height: 1.6;
+    color: var(--c-text);
+  }
+</style>
