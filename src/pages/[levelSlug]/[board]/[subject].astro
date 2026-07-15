@@ -5,6 +5,7 @@ import Header from '../../../components/layout/Header.astro';
 import Footer from '../../../components/layout/Footer.astro';
 import JsonLd from '../../../components/seo/JsonLd.astro';
 import Button from '../../../components/ui/Button.astro';
+import Faq from '../../../components/sections/Faq.astro';
 import { site, whatsappLink } from '../../../data/site';
 
 export async function getStaticPaths() {
@@ -50,11 +51,34 @@ const courseJsonLd = {
     url: site.domain,
   },
 };
+
+const faqs = [
+  {
+    q: `Which syllabus code does this ${data.boardName} ${data.level} ${data.subjectName} class follow?`,
+    a: `We teach the official ${data.boardName} specification, syllabus code ${data.syllabusCode}, working directly from the specification document — the same ${data.topics.length} topic areas your child follows at school.`,
+  },
+  {
+    q: `How much does ${data.level} ${data.subjectName} tuition cost?`,
+    a: `Group classes are ₨ ${data.priceFrom} per month and 1-to-1 lessons are ₨ ${data.oneToOne} per class. Discounts apply for 3 or more subjects (20% off) and for up to 2 siblings (10% off).`,
+  },
+  {
+    q: 'Are classes live or recorded?',
+    a: 'Live and interactive. Your child attends scheduled classes with the teacher, asks questions in real time, and gets written homework that is set and marked every week.',
+  },
+  {
+    q: `Can students outside Pakistan join ${data.subjectName} classes?`,
+    a: 'Yes — we teach students in the UAE, Saudi Arabia, the UK and beyond. Gulf time zones are one to two hours behind Pakistan, so after-school slots line up naturally.',
+  },
+  {
+    q: 'How do we start?',
+    a: `Book a free demo class for ${data.level} ${data.subjectName}. Your child meets the teacher and sits a real lesson before you commit — message us on WhatsApp or use the contact form.`,
+  },
+];
 ---
 
 <BaseLayout title={data.seo.title} description={data.seo.description} canonical={canonical}>
-  <JsonLd schema={breadcrumbJsonLd} />
-  <JsonLd schema={courseJsonLd} />
+  <JsonLd data={breadcrumbJsonLd} />
+  <JsonLd data={courseJsonLd} />
 
   <Header />
 
@@ -151,6 +175,8 @@ const courseJsonLd = {
       </div>
     </section>
   </main>
+
+  <Faq items={faqs} />
 
   <Footer />
 </BaseLayout>
