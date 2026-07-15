@@ -1,0 +1,247 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Faq from '../../components/sections/Faq.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import Button from '../../components/ui/Button.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../../components/seo/schemas';
+import { site, whatsappLink } from '../../data/site';
+
+const title = `IGCSE Tuition in Saudi Arabia — Online Classes | ${site.name}`;
+const description =
+  'Online IGCSE, O Level & A Level tuition for Riyadh, Jeddah and all Saudi Arabia. Cambridge & Edexcel specialists on KSA-friendly timings. Free trial class.';
+
+const courseSchema = course({
+  name: 'IGCSE & A Level Online Tuition for Saudi Arabia Students',
+  description:
+    'Live online IGCSE, O Level and A Level classes for students in Riyadh, Jeddah, Dammam/Khobar and across Saudi Arabia — Cambridge, Edexcel and AQA exam boards.',
+  url: `${site.domain}/igcse-tuition/saudi-arabia/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'IGCSE Tuition Saudi Arabia', url: `${site.domain}/igcse-tuition/saudi-arabia/` },
+]);
+
+const reasons = [
+  {
+    title: 'Quality tutoring, wherever you live',
+    body: 'Riyadh, Jeddah, the Eastern Province, or a compound an hour from any city — the teacher is the same. No dependence on whoever happens to be available locally.',
+  },
+  {
+    title: 'Built around the Saudi week',
+    body: 'Schools in the Kingdom run Sunday to Thursday, and Saudi time is two hours behind Pakistan. We schedule evening classes on school days and use the Friday–Saturday weekend for longer sessions.',
+  },
+  {
+    title: 'Teachers from home, standards from Cambridge',
+    body: 'Pakistani teachers who explain concepts the way your child is used to — teaching official Cambridge, Edexcel and AQA specifications, paper by paper, since 2016.',
+  },
+  {
+    title: 'WhatsApp-first, always reachable',
+    body: 'Everything from the first enquiry to weekly progress updates happens on WhatsApp — the way the Pakistani community in Saudi already communicates.',
+  },
+];
+
+const situations = [
+  {
+    title: 'At a British or international school',
+    body: 'Saudi Arabia has over 200 international schools, concentrated in Riyadh, Jeddah and the Eastern Province, many teaching Cambridge IGCSE and A Levels. We reinforce exactly what school covers — same board, same syllabus code.',
+  },
+  {
+    title: 'At a Pakistani school with a Cambridge section',
+    body: 'Schools like Pakistan International School Jeddah (English Section) run Cambridge pathways to O Level, IGCSE and A Level. Our teachers know both worlds — the Pakistani classroom and the Cambridge specification.',
+  },
+  {
+    title: 'Studying as a private candidate',
+    body: 'Many families in the Kingdom register for Cambridge and Edexcel exams as private candidates through British Council exam centres. We provide the complete teaching structure: syllabus coverage, marked work, mocks and exam-entry guidance.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you teach students across Saudi Arabia?',
+    a: 'Yes — Riyadh, Jeddah, Dammam, Khobar, Jubail, Yanbu and everywhere in between. Classes are live online, so location inside the Kingdom makes no difference. We have taught Gulf-based students since 2016.',
+  },
+  {
+    q: 'How do timings work from Saudi Arabia?',
+    a: 'Saudi Arabia is two hours behind Pakistan, and we schedule around the Saudi school week (Sunday to Thursday). A 6pm class in Riyadh is 8pm in Lahore — comfortably within our teaching day — and the Friday–Saturday weekend suits longer or 1-to-1 sessions.',
+  },
+  {
+    q: 'Which exam boards and levels do you cover?',
+    a: 'Cambridge (CAIE), Pearson Edexcel and AQA, across IGCSE, O Level and A Level. We teach from the official specifications, so whether your child’s school follows Cambridge or Edexcel, preparation matches the exact papers they will sit.',
+  },
+  {
+    q: 'My child studies at a Pakistani international school in Saudi. Can you help?',
+    a: 'Yes — this is one of the most common situations we handle. Several Pakistani international schools in the Kingdom run Cambridge sections (O Level/IGCSE/A Level), and our teachers know exactly how to bridge the school’s teaching with the board’s marking standards.',
+  },
+  {
+    q: 'Can you prepare my child as a private candidate?',
+    a: 'Yes. If your child is not at a British-curriculum school, they can sit Cambridge or Edexcel exams as a private candidate at approved centres in Saudi Arabia. We cover the full syllabus, set marked work and mocks, and guide you on registration timelines.',
+  },
+  {
+    q: 'What does it cost from Saudi Arabia?',
+    a: 'Fees are per subject per month in Pakistani rupees — see the pricing page for current rates. For most families in the Kingdom this is substantially more affordable than in-person options locally. Message us on WhatsApp and we will confirm fees and payment from KSA.',
+  },
+  {
+    q: 'Is WhatsApp really the main way to reach you?',
+    a: 'Yes — fastest response, and where most of our Saudi-based parents talk to us. Send the subject, year group and exam board, and we will reply the same day with class options and a free trial slot.',
+  },
+  {
+    q: 'Do you also prepare students for Aitchison or cadet college entry from Saudi?',
+    a: 'Yes. Families planning a return to Pakistan use our online preparation for the Aitchison College entry test and cadet college exams — your child prepares from Saudi Arabia and travels only for the test itself.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/igcse-tuition/saudi-arabia/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="IGCSE tuition · Saudi Arabia"
+    crumb="IGCSE Tuition Saudi Arabia"
+    title="IGCSE tuition in Saudi Arabia, live and online."
+    sub="Cambridge, Edexcel and AQA classes for families in Riyadh, Jeddah and across the Kingdom — on Saudi-friendly timings, with WhatsApp-first communication."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Saudi Arabia is home to the largest overseas Pakistani community in the world — well over
+        two million people — and to more than 200 international schools. Yet finding a dependable
+        IGCSE or A Level subject tutor in the Kingdom is genuinely hard: options cluster in a few
+        city districts, rates are high, and quality is a lottery. Live online tuition solves this
+        cleanly. Your child learns from an experienced Pakistani teacher who teaches the official
+        Cambridge or Edexcel specification, on a schedule built around the Saudi school week — and
+        you manage everything over WhatsApp.
+      </p>
+
+      <h2 class="guide__h2">Why families in the Kingdom choose us</h2>
+      <div class="guide__grid">
+        {
+          reasons.map((r) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{r.title}</h3>
+              <p class="gcard__body">{r.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Whatever your child&rsquo;s school situation</h2>
+      <div class="guide__stack">
+        {
+          situations.map((s) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{s.title}</h3>
+              <p class="gcard__body">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works from Saudi Arabia</h2>
+      <p class="guide__text">
+        Send us a WhatsApp message with your child&rsquo;s subjects, year group and exam board. We
+        reply the same day with group class options on KSA-friendly evening slots — or 1-to-1
+        timings of your choice, including the Friday–Saturday weekend. Every class is live and
+        interactive, homework is set and marked, and past-paper practice ramps up before the
+        May/June exam session. You receive regular progress updates on WhatsApp, so distance never
+        means being out of the loop.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! I'm in Saudi Arabia and would like to ask about IGCSE classes.")} variant="primary" size="lg">
+          WhatsApp us from KSA
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">Also for families in Saudi Arabia</h2>
+      <div class="related__links">
+        <a class="related__link" href="/igcse-tuition/dubai/">IGCSE tuition in Dubai &amp; UAE <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/subjects/">All subjects &amp; boards <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/cadet-colleges-test/">Cadet college test prep (from overseas) <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Serious preparation, from anywhere in the Kingdom."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
+           

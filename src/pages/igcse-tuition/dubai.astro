@@ -1,0 +1,243 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Faq from '../../components/sections/Faq.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import Button from '../../components/ui/Button.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../../components/seo/schemas';
+import { site, whatsappLink } from '../../data/site';
+
+const title = `IGCSE Tuition in Dubai & UAE — Online Classes | ${site.name}`;
+const description =
+  'Online IGCSE & A Level tuition for Dubai, Abu Dhabi and UAE families. Cambridge, Edexcel and AQA specialists on UAE-friendly timings. Free trial class.';
+
+const courseSchema = course({
+  name: 'IGCSE & A Level Online Tuition for UAE Students',
+  description:
+    'Live online IGCSE, O Level and A Level classes for students in Dubai, Abu Dhabi, Sharjah and across the UAE — Cambridge, Edexcel and AQA exam boards.',
+  url: `${site.domain}/igcse-tuition/dubai/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'IGCSE Tuition Dubai', url: `${site.domain}/igcse-tuition/dubai/` },
+]);
+
+const reasons = [
+  {
+    title: 'Same boards, same specifications',
+    body: 'Dubai’s British-curriculum schools teach Cambridge and Edexcel IGCSE in Years 10–11 and A Levels in Years 12–13 — exactly the specifications our teachers have taught since 2016, paper by paper.',
+  },
+  {
+    title: 'Timings that fit UAE school days',
+    body: 'The UAE is just one hour behind Pakistan, so after-school slots line up naturally. Your child finishes school, has a break, and joins a live class — no late nights, no odd hours.',
+  },
+  {
+    title: 'No commute across the city',
+    body: 'No driving to a tuition centre after work. Classes are live at home with a real teacher, marked homework and progress you can see — and parents can sit in whenever they like.',
+  },
+  {
+    title: 'Fees in rupees, not dirhams',
+    body: 'Our monthly per-subject pricing is set in Pakistani rupees, which typically works out to a fraction of Dubai in-person tutoring rates — without compromising on teaching quality.',
+  },
+];
+
+const boards = [
+  {
+    title: 'Cambridge (CAIE)',
+    body: 'The most common board in UAE schools. We teach IGCSE, O Level and A Level Cambridge syllabuses from the official specification documents.',
+  },
+  {
+    title: 'Pearson Edexcel',
+    body: 'Full International GCSE and IAL coverage, including the January exam session many UAE students use for retakes and early units.',
+  },
+  {
+    title: 'AQA',
+    body: 'GCSE and A Level support for students at schools following AQA specifications, taught from the official specs.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you teach students in Dubai and the wider UAE?',
+    a: 'Yes — we have taught UAE-based students online since 2016. Classes are live and interactive, so it makes no difference whether your child is in Dubai, Abu Dhabi, Sharjah or Ras Al Khaimah. All you need is a laptop and a stable connection.',
+  },
+  {
+    q: 'How do class timings work from the UAE?',
+    a: 'The UAE is one hour behind Pakistan, which makes scheduling easy: a 5pm class in Dubai is 6pm in Lahore. We schedule around the UAE school week (Monday to Friday), with afternoon, evening and weekend slots available.',
+  },
+  {
+    q: 'Which exam boards do you cover?',
+    a: 'Cambridge (CAIE), Pearson Edexcel and AQA — the three boards used across Dubai’s British-curriculum schools. We teach from the official specifications, so the syllabus your child follows in class is the one we prepare them for.',
+  },
+  {
+    q: 'My child is in Year 10/11 at a British school in Dubai. Where do they fit?',
+    a: 'Years 10–11 map to IGCSE/GCSE and Years 12–13 to A Levels. Tell us the school, year group and exam board, and we place your child in the right group — or set up 1-to-1 lessons focused on exactly the papers they will sit.',
+  },
+  {
+    q: 'Is online tuition as effective as an in-person tutor in Dubai?',
+    a: 'For exam preparation, structure beats geography: live teaching, marked written work, past-paper practice and regular feedback. With over 100 British-curriculum schools, Dubai is a competitive environment — our students get a consistent weekly system, not ad-hoc help.',
+  },
+  {
+    q: 'What does it cost from the UAE?',
+    a: 'Pricing is per subject per month in Pakistani rupees — see our pricing page for current rates, which typically compare very favourably with Dubai in-person tutoring. Message us on WhatsApp and we will confirm fees and the simplest way to pay from the UAE.',
+  },
+  {
+    q: 'Do you also teach A Level students in the UAE?',
+    a: 'Yes. Alongside IGCSE we run A Level group classes and 1-to-1 tuition across sciences, maths, economics, business and more — for Cambridge, Edexcel and AQA. Many of our IGCSE students continue with us into Years 12–13.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. Your child meets the teacher, sits a real lesson, and we assess their current level — then you decide. The fastest way to arrange it is a WhatsApp message telling us the subject, year group and exam board.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/igcse-tuition/dubai/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="IGCSE tuition · UAE"
+    crumb="IGCSE Tuition Dubai"
+    title="IGCSE tuition in Dubai, live and online."
+    sub="Cambridge, Edexcel and AQA classes for students across the UAE — taught on Gulf-friendly timings by teachers who have prepared students for these exact papers since 2016."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Dubai has more than a hundred British-curriculum schools, and results matter here: strong
+        IGCSE grades set up A Level choices, and A Levels decide university offers. For the UAE&rsquo;s
+        1.9 million-strong Pakistani community — and every family whose child studies Cambridge or
+        Edexcel — the challenge is the same: classes are big, the syllabus moves fast, and good
+        subject tutors in Dubai are expensive and booked out. Our answer is live online tuition:
+        the same specification your child&rsquo;s school teaches, taught properly, at times that fit
+        UAE school days, for rupee-based fees.
+      </p>
+
+      <h2 class="guide__h2">Why UAE families choose us</h2>
+      <div class="guide__grid">
+        {
+          reasons.map((r) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{r.title}</h3>
+              <p class="gcard__body">{r.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Every board taught in UAE schools</h2>
+      <div class="guide__grid">
+        {
+          boards.map((b) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{b.title}</h3>
+              <p class="gcard__body">{b.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works from Dubai</h2>
+      <p class="guide__text">
+        Tell us your child&rsquo;s subjects, year group and exam board on WhatsApp. We match them to
+        a group class on a UAE-friendly slot — afternoons and evenings Gulf time, weekends if that
+        suits better — or set up 1-to-1 lessons. Every class is live with a teacher who takes
+        questions, sets marked homework, and works through past papers as exams approach in the
+        May/June session (with October/November and January options for retakes and early entries).
+        You get direct WhatsApp access to us throughout, so you always know how your child is
+        progressing.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! I'm in the UAE and would like to ask about IGCSE classes.")} variant="primary" size="lg">
+          WhatsApp us from the UAE
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">Also preparing students in the UAE for</h2>
+      <div class="related__links">
+        <a class="related__link" href="/igcse-tuition/saudi-arabia/">IGCSE tuition in Saudi Arabia <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/subjects/">All subjects &amp; boards <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/aitchison-test/">Aitchison entry test (from overseas) <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Give your child a Dubai-schedule-friendly head start."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
+              
