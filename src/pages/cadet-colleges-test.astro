@@ -4,11 +4,99 @@ import PageHeader from '../components/sections/PageHeader.astro';
 import LandingBody from '../components/sections/LandingBody.astro';
 import Faq from '../components/sections/Faq.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../components/seo/schemas';
 import { site } from '../data/site';
 
-const title = `Cadet College Entry Test Preparation (Online) | ${site.name}`;
+const title = `Cadet College Entry Test 2027: Guide & Prep | ${site.name}`;
 const description =
-  'Online Cadet College entry test preparation — English, Maths, Science, Urdu and intelligence/reasoning practice, plus interview and medical guidance, from teachers in Bahria Town, Lahore.';
+  'Complete cadet college entry test guide for 2027 — Hasan Abdal, Petaro, Kohat, Sargodha: subjects, ages, selection stages and timelines, plus online preparation.';
+
+const courseSchema = course({
+  name: 'Cadet College Entry Test Preparation',
+  description:
+    'Structured online preparation for cadet college entrance exams in Pakistan — English, Urdu, Mathematics, intelligence tests and interview practice for Class 7/8 and O Level entry.',
+  url: `${site.domain}/cadet-colleges-test/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Cadet College Test Prep', url: `${site.domain}/cadet-colleges-test/` },
+]);
+
+const glance = [
+  { label: 'Main entry point', value: 'Class 7 or 8 (some colleges also admit at O Level / 1st Year)' },
+  { label: 'Written papers', value: 'English, Urdu, Maths + intelligence/reasoning' },
+  { label: 'After the papers', value: 'Interview, medical & physical evaluation' },
+  { label: 'Typical ages', value: 'Roughly 11–14, strictly checked per college' },
+  { label: 'Test season', value: 'December – February for the 2027 session' },
+  { label: 'Selection basis', value: 'Open merit — seats are limited and competitive' },
+];
+
+const subjects = [
+  {
+    title: 'English',
+    body: 'Grammar is the core: tenses, sentence construction, vocabulary and comprehension at the level of the class your son is currently completing. Papers reward accuracy under time pressure.',
+  },
+  {
+    title: 'Mathematics',
+    body: 'Arithmetic, sets, algebra, mensuration (perimeter, area, volume), geometry and information handling — the Class 7 syllabus for Class 8 entry, tested with speed and precision.',
+  },
+  {
+    title: 'Urdu',
+    body: 'Comprehension, grammar and writing. At Petaro, candidates choose Sindhi or Urdu; some colleges, like Kohat, also include Islamic Studies questions in the paper.',
+  },
+  {
+    title: 'Intelligence & general awareness',
+    body: 'Verbal and non-verbal reasoning plus general knowledge, geography, general science and current affairs — the section most boys have never practised before.',
+  },
+];
+
+const colleges = [
+  {
+    name: 'Cadet College Hasan Abdal',
+    detail:
+      'The flagship. Around 120 boys inducted into Class 8 each year on an All-Pakistan open merit, need-blind basis. One three-hour booklet paper covering Maths, English, intelligence and general awareness, then medical, psychological assessment and interview. For entry 2027: applications close early December 2026, with the exam in late December — confirm on cch.edu.pk.',
+  },
+  {
+    name: 'Cadet College Petaro',
+    detail:
+      'Entry at Class 7 and 8 (plus O Level). Written papers in English, Sindhi/Urdu and Mathematics. Last cycle: registration closed mid-January with the test in early February. Ages roughly 11–13 for Class 7 entry.',
+  },
+  {
+    name: 'Cadet College Kohat',
+    detail:
+      'Class 8 entry for boys aged 12–14 (on 1 April of the admission year; Hafiz-e-Quran candidates get six months upper-age relaxation). The test covers Maths, English, Urdu, intelligence and Islamic Studies, with exam centres in cities across Pakistan.',
+  },
+  {
+    name: 'PAF College Sargodha',
+    detail:
+      'Class 8 entry, ages over 11.5 and under 13.5 on 1 January — no relaxation. Written academic test first; shortlisted boys then face an intelligence test, initial medical and interview, with final clearance by the PAF Central Medical Board.',
+  },
+];
+
+const stages = [
+  {
+    when: 'Stage 1 — Registration',
+    what: 'Apply online or by form at each college. Windows for the 2027 session open from autumn 2026; registration fees are modest (Kohat charged Rs 1,600 last cycle).',
+  },
+  {
+    when: 'Stage 2 — Written test',
+    what: 'English, Urdu, Maths and reasoning at your son’s current class level. This is the big filter — most candidates are eliminated here.',
+  },
+  {
+    when: 'Stage 3 — Interview',
+    what: 'Shortlisted boys are interviewed: spoken confidence, general awareness and motivation for boarding-school life all count.',
+  },
+  {
+    when: 'Stage 4 — Medical & physical',
+    what: 'Height, weight, vision, hearing and general fitness are checked; age criteria are verified. PAF Sargodha adds a Central Medical Board review; Hasan Abdal includes a psychological assessment.',
+  },
+  {
+    when: 'Final — Merit list & joining',
+    what: 'Offers follow the combined merit of all stages. Successful boys join at the start of the new academic session in spring.',
+  },
+];
 
 const points = [
   {
@@ -24,39 +112,138 @@ const points = [
     body: 'Verbal and non-verbal reasoning practice — the question types many students see for the first time in the test.',
   },
   {
-    title: 'Interview & ISSB-style prep',
-    body: 'Mock interviews, spoken confidence and guidance on the selection and medical stages so nothing catches you off guard.',
+    title: 'Interview & selection prep',
+    body: 'Mock interviews, spoken confidence and guidance on the medical and selection stages so nothing catches you off guard.',
   },
 ];
 
 const faqs = [
   {
-    q: 'Which cadet colleges does this prepare for?',
-    a: 'The written-test syllabus is broadly similar across major cadet colleges (English, Maths, Science, Urdu and reasoning). Tell us your target college and entry class and we tailor the focus.',
+    q: 'Which cadet colleges does this guide and preparation cover?',
+    a: 'All of the major ones — Cadet College Hasan Abdal, Petaro, Kohat, PAF College Sargodha and others. The written-test pattern is broadly similar everywhere: English, Urdu, Maths and reasoning at current-class level. Tell us your target college and entry class and we tailor the focus.',
   },
   {
-    q: 'Do you cover the interview and selection stages?',
-    a: 'Yes. Alongside the written paper we run mock interviews and prepare students for the spoken and selection stages so they present themselves with confidence.',
+    q: 'What subjects come up in the cadet college entry test?',
+    a: 'English (mainly grammar and comprehension), Urdu, Mathematics at the level of the class your son is completing, and an intelligence/reasoning section. Several colleges add general knowledge, general science and Islamic Studies — Kohat includes Islamiat explicitly.',
   },
   {
-    q: 'Is preparation available online across Pakistan?',
-    a: 'Yes — live online classes are open to students anywhere in Pakistan or overseas, and we also teach in person from our Bahria Town, Lahore campus.',
+    q: 'Which class is best for cadet college entry?',
+    a: 'Class 8 is the main national entry point — Hasan Abdal, Kohat and Sargodha all induct at Class 8, and Petaro also admits at Class 7. Some colleges take a smaller intake at O Level or 1st Year. The Class 7/8 window is where most seats are.',
   },
   {
-    q: 'Can we try before enrolling?',
-    a: 'Absolutely. Book a free trial class to meet the teacher and see the method before you commit to a plan.',
+    q: 'What are the age limits?',
+    a: 'They vary by college and are strictly enforced: Kohat requires 12–14 on 1 April of the admission year, PAF Sargodha over 11.5 and under 13.5 on 1 January with no relaxation, and Petaro roughly 11–13 for Class 7. Always check your target college’s exact cutoff before applying.',
+  },
+  {
+    q: 'When should we apply for the 2027 session?',
+    a: 'Registration windows open from autumn 2026. Hasan Abdal has announced an early-December 2026 deadline with its exam in late December; Petaro ran mid-January registration and an early-February test last cycle. Apply early and confirm dates on each college’s website.',
+  },
+  {
+    q: 'What happens after the written test?',
+    a: 'Shortlisted boys go through an interview and a medical and physical evaluation — vision, hearing, fitness and age verification. PAF Sargodha adds a Central Medical Board review, and Hasan Abdal includes a psychological assessment. Final offers follow combined merit.',
+  },
+  {
+    q: 'How competitive is admission?',
+    a: 'Very. Hasan Abdal takes around 120 boys a year from applicants across Pakistan on pure merit. The written test eliminates most candidates, which is why structured practice — especially in reasoning, the section schools never teach — makes the biggest difference.',
+  },
+  {
+    q: 'Can my son prepare online from another city or overseas?',
+    a: 'Yes — our classes are live online, so boys anywhere in Pakistan or abroad prepare on a schedule that suits them. Most colleges hold tests at centres in major cities (Kohat lists centres from Karachi to Peshawar), so overseas families typically travel only for test day.',
+  },
+  {
+    q: 'How early should preparation start?',
+    a: 'For a December–February test season, starting a few months earlier — ideally by late summer — gives time to cover the syllabus, build speed and sit full mock papers. Closer to the test we run focused crash preparation. Start with a free trial class either way.',
   },
 ];
 ---
 <HomeLayout title={title} description={description} canonical="/cadet-colleges-test/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
   <PageHeader
     eyebrow="Test preparation"
     crumb="Cadet College Test Prep"
-    title="Cadet College entry test preparation, online."
-    sub="English, Maths, Science, Urdu and reasoning — plus interview practice — from teachers who know what the entrance boards look for."
+    title="Cadet college entry test: the complete 2027 guide."
+    sub="Hasan Abdal, Petaro, Kohat, Sargodha — what the tests cover, how selection works, and how to prepare for every stage."
   />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Every year, thousands of families across Pakistan compete for a few hundred cadet college
+        seats. The entrance exams are the great filter: written papers in English, Urdu and
+        Mathematics, a reasoning section most boys have never practised, then interviews and
+        medicals. The pattern is similar across colleges, which means one well-planned preparation
+        covers Hasan Abdal, Petaro, Kohat, Sargodha and more. Here is how the process works for the
+        2027 session — and what it takes to get through it.
+      </p>
+
+      <h2 class="guide__h2">The test at a glance</h2>
+      <dl class="glance">
+        {
+          glance.map((g) => (
+            <div class="glance__item">
+              <dt class="glance__label">{g.label}</dt>
+              <dd class="glance__value">{g.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <h2 class="guide__h2">What the written test covers</h2>
+      <div class="guide__grid">
+        {
+          subjects.map((s) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{s.title}</h3>
+              <p class="gcard__body">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">College-by-college snapshot</h2>
+      <p class="guide__note">
+        Details reflect each college&rsquo;s most recent announced cycle — always confirm dates and
+        age cutoffs on the college&rsquo;s own website before applying.
+      </p>
+      <div class="guide__stack">
+        {
+          colleges.map((c) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{c.name}</h3>
+              <p class="gcard__body">{c.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">The five stages of selection</h2>
+      <ol class="timeline">
+        {
+          stages.map((t) => (
+            <li class="timeline__row">
+              <span class="timeline__when">{t.when}</span>
+              <span class="timeline__what">{t.what}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <h2 class="guide__h2">What it takes to get in</h2>
+      <p class="guide__text">
+        The written test decides most outcomes, and it rewards two things schools rarely drill:
+        speed and reasoning. A boy who has sat timed mock papers, practised intelligence questions
+        and written marked English and Urdu answers walks in with a genuine edge over equally
+        bright classmates seeing it all for the first time. Age eligibility is checked strictly at
+        every college, so verify your son&rsquo;s date of birth against the cutoff before paying
+        any fee — and because test season runs December to February, the families who start
+        preparing in summer and autumn are the ones with time on their side.
+      </p>
+    </div>
+  </section>
+
   <LandingBody
-    lead="Cadet college entrance tests reward broad, solid fundamentals and steady nerves: a written paper spanning English, Mathematics, Science and Urdu, reasoning questions many students have never seen, then an interview. Our preparation covers all of it with live weekly classes, marked practice papers and mock interviews — so your child arrives prepared for every stage, not just the parts that are easy to revise."
+    lead="Our preparation covers every stage: live weekly classes in English, Urdu, Mathematics and science, dedicated reasoning practice with the question types the intelligence section actually uses, timed mock papers marked the way examiners mark, and interview rehearsal so the selection day holds no surprises. Tell us your target college and entry class, and we set the syllabus to match."
     pointsTitle="What the preparation covers"
     points={points}
     relatedTitle="Related preparation"
@@ -72,3 +259,123 @@ const faqs = [
     sub="Start with a free trial class — meet the teacher, see the method, no commitment."
   />
 </HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text,
+  .guide__note {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__note {
+    margin-bottom: 20px;
+    color: var(--c-muted);
+    font-size: 15px;
+  }
+
+  .glance {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .glance__item {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .glance__label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c-muted);
+  }
+  .glance__value {
+    margin: 6px 0 0;
+    font-weight: 600;
+    color: var(--c-primary-ink);
+    line-height: 1.4;
+  }
+
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .timeline__row {
+    display: grid;
+    grid-template-columns: minmax(180px, 240px) 1fr;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--c-card);
+  }
+  .timeline__row:nth-child(even) {
+    background: var(--c-panel);
+  }
+  .timeline__row + .timeline__row {
+    border-top: 1px solid var(--c-border);
+  }
+  .timeline__when {
+    font-weight: 700;
+    color: var(--c-primary-ink);
+  }
+  .timeline__what {
+    line-height: 1.6;
+    color: var(--c-text);
+  }
+  @media (max-width: 560px) {
+    .timeline__row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+</style>
