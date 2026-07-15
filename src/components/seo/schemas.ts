@@ -7,7 +7,7 @@ import { site } from '../../data/site';
 export function educationalOrganization() {
   return {
     '@context': 'https://schema.org',
-    '@type': ['EducationalOrganization', 'Organization'],
+    '@type': ['EducationalOrganization', 'LocalBusiness', 'Organization'],
     '@id': `${site.domain}/#organization`,
     name: site.name,
     alternateName: 'Learners Academy Online Tuition',
@@ -20,6 +20,7 @@ export function educationalOrganization() {
     },
     image: `${site.domain}/og/og-default.jpg`,
     telephone: site.contact.phone,
+    priceRange: '₨ 3,500 – ₨ 24,000 per month',
     email: site.contact.email,
     foundingDate: String(site.founded),
     address: {
