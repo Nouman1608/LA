@@ -1,0 +1,242 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { breadcrumbList } from '../components/seo/schemas';
+import { site, whatsappLink } from '../data/site';
+
+const title = `Online Tuition for Pakistani Expats — IGCSE & A Level | ${site.name}`;
+const description =
+  'IGCSE, O Level & A Level tuition for Pakistani families abroad — UAE, Saudi Arabia, Qatar, Kuwait and the UK. Teachers from home, official specs. Free trial class.';
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Pakistani Expats', url: `${site.domain}/pakistani-expats/` },
+]);
+
+const countries = [
+  {
+    name: 'United Arab Emirates',
+    href: '/igcse-tuition/dubai/',
+    body: 'Around 1.9 million Pakistanis call the UAE home. Classes on Gulf evening timings for students in Dubai, Abu Dhabi, Sharjah and beyond — one hour behind Pakistan.',
+    label: 'IGCSE tuition in Dubai & UAE',
+  },
+  {
+    name: 'Saudi Arabia',
+    href: '/igcse-tuition/saudi-arabia/',
+    body: 'The largest overseas Pakistani community in the world. Support for British-school students, Cambridge sections at Pakistani schools, and private candidates across the Kingdom.',
+    label: 'IGCSE tuition in Saudi Arabia',
+  },
+  {
+    name: 'Qatar',
+    href: '/igcse-tuition/qatar/',
+    body: 'A community with roots in Doha since the 1940s. We support students at British schools, PISQ’s Cambridge Wing, and private candidates — on Qatar-friendly evening slots.',
+    label: 'IGCSE tuition in Qatar',
+  },
+  {
+    name: 'Kuwait',
+    href: '/igcse-tuition/kuwait/',
+    body: 'Where local subject tutors are hardest to find in the Gulf. Live online classes for British-school students and the Cambridge streams at Pakistani community schools.',
+    label: 'IGCSE tuition in Kuwait',
+  },
+  {
+    name: 'United Kingdom',
+    href: '/igcse-tuition/uk/',
+    body: 'Over 1.6 million strong — Europe’s largest Pakistani community. GCSE and A Level support, plus IGCSE preparation for the UK’s growing home-education families.',
+    label: 'IGCSE & GCSE tuition in the UK',
+  },
+];
+
+const anchors = [
+  {
+    title: 'One set of boards, worldwide',
+    body: 'Cambridge (CAIE), Edexcel and AQA are the same everywhere. Wherever your posting takes you next, your child’s teacher, syllabus and progress records move with them — no starting over.',
+  },
+  {
+    title: 'Teachers from home',
+    body: 'Lessons in a teaching style your child recognises, with Urdu and Islamiyat available alongside maths and sciences — the balance many expat parents want and international schools rarely provide.',
+  },
+  {
+    title: 'Planning a return to Pakistan?',
+    body: 'We prepare boys for the Aitchison College entry test and cadet college entrance exams from abroad — your child prepares online and travels only for test day.',
+  },
+  {
+    title: 'Rupee-based fees',
+    body: 'Per-subject monthly pricing set in Pakistani rupees, which typically works out well below in-person tutoring rates in the Gulf or the UK. Sibling and multi-subject discounts apply.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Which countries do you teach in?',
+    a: 'Anywhere with an internet connection. Most of our overseas families are in the UAE, Saudi Arabia, Qatar, Kuwait and the UK — but classes are live online, so students join from anywhere on timings that fit their time zone.',
+  },
+  {
+    q: 'How do you handle different time zones?',
+    a: 'The Gulf is one to two hours behind Pakistan and the UK four to five, so after-school slots abroad align naturally with our teaching day. Tell us your country and school week and we schedule around it — including Friday–Saturday weekends in the Gulf.',
+  },
+  {
+    q: 'Can my child keep the same teacher if we relocate?',
+    a: 'Yes — that is one of the biggest reasons expat families choose online tuition. A move from Riyadh to Dubai or Doha to London changes nothing: same teacher, same syllabus, same schedule adjusted to the new time zone.',
+  },
+  {
+    q: 'Do you prepare children for admission back in Pakistan?',
+    a: 'Yes. Families planning a return use our online preparation for the Aitchison College entry test and cadet college exams (Hasan Abdal, Petaro, Kohat, Sargodha). Your child prepares from abroad and flies back only for the test itself.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. WhatsApp us your country, your child’s subjects, year group and exam board — we reply the same day with options on timings that fit your time zone.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/pakistani-expats/" topBar={false}>
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="For families abroad"
+    crumb="Pakistani Expats"
+    title="Online tuition for Pakistani families abroad."
+    sub="IGCSE, O Level and A Level classes for the diaspora — UAE, Saudi Arabia, Qatar, Kuwait, the UK and beyond — from teachers back home."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Millions of Pakistani families live and work abroad, and they share an education dilemma:
+        international schools teach the right curriculum but rarely feel like home, local tutors
+        are expensive and unfamiliar, and every relocation resets everything. Live online tuition
+        solves all three. Your child learns Cambridge, Edexcel or AQA from an experienced Pakistani
+        teacher, keeps that teacher through every move, and pays fees set in rupees — not dirhams,
+        riyals or pounds.
+      </p>
+
+      <h2 class="guide__h2">Find your country</h2>
+      <div class="guide__stack">
+        {
+          countries.map((c) => (
+            <a class="ccard" href={c.href}>
+              <h3 class="ccard__title">{c.name}</h3>
+              <p class="ccard__body">{c.body}</p>
+              <span class="ccard__link">{c.label} <span aria-hidden="true">→</span></span>
+            </a>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">What stays the same, wherever you are</h2>
+      <div class="guide__grid">
+        {
+          anchors.map((a) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{a.title}</h3>
+              <p class="gcard__body">{a.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Start from anywhere</h2>
+      <p class="guide__text">
+        WhatsApp us your country, your child&rsquo;s subjects, year group and exam board. We reply
+        the same day with class options on timings that fit your time zone — and a free trial class
+        so your child can meet the teacher before you decide anything.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! We're a Pakistani family abroad and would like to ask about classes.")} variant="primary" size="lg">
+          WhatsApp us from anywhere
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Home-standard teaching, wherever home is right now."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard,
+  .ccard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .ccard {
+    display: block;
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .ccard:hover {
+    border-color: var(--c-primary);
+    transform: translateY(-2px);
+  }
+  .gcard__title,
+  .ccard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body,
+  .ccard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .ccard__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
