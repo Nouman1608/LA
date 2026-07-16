@@ -1,0 +1,245 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Faq from '../../components/sections/Faq.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import Button from '../../components/ui/Button.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../../components/seo/schemas';
+import { site, whatsappLink } from '../../data/site';
+
+const title = `Online IGCSE Tuition UK — GCSE & A Level Support | ${site.name}`;
+const description =
+  'Online IGCSE, GCSE & A Level tuition for UK families — Cambridge, Edexcel and AQA. Home-education specialists, UK-friendly timings, affordable rates. Free trial.';
+
+const courseSchema = course({
+  name: 'IGCSE, GCSE & A Level Online Tuition for UK Students',
+  description:
+    'Live online IGCSE, GCSE and A Level classes for students in the UK — Cambridge, Edexcel and AQA exam boards, including private-candidate preparation for home-educated students.',
+  url: `${site.domain}/igcse-tuition/uk/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'IGCSE Tuition UK', url: `${site.domain}/igcse-tuition/uk/` },
+]);
+
+const reasons = [
+  {
+    title: 'The boards UK students actually sit',
+    body: 'We teach Edexcel and AQA — two of the UK’s main exam boards — plus Cambridge IGCSE, all from the official specifications. Whether your child is at school or home educated, preparation matches their exact papers.',
+  },
+  {
+    title: 'A fraction of UK tutoring rates',
+    body: 'Private tutors in the UK commonly charge £30–50 per hour. Our fees are set per subject per month in Pakistani rupees — the same experienced teacher, at a price that makes weekly tuition sustainable all year.',
+  },
+  {
+    title: 'Timings that fit UK evenings',
+    body: 'The UK is four to five hours behind Pakistan, so after-school slots in the UK land in our evening teaching window, and UK weekend mornings are ideal for longer sessions.',
+  },
+  {
+    title: 'Teachers who know both worlds',
+    body: 'For British-Pakistani families, our teachers offer something UK tutoring agencies rarely do: exam-board expertise plus cultural familiarity — including Urdu and Islamiyat support alongside the sciences and maths.',
+  },
+];
+
+const situations = [
+  {
+    title: 'Home educating? IGCSE is your route',
+    body: 'Home-educated students in the UK sit exams as private candidates, and most home educators choose Cambridge or Edexcel International GCSEs because they are assessed entirely by written exams — no school-supervised coursework. That is precisely what we teach: full syllabus coverage, marked work, mocks, and guidance on exam-centre registration.',
+  },
+  {
+    title: 'At school and need a boost',
+    body: 'For students at UK schools on AQA or Edexcel GCSEs, or at independent schools sitting IGCSEs, we run weekly reinforcement in maths, sciences, economics and more — past-paper-driven, marked to the board’s standard.',
+  },
+  {
+    title: 'Aiming at Russell Group universities',
+    body: 'A Level grades decide UK university offers. Our A Level groups and 1-to-1 tuition cover Cambridge, Edexcel and AQA specifications, with structured past-paper cycles in the run-up to summer exams.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you teach students in the UK?',
+    a: 'Yes — we have taught British-Pakistani families and other UK students online since 2016. Classes are live and interactive; all your child needs is a laptop and a stable connection, whether you are in London, Birmingham, Bradford or Manchester.',
+  },
+  {
+    q: 'How do timings work from the UK?',
+    a: 'The UK is four hours behind Pakistan in summer and five in winter. A 5pm class in the UK is 9–10pm in Lahore, which we schedule for; UK weekend mornings — Pakistan afternoon — are the most popular slots for longer sessions.',
+  },
+  {
+    q: 'Which exam boards do you cover for UK students?',
+    a: 'Edexcel and AQA — including their GCSE and International GCSE specifications — plus Cambridge (CAIE) IGCSE, O Level and A Level. Tell us the exact specification code your child follows and we prepare them for those papers.',
+  },
+  {
+    q: 'Can you prepare my home-educated child for IGCSEs as a private candidate?',
+    a: 'Yes — this is one of our strongest areas. Home-educated students typically sit Cambridge or Edexcel IGCSEs at approved private exam centres. We provide the complete structure: live weekly teaching, marked homework, timed mocks and registration guidance.',
+  },
+  {
+    q: 'Is online tuition from Pakistan really cheaper than a UK tutor?',
+    a: 'Substantially. UK private tutoring commonly runs £30–50 per hour, so a single weekly hour can cost £150+ a month. Our per-subject monthly fees in rupees typically work out at a fraction of that — see the pricing page, then message us on WhatsApp to confirm in pounds.',
+  },
+  {
+    q: 'Do you teach Urdu and Islamiyat?',
+    a: 'Yes — alongside maths, sciences, English and humanities, we support Urdu and Islamiyat, which many British-Pakistani families want their children to keep up formally. Ask us about the right level and board options.',
+  },
+  {
+    q: 'Can you help with A Level subject choices for UK universities?',
+    a: 'Yes. Russell Group offers hinge on A Level grades and sensible subject combinations. Our teachers advise on combinations for medicine, engineering, law and economics pathways — then deliver the grades those offers demand.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. WhatsApp us your child’s subjects, year group and exam board — we reply the same day with group options on UK-friendly timings, or 1-to-1 slots of your choice.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/igcse-tuition/uk/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="IGCSE tuition · United Kingdom"
+    crumb="IGCSE Tuition UK"
+    title="Online IGCSE & A Level tuition for UK families."
+    sub="Cambridge, Edexcel and AQA — for school students, home educators and A Level candidates — on UK-friendly timings at Pakistani rates."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        The UK is home to over 1.6 million people of Pakistani heritage — the largest Pakistani
+        community in Europe — and to one of the world&rsquo;s most competitive school systems.
+        Grades gatekeep everything: GCSE results shape sixth-form options, and A Levels decide
+        university offers. Yet quality private tutoring in the UK costs £30–50 an hour, putting
+        consistent weekly support out of reach for many families. We close that gap: experienced
+        Pakistani teachers, the same Edexcel, AQA and Cambridge specifications UK students sit,
+        live online at rupee-based rates.
+      </p>
+
+      <h2 class="guide__h2">Why UK families choose us</h2>
+      <div class="guide__grid">
+        {
+          reasons.map((r) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{r.title}</h3>
+              <p class="gcard__body">{r.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Three UK situations we know well</h2>
+      <div class="guide__stack">
+        {
+          situations.map((s) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{s.title}</h3>
+              <p class="gcard__body">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works from the UK</h2>
+      <p class="guide__text">
+        WhatsApp us your child&rsquo;s subjects, year group and exam board — including the
+        specification code if you know it. We reply the same day with group class options on
+        UK-friendly evening and weekend slots, or 1-to-1 timings of your choice. Classes are live,
+        homework is marked weekly, and past-paper practice builds through the year towards the
+        May/June exam season, with January Edexcel sessions covered for early entries and resits.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! I'm in the UK and would like to ask about IGCSE/GCSE classes.")} variant="primary" size="lg">
+          WhatsApp us from the UK
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">Also for Pakistani families abroad</h2>
+      <div class="related__links">
+        <a class="related__link" href="/pakistani-expats/">All countries — Pakistani expats hub <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/igcse-tuition/dubai/">IGCSE tuition in Dubai &amp; UAE <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/subjects/">All subjects &amp; boards <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="UK grades, Pakistani rates, teachers who get it."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
