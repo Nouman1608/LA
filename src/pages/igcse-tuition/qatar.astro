@@ -1,0 +1,247 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Faq from '../../components/sections/Faq.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import Button from '../../components/ui/Button.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../../components/seo/schemas';
+import { site, whatsappLink } from '../../data/site';
+
+const title = `IGCSE Tuition in Qatar — Online Classes for Doha | ${site.name}`;
+const description =
+  'Online IGCSE & A Level tuition for Doha and all Qatar. Cambridge & Edexcel specialists on Qatar-friendly evening timings. Book a free trial class.';
+
+const courseSchema = course({
+  name: 'IGCSE & A Level Online Tuition for Qatar Students',
+  description:
+    'Live online IGCSE, O Level and A Level classes for students in Doha and across Qatar — Cambridge, Edexcel and AQA exam boards.',
+  url: `${site.domain}/igcse-tuition/qatar/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'IGCSE Tuition Qatar', url: `${site.domain}/igcse-tuition/qatar/` },
+]);
+
+const context = [
+  {
+    title: 'A deep-rooted community',
+    body: 'Pakistani families have been part of Qatar since the 1940s — long enough that Doha has four Pakistani schools, from Pak Shama (founded 1958) to the Pakistan International School with its Cambridge Wing.',
+  },
+  {
+    title: 'A British-curriculum city',
+    body: 'Doha’s private schools teach over 20 curricula, and the British route is among the most sought-after — Sherborne Qatar alone runs five schools, with IGCSE in Years 10–11 and A Levels after.',
+  },
+  {
+    title: 'A small tutoring market',
+    body: 'Qatar is one city for most practical purposes, and quality subject tutors are scarce and expensive. Online tuition removes the constraint entirely — the best teacher for your child does not need a Doha address.',
+  },
+  {
+    title: 'Timings that work',
+    body: 'Qatar is two hours behind Pakistan and schools run Sunday to Thursday. Evening classes Doha time sit comfortably in our teaching day, with the Friday–Saturday weekend free for longer sessions.',
+  },
+];
+
+const help = [
+  {
+    title: 'At a British school in Doha',
+    body: 'Whether your child is at Sherborne, Doha British School or any of the city’s British-curriculum schools, we reinforce the exact Cambridge or Edexcel specification they follow — same syllabus code, same papers.',
+  },
+  {
+    title: 'At PISQ or a Pakistani school',
+    body: 'The Pakistan International School Qatar runs both FBISE and a Cambridge Wing (IGCSE and AS/A Levels). Our teachers know both systems and are particularly strong support for Cambridge Wing students aiming for top grades.',
+  },
+  {
+    title: 'Private candidates',
+    body: 'Families outside the British-school system can register for Cambridge and Edexcel exams at approved centres in Qatar. We provide the full teaching structure — syllabus coverage, marked work, mocks and registration guidance.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you teach students in Doha and the rest of Qatar?',
+    a: 'Yes — classes are live online, so whether you are in Doha, Al Wakrah, Al Khor or a compound outside the city, your child gets the same teacher and the same structure. We have taught Gulf-based students since 2016.',
+  },
+  {
+    q: 'How do class timings work from Qatar?',
+    a: 'Qatar is two hours behind Pakistan and schools run Sunday to Thursday. A 6pm class in Doha is 8pm in Lahore — comfortably within our teaching day — and the Friday–Saturday weekend suits longer or 1-to-1 sessions.',
+  },
+  {
+    q: 'Which exam boards do you cover?',
+    a: 'Cambridge (CAIE), Pearson Edexcel and AQA across IGCSE, O Level and A Level. We teach from the official specifications, so preparation matches the exact papers your child will sit.',
+  },
+  {
+    q: 'My child is in the Cambridge Wing at PISQ. Can you help?',
+    a: 'Yes — this is a common situation for us. We know the Cambridge IGCSE and AS/A Level syllabuses inside out and teach in a style that bridges the Pakistani classroom and the Cambridge marking standard.',
+  },
+  {
+    q: 'What does it cost from Qatar?',
+    a: 'Fees are per subject per month in Pakistani rupees — typically far below Doha in-person tutoring rates. See the pricing page for current figures, then message us on WhatsApp to confirm fees and payment from Qatar.',
+  },
+  {
+    q: 'Can my child sit exams in Qatar as a private candidate?',
+    a: 'Yes. Cambridge and Edexcel exams are available at approved centres in Qatar for private candidates. We cover the full syllabus, set marked mocks, and guide you through registration deadlines.',
+  },
+  {
+    q: 'Do you also prepare students for A Levels?',
+    a: 'Yes — group classes and 1-to-1 across sciences, maths, economics, business and more, for Cambridge and Edexcel. Many IGCSE students continue with us into Years 12–13.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. Send us your child’s subjects, year group and exam board on WhatsApp and we reply the same day with class options on Qatar-friendly timings.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/igcse-tuition/qatar/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="IGCSE tuition · Qatar"
+    crumb="IGCSE Tuition Qatar"
+    title="IGCSE tuition in Qatar, live and online."
+    sub="Cambridge, Edexcel and AQA classes for families in Doha — on Qatar-friendly timings, from teachers who have taught Gulf students since 2016."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Qatar&rsquo;s population is nearly 90% expatriate, and for the families who make up that
+        majority, education is the reason many are there at all. Doha&rsquo;s British-curriculum
+        schools are excellent — and demanding. Classes move quickly, IGCSE results shape A Level
+        options, and the city&rsquo;s small pool of private tutors is booked out and priced
+        accordingly. Live online tuition gives Doha families a better option: experienced teachers
+        who teach the exact specification your child&rsquo;s school follows, at fees set in
+        Pakistani rupees.
+      </p>
+
+      <h2 class="guide__h2">Why Qatar, specifically</h2>
+      <div class="guide__grid">
+        {
+          context.map((c) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{c.title}</h3>
+              <p class="gcard__body">{c.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Whatever your child&rsquo;s school</h2>
+      <div class="guide__stack">
+        {
+          help.map((h) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{h.title}</h3>
+              <p class="gcard__body">{h.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works from Doha</h2>
+      <p class="guide__text">
+        Message us on WhatsApp with your child&rsquo;s subjects, year group and exam board. We
+        reply the same day with group class options on Qatar-friendly evening slots — or 1-to-1
+        timings of your choice, including the Friday–Saturday weekend. Every class is live, homework
+        is set and marked weekly, and past-paper practice intensifies before the May/June exam
+        session. You stay in the loop with regular WhatsApp progress updates.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! I'm in Qatar and would like to ask about IGCSE classes.")} variant="primary" size="lg">
+          WhatsApp us from Qatar
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">Also for families in the Gulf</h2>
+      <div class="related__links">
+        <a class="related__link" href="/igcse-tuition/dubai/">IGCSE tuition in Dubai &amp; UAE <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/igcse-tuition/saudi-arabia/">IGCSE tuition in Saudi Arabia <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/igcse-tuition/kuwait/">IGCSE tuition in Kuwait <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/subjects/">All subjects &amp; boards <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Doha-schedule-friendly, Cambridge-standard tuition."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
+                 

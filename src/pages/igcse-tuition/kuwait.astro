@@ -1,0 +1,246 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Faq from '../../components/sections/Faq.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import Button from '../../components/ui/Button.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../../components/seo/schemas';
+import { site, whatsappLink } from '../../data/site';
+
+const title = `IGCSE Tuition in Kuwait — Online Classes | ${site.name}`;
+const description =
+  'Online IGCSE, O Level & A Level tuition for families in Kuwait. Cambridge & Edexcel specialists, Kuwait-friendly timings, WhatsApp-first. Free trial class.';
+
+const courseSchema = course({
+  name: 'IGCSE & A Level Online Tuition for Kuwait Students',
+  description:
+    'Live online IGCSE, O Level and A Level classes for students in Kuwait — Cambridge, Edexcel and AQA exam boards.',
+  url: `${site.domain}/igcse-tuition/kuwait/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'IGCSE Tuition Kuwait', url: `${site.domain}/igcse-tuition/kuwait/` },
+]);
+
+const gaps = [
+  {
+    title: 'Fewer tutors than Dubai or Doha',
+    body: 'Kuwait’s private tutoring market is thinner than the bigger Gulf hubs. Finding a strong Cambridge chemistry or Edexcel maths tutor locally is often a matter of luck — online, it is a matter of scheduling.',
+  },
+  {
+    title: 'Strong Pakistani-school Cambridge streams',
+    body: 'Schools like Pakistan English School teach Cambridge IGCSE and Edexcel pathways. Our teachers know exactly how to support students in these streams — the same boards, taught to the same marking standards.',
+  },
+  {
+    title: 'Built around the Kuwait week',
+    body: 'Kuwait is two hours behind Pakistan with a Sunday–Thursday school week. Evening classes Kuwait time land mid-evening in Lahore, and the Friday–Saturday weekend is ideal for longer sessions.',
+  },
+  {
+    title: 'WhatsApp-first, rupee-priced',
+    body: 'Enquiries, scheduling and progress updates all happen on WhatsApp, and fees are set per subject per month in Pakistani rupees — a structure Gulf families consistently find more affordable than local rates.',
+  },
+];
+
+const help = [
+  {
+    title: 'At a British or international school',
+    body: 'Kuwait’s expatriate majority — around 70% of the population — supports a wide circuit of British-curriculum schools. Whichever your child attends, we teach the official Cambridge or Edexcel specification their school follows.',
+  },
+  {
+    title: 'At a Pakistani school on a Cambridge stream',
+    body: 'Kuwait’s long-established Pakistani community runs its own schools, several teaching Cambridge IGCSE alongside the Pakistani curriculum. We bridge both worlds: familiar teaching style, board-exam standards.',
+  },
+  {
+    title: 'Studying as a private candidate',
+    body: 'Cambridge and Edexcel exams are available in Kuwait through approved exam centres. We provide complete private-candidate preparation — full syllabus coverage, marked mocks and registration guidance.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you teach students across Kuwait?',
+    a: 'Yes — Kuwait City, Salmiya, Fahaheel, Jahra and everywhere else. Classes are live online, so location makes no difference. We have taught students across the Gulf since 2016.',
+  },
+  {
+    q: 'How do timings work from Kuwait?',
+    a: 'Kuwait is two hours behind Pakistan and schools run Sunday to Thursday. A 6pm class in Kuwait City is 8pm in Lahore, comfortably inside our teaching day — and the Friday–Saturday weekend works well for 1-to-1 or longer sessions.',
+  },
+  {
+    q: 'Which exam boards and levels do you cover?',
+    a: 'Cambridge (CAIE), Pearson Edexcel and AQA, across IGCSE, O Level and A Level. Preparation follows the official specification and syllabus code your child’s school uses.',
+  },
+  {
+    q: 'My child is at Pakistan English School on the Cambridge stream. Can you help?',
+    a: 'Yes — supporting Cambridge streams at Pakistani community schools is one of the things we do best. Our teachers know both the classroom culture and the Cambridge marking standard, so lessons reinforce school rather than confuse it.',
+  },
+  {
+    q: 'Can my child sit exams in Kuwait as a private candidate?',
+    a: 'Yes. Cambridge and Edexcel exams run at approved centres in Kuwait for private candidates. We cover the syllabus end to end, set timed marked mocks, and keep you ahead of registration deadlines.',
+  },
+  {
+    q: 'What does it cost from Kuwait?',
+    a: 'Fees are per subject per month in Pakistani rupees — see the pricing page for current rates, which typically undercut local in-person tutoring substantially. Message us on WhatsApp and we will confirm fees and payment from Kuwait.',
+  },
+  {
+    q: 'Do you teach A Level students in Kuwait too?',
+    a: 'Yes — group and 1-to-1 A Level classes across sciences, maths, economics, business and more, for Cambridge and Edexcel. Many families continue with us from IGCSE straight through Years 12–13.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. WhatsApp us your child’s subjects, year group and exam board, and we reply the same day with options on Kuwait-friendly timings.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/igcse-tuition/kuwait/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="IGCSE tuition · Kuwait"
+    crumb="IGCSE Tuition Kuwait"
+    title="IGCSE tuition in Kuwait, live and online."
+    sub="Cambridge, Edexcel and AQA classes for families across Kuwait — evening timings, WhatsApp-first communication, teachers who know your child's board."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Around 70% of Kuwait&rsquo;s population is expatriate, and the Pakistani community is among
+        its longest-established — complete with its own schools, several teaching Cambridge IGCSE
+        and Edexcel alongside the Pakistani curriculum. What Kuwait does not have is a deep bench
+        of subject tutors. Families who would find ten chemistry specialists in Dubai often find
+        none nearby in Salmiya or Fahaheel. Live online tuition closes that gap: experienced
+        Pakistani teachers, official specifications, evening slots that fit the Kuwait school week.
+      </p>
+
+      <h2 class="guide__h2">Why families in Kuwait choose us</h2>
+      <div class="guide__grid">
+        {
+          gaps.map((g) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{g.title}</h3>
+              <p class="gcard__body">{g.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Whatever your child&rsquo;s school situation</h2>
+      <div class="guide__stack">
+        {
+          help.map((h) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{h.title}</h3>
+              <p class="gcard__body">{h.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works from Kuwait</h2>
+      <p class="guide__text">
+        Send a WhatsApp message with your child&rsquo;s subjects, year group and exam board. We
+        reply the same day with group options on Kuwait-friendly evening slots, or 1-to-1 timings
+        of your choice including the Friday–Saturday weekend. Classes are live and interactive,
+        homework is marked weekly, and past-paper practice builds up ahead of the May/June exam
+        session — with October/November available for retakes.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! I'm in Kuwait and would like to ask about IGCSE classes.")} variant="primary" size="lg">
+          WhatsApp us from Kuwait
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">Also for families in the Gulf</h2>
+      <div class="related__links">
+        <a class="related__link" href="/igcse-tuition/dubai/">IGCSE tuition in Dubai &amp; UAE <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/igcse-tuition/saudi-arabia/">IGCSE tuition in Saudi Arabia <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/igcse-tuition/qatar/">IGCSE tuition in Qatar <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/subjects/">All subjects &amp; boards <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Serious preparation, wherever in Kuwait you live."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
+          
