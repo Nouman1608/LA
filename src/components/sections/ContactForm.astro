@@ -28,6 +28,7 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
     data-contact-form
   >
     <h3 class="leadform__title">{heading}</h3>
+    <p class="leadform__note">* All fields are required</p>
 
     <input type="hidden" name="source" value={source} />
     <input type="hidden" name="redirect" value="/contact/?sent=1" />
@@ -40,25 +41,25 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
     <div class="leadform__fields">
       <label class="field">
         <span class="visually-hidden">Full name</span>
-        <input name="name" placeholder="Full name" autocomplete="name" required />
+        <input name="name" placeholder="Full name *" autocomplete="name" required />
       </label>
       <div class="field-row">
         <label class="field">
           <span class="visually-hidden">Email</span>
-          <input name="email" type="email" placeholder="Email" autocomplete="email" required />
+          <input name="email" type="email" placeholder="Email *" autocomplete="email" required />
         </label>
         <label class="field">
           <span class="visually-hidden">Phone</span>
-          <input name="phone" type="tel" placeholder="Phone" autocomplete="tel" required />
+          <input name="phone" type="tel" placeholder="Phone *" autocomplete="tel" required />
         </label>
       </div>
       <label class="field">
         <span class="visually-hidden">Class or grade</span>
-        <input name="class" placeholder="Class / grade (e.g. A Level Year 1)" required />
+        <input name="class" placeholder="Class / grade (e.g. A Level Year 1) *" required />
       </label>
       <label class="field">
         <span class="visually-hidden">Subjects of interest or other details</span>
-        <textarea name="details" rows="3" placeholder="Subjects of interest / other details" required></textarea>
+        <textarea name="details" rows="3" placeholder="Subjects of interest / other details *" required></textarea>
       </label>
 
       <div class="cf-turnstile" data-sitekey={sitekey} data-theme="light"></div>
@@ -79,8 +80,13 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
     padding: 32px;
     box-shadow: var(--shadow-float);
   }
+  .leadform__note {
+    margin: -12px 0 14px;
+    font-size: 13px;
+    color: var(--c-text-soft, #6b7280);
+  }
   .leadform__title {
-    margin: 0 0 18px;
+    margin: 0 0 6px;
     font-family: var(--font-serif);
     font-size: 23px;
     color: var(--c-primary);
