@@ -41,25 +41,25 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
     <div class="leadform__fields">
       <label class="field">
         <span class="visually-hidden">Full name</span>
-        <input name="name" placeholder="Full name *" autocomplete="name" required />
+        <input name="name" placeholder="Full name" autocomplete="name" required />
       </label>
       <div class="field-row">
         <label class="field">
           <span class="visually-hidden">Email</span>
-          <input name="email" type="email" placeholder="Email *" autocomplete="email" required />
+          <input name="email" type="email" placeholder="Email" autocomplete="email" required />
         </label>
         <label class="field">
           <span class="visually-hidden">Phone</span>
-          <input name="phone" type="tel" placeholder="Phone *" autocomplete="tel" required />
+          <input name="phone" type="tel" placeholder="Phone" autocomplete="tel" required />
         </label>
       </div>
       <label class="field">
         <span class="visually-hidden">Class or grade</span>
-        <input name="class" placeholder="Class / grade (e.g. A Level Year 1) *" required />
+        <input name="class" placeholder="Class / grade (e.g. A Level Year 1)" required />
       </label>
       <label class="field">
         <span class="visually-hidden">Subjects of interest or other details</span>
-        <textarea name="details" rows="3" placeholder="Subjects of interest / other details *" required></textarea>
+        <textarea name="details" rows="3" placeholder="Subjects of interest / other details" required></textarea>
       </label>
 
       <div class="cf-turnstile" data-sitekey={sitekey} data-theme="light"></div>
@@ -83,7 +83,8 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
   .leadform__note {
     margin: -12px 0 14px;
     font-size: 13px;
-    color: var(--c-text-soft, #6b7280);
+    font-weight: 600;
+    color: #dc2626;
   }
   .leadform__title {
     margin: 0 0 6px;
@@ -98,6 +99,17 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
   }
   .field {
     display: block;
+    position: relative;
+  }
+  .field::after {
+    content: '*';
+    position: absolute;
+    top: 12px;
+    right: 13px;
+    color: #dc2626;
+    font-size: 16px;
+    font-weight: 700;
+    pointer-events: none;
   }
   .field-row {
     display: flex;
@@ -111,7 +123,7 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000
   .leadform input,
   .leadform textarea {
     width: 100%;
-    padding: 13px 15px;
+    padding: 13px 28px 13px 15px;
     border: 1px solid var(--c-field-border);
     border-radius: var(--r-sm);
     font-size: 15px;
