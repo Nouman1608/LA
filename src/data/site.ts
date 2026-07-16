@@ -12,7 +12,7 @@ export const site = {
   country: 'PK',
   /** Structured postal address — used in JSON-LD (matches the WordPress LocalBusiness data). */
   address: {
-    street: 'Bahria Town, Lahore, Punjab',
+    street: 'Street 35, Umer Block Sector B, Bahria Town',
     locality: 'Lahore',
     region: 'Punjab',
     postalCode: '53720',
