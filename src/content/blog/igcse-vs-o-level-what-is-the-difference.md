@@ -39,6 +39,8 @@ Two of these deserve a closer look:
 
 **Core and Extended tiers.** Several IGCSE subjects offer a Core paper (capped at grade C) and an Extended paper (full range to A*). This gives schools flexibility with mixed-ability groups — but ambitious students should always sit Extended.
 
+*Choosing for the sciences specifically? See our subject-level guide: [IGCSE Chemistry (0620) vs O Level Chemistry (5070)](/blog/igcse-vs-o-level-chemistry-0620-5070/).*
+
 ## IBCC equivalence in Pakistan: identical
 
 For families planning Pakistani university admission, this is the question that matters — and the answer is unambiguous. The IBCC applies the **same conversion to IGCSE and O Level grades**: A* converts to 90, A to 85, B to 75, C to 65, D to 55 and E to 45. The equivalence is calculated from your child's **eight best subjects**, which must include English, Urdu, Islamiat, Pakistan Studies, Mathematics and a science.
