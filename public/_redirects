@@ -136,6 +136,7 @@ https://www.learnersacademy.com.pk/*  https://learnersacademy.com.pk/:splat  301
 /index.php    /               301
 /law/feed/    /subjects/law/  301
 /feed/        /blog/          301
+/:slug/feed/  /blog/:slug/    301
 
 # ============================================================
 # WordPress cruft cleanup
