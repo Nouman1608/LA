@@ -1,0 +1,254 @@
+---
+// src/pages/[levelSlug]/[board]/index.astro
+// Generates /a-levels/cambridge/, /igcse/edexcel/, /o-levels/cambridge/ etc.
+// Only real level+board combinations are emitted — no empty pages.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import JsonLd from '../../../components/seo/JsonLd.astro';
+import Button from '../../../components/ui/Button.astro';
+import { site, whatsappLink } from '../../../data/site';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('subjectBoards', ({ data }) => !data.draft);
+
+  // Unique level+board pairs actually present in the collection.
+  const combos = [
+    ...new Map(
+      pages.map((p) => [`${p.data.levelSlug}|${p.data.board}`, p])
+    ).entries(),
+  ];
+
+  return combos.map(([key, sample]) => {
+    const [levelSlug, board] = key.split('|');
+    const entries = pages.filter(
+      (p) => p.data.levelSlug === levelSlug && p.data.board === board
+    );
+
+    return {
+      params: { levelSlug, board },
+      props: {
+        levelName: sample.data.level,
+        boardName: sample.data.boardName,
+        priceFrom: sample.data.priceFrom,
+        oneToOne: sample.data.oneToOne,
+        subjects: entries
+          .map((e) => ({
+            subject: e.data.subject,
+            subjectName: e.data.subjectName,
+            syllabusCode: e.data.syllabusCode,
+            topicCount: e.data.topics.length,
+          }))
+          .sort((a, b) => a.subjectName.localeCompare(b.subjectName)),
+      },
+    };
+  });
+}
+
+const { levelSlug, board } = Astro.params;
+const { levelName, boardName, priceFrom, oneToOne, subjects } = Astro.props;
+
+const canonical = `/${levelSlug}/${board}/`;
+const url = new URL(canonical, site.domain).href;
+const wa = whatsappLink(`Hi! I'd like to ask about ${boardName} ${levelName} classes.`);
+
+const seoTitle = `${boardName} ${levelName} Online Tuition Pakistan | ${site.name}`;
+const seoDescription = `Live online ${boardName} ${levelName} classes — ${subjects.length} subjects taught from the official specifications. Group classes from ₨ ${priceFrom}/month, or 1-to-1. Book a free demo.`;
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain + '/' },
+    { '@type': 'ListItem', position: 2, name: levelName, item: `${site.domain}/${levelSlug}/` },
+    { '@type': 'ListItem', position: 3, name: boardName, item: url },
+  ],
+};
+
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${boardName} ${levelName} subjects`,
+  url,
+  numberOfItems: subjects.length,
+  itemListElement: subjects.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `${s.subjectName} (${s.syllabusCode})`,
+    url: `${site.domain}/${levelSlug}/${board}/${s.subject}/`,
+  })),
+};
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} canonical={canonical}>
+  <JsonLd data={breadcrumbJsonLd} />
+  <JsonLd data={itemListJsonLd} />
+
+  <Header />
+
+  <main id="main">
+    <section class="bhero">
+      <div class="bhero__glow" aria-hidden="true"></div>
+      <div class="container container--narrow bhero__inner">
+        <nav class="crumb" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span>
+          <a href={`/${levelSlug}/`}>{levelName}</a><span aria-hidden="true">/</span>
+          <span class="crumb__current">{boardName}</span>
+        </nav>
+
+        <p class="bhero__eyebrow">{levelName} · {boardName}</p>
+        <h1 class="bhero__title">{boardName} {levelName} online classes</h1>
+        <p class="bhero__sub">
+          {subjects.length} {boardName} {levelName} {subjects.length === 1 ? 'subject' : 'subjects'},
+          each taught directly from the official specification — the same syllabus codes, papers and
+          mark schemes your child's school follows.
+        </p>
+        <div class="bhero__cta">
+          <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+          <Button href="#subjects" variant="outline" size="lg">Browse subjects</Button>
+        </div>
+      </div>
+    </section>
+
+    <section id="subjects" class="body">
+      <div class="container container--narrow body__grid">
+        <div class="body__main">
+          <h2 class="body__h2">{boardName} {levelName} subjects</h2>
+          <p class="body__intro">
+            Every course below is a live, small-group or 1-to-1 class. Pick a subject to see its
+            syllabus code, paper structure and full topic list.
+          </p>
+
+          <div class="cards">
+            {subjects.map((s) => (
+              <a href={`/${levelSlug}/${board}/${s.subject}/`} class="card">
+                <span class="card__top">
+                  <span class="card__name">{s.subjectName}</span>
+                  <span class="card__code">{s.syllabusCode}</span>
+                </span>
+                <span class="card__meta">{s.topicCount} topic areas &rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <aside class="glance">
+          <h3 class="glance__title">At a glance</h3>
+          <dl class="glance__rows">
+            <div class="glance__row"><dt>Level</dt><dd>{levelName}</dd></div>
+            <div class="glance__row"><dt>Board</dt><dd>{boardName}</dd></div>
+            <div class="glance__row"><dt>Subjects</dt><dd>{subjects.length}</dd></div>
+            <div class="glance__row"><dt>Format</dt><dd>Live online</dd></div>
+            <div class="glance__row"><dt>Group classes</dt><dd>&#8360; {priceFrom} / month</dd></div>
+            <div class="glance__row glance__row--last"><dt>1-to-1</dt><dd>&#8360; {oneToOne} / class</dd></div>
+          </dl>
+          <Button href="/contact/" variant="primary" block class="glance__cta">Book free trial</Button>
+          <a href={wa} class="glance__ask" target="_blank" rel="noopener">Ask on WhatsApp</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container container--narrow cta__inner">
+        <h2 class="cta__title">Ready to start {boardName} {levelName}?</h2>
+        <p class="cta__sub">Your first class is free — no commitment, instant response.</p>
+        <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .bhero { position: relative; overflow: hidden; background: var(--c-primary); color: #fff; }
+  .bhero__glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(800px 420px at 85% -10%, rgba(58,72,133,.2), transparent 60%);
+  }
+  .bhero__inner { position: relative; padding-block: 30px 76px; }
+
+  .crumb {
+    font-size: 13px; color: var(--c-on-primary-faint);
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .crumb a { color: inherit; }
+  .crumb a:hover { color: #fff; }
+  .crumb__current { color: var(--c-accent); }
+
+  .bhero__eyebrow {
+    margin: 40px 0 16px; font-size: 13px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--c-accent); font-weight: 600;
+  }
+  .bhero__title {
+    margin: 0; color: #fff; font-weight: 500;
+    font-size: clamp(34px, 5vw, 64px); line-height: 1.05;
+    letter-spacing: -.015em; max-width: 18ch;
+  }
+  .bhero__sub {
+    margin: 20px 0 0; font-size: clamp(16px,1.6vw,19px);
+    line-height: 1.6; color: var(--c-on-primary-soft); max-width: 60ch;
+  }
+  .bhero__cta { margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .body { background: var(--c-bg); }
+  .body__grid {
+    padding-block: 72px;
+    display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; align-items: start;
+  }
+  .body__h2 { margin: 0; font-size: clamp(26px,3vw,38px); line-height: 1.1; }
+  .body__intro { margin: 14px 0 26px; font-size: 16px; color: var(--c-muted); max-width: 56ch; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card {
+    display: flex; flex-direction: column; gap: 8px;
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-sm); padding: 16px;
+    color: var(--c-primary-ink);
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .card:hover { border-color: var(--c-accent); transform: translateY(-1px); }
+  .card__top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .card__name { font-size: 16px; font-weight: 600; color: var(--c-primary); }
+  .card__code { font-size: 12.5px; color: var(--c-muted); }
+  .card__meta { font-size: 13px; color: var(--c-muted); }
+
+  .glance {
+    position: sticky; top: 90px;
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-lg); padding: 28px; box-shadow: var(--shadow-pop);
+  }
+  .glance__title { margin: 0; font-family: var(--font-serif); font-weight: 600; font-size: 21px; color: var(--c-primary); }
+  .glance__rows { margin: 16px 0 0; display: flex; flex-direction: column; gap: 12px; font-size: 14.5px; }
+  .glance__row {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding-bottom: 12px; border-bottom: 1px solid #eaeef8; margin: 0;
+  }
+  .glance__row--last { padding-bottom: 0; border-bottom: none; }
+  .glance__row dt { color: var(--c-muted); }
+  .glance__row dd { margin: 0; font-weight: 600; color: var(--c-primary); text-align: right; }
+  .glance__cta { margin-top: 22px; }
+  .glance__ask {
+    margin-top: 10px; display: block; text-align: center;
+    border: 1px solid var(--c-field-border); color: var(--c-primary);
+    font-weight: 600; padding: 13px; border-radius: var(--r-sm);
+  }
+  .glance__ask:hover { border-color: var(--c-accent); }
+
+  .cta { background: var(--c-primary); color: #fff; }
+  .cta__inner { padding-block: 60px; text-align: center; }
+  .cta__title {
+    margin: 0 auto; color: #fff; font-weight: 500;
+    font-size: clamp(26px,3.2vw,40px); line-height: 1.1; max-width: 22ch;
+  }
+  .cta__sub { margin: 14px auto 26px; font-size: 17px; color: var(--c-on-primary-soft); max-width: 50ch; }
+
+  @media (max-width: 880px) {
+    .body__grid { grid-template-columns: 1fr; gap: 36px; }
+    .glance { position: static; }
+  }
+  @media (max-width: 560px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
