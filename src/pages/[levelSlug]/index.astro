@@ -1,0 +1,259 @@
+---
+// src/pages/[levelSlug]/index.astro
+// Generates /a-levels/, /igcse/, /o-levels/ — the missing breadcrumb parents.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import Button from '../../components/ui/Button.astro';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('subjectBoards', ({ data }) => !data.draft);
+  const levelSlugs = [...new Set(pages.map((p) => p.data.levelSlug))];
+
+  return levelSlugs.map((levelSlug) => {
+    const entries = pages.filter((p) => p.data.levelSlug === levelSlug);
+    return {
+      params: { levelSlug },
+      props: {
+        levelName: entries[0].data.level,
+        priceFrom: entries[0].data.priceFrom,
+        oneToOne: entries[0].data.oneToOne,
+        items: entries.map((e) => ({
+          board: e.data.board,
+          boardName: e.data.boardName,
+          subject: e.data.subject,
+          subjectName: e.data.subjectName,
+          syllabusCode: e.data.syllabusCode,
+        })),
+      },
+    };
+  });
+}
+
+const { levelSlug } = Astro.params;
+const { levelName, priceFrom, oneToOne, items } = Astro.props;
+
+// Group subjects by board, alphabetical within each board.
+const boards = [...new Map(items.map((i) => [i.board, i.boardName])).entries()]
+  .map(([board, boardName]) => ({
+    board,
+    boardName,
+    subjects: items
+      .filter((i) => i.board === board)
+      .sort((a, b) => a.subjectName.localeCompare(b.subjectName)),
+  }))
+  .sort((a, b) => a.boardName.localeCompare(b.boardName));
+
+const canonical = `/${levelSlug}/`;
+const url = new URL(canonical, site.domain).href;
+
+const seoTitle = `${levelName} Online Tuition Pakistan — Cambridge, Edexcel & AQA | ${site.name}`;
+const seoDescription = `Live online ${levelName} classes across Cambridge (CAIE), Edexcel and AQA — ${items.length} board-specific courses, expert teachers, group classes from ₨ ${priceFrom}/month. Book a free demo class.`;
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain + '/' },
+    { '@type': 'ListItem', position: 2, name: levelName, item: url },
+  ],
+};
+
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${levelName} online courses`,
+  description: seoDescription,
+  url,
+  hasPart: boards.map((b) => ({
+    '@type': 'ItemList',
+    name: `${b.boardName} ${levelName}`,
+    url: `${site.domain}/${levelSlug}/${b.board}/`,
+    numberOfItems: b.subjects.length,
+  })),
+};
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} canonical={canonical}>
+  <JsonLd data={breadcrumbJsonLd} />
+  <JsonLd data={itemListJsonLd} />
+
+  <Header />
+
+  <main id="main">
+    <section class="lhero">
+      <div class="lhero__glow" aria-hidden="true"></div>
+      <div class="container container--narrow lhero__inner">
+        <nav class="crumb" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span>
+          <span class="crumb__current">{levelName}</span>
+        </nav>
+
+        <p class="lhero__eyebrow">{boards.length} exam boards · {items.length} courses</p>
+        <h1 class="lhero__title">{levelName} online tuition in Pakistan.</h1>
+        <p class="lhero__sub">
+          Live, examiner-aware {levelName} classes taught from Lahore to students at home and
+          overseas since {site.founded}. Choose your exam board below to see the exact syllabus,
+          papers and topics we cover.
+        </p>
+        <div class="lhero__cta">
+          <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+          <Button href="/pricing/" variant="outline" size="lg">See pricing</Button>
+        </div>
+      </div>
+    </section>
+
+    <section class="boards">
+      <div class="container container--narrow">
+        {boards.map((b) => (
+          <div class="boardblock">
+            <div class="boardblock__head">
+              <h2 class="boardblock__title">
+                <a href={`/${levelSlug}/${b.board}/`}>{b.boardName}</a>
+              </h2>
+              <p class="boardblock__meta">
+                {b.subjects.length} {b.subjects.length === 1 ? 'subject' : 'subjects'}
+                <span aria-hidden="true"> · </span>
+                <a href={`/${levelSlug}/${b.board}/`} class="boardblock__all">
+                  View all {b.boardName} {levelName} &rarr;
+                </a>
+              </p>
+            </div>
+
+            <div class="cards">
+              {b.subjects.map((s) => (
+                <a href={`/${levelSlug}/${b.board}/${s.subject}/`} class="card">
+                  <span class="card__name">{s.subjectName}</span>
+                  <span class="card__code">{s.syllabusCode}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="rates">
+      <div class="container container--narrow rates__inner">
+        <h2 class="rates__title">{levelName} fees</h2>
+        <div class="rates__grid">
+          <div class="rate">
+            <span class="rate__label">Group classes</span>
+            <span class="rate__value">&#8360; {priceFrom}</span>
+            <span class="rate__per">per subject / month</span>
+          </div>
+          <div class="rate">
+            <span class="rate__label">One-to-one</span>
+            <span class="rate__value">&#8360; {oneToOne}</span>
+            <span class="rate__per">per class</span>
+          </div>
+        </div>
+        <p class="rates__note">
+          {site.pricing.discounts.map((d) => `${d.strong} ${d.rest}`).join(' · ')}
+        </p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container container--narrow cta__inner">
+        <h2 class="cta__title">Not sure which board your child follows?</h2>
+        <p class="cta__sub">Tell us the school and we'll match you to the right teacher. First class is free.</p>
+        <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .lhero { position: relative; overflow: hidden; background: var(--c-primary); color: #fff; }
+  .lhero__glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(800px 420px at 85% -10%, rgba(58,72,133,.2), transparent 60%);
+  }
+  .lhero__inner { position: relative; padding-block: 30px 76px; }
+
+  .crumb {
+    font-size: 13px; color: var(--c-on-primary-faint);
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .crumb a { color: inherit; }
+  .crumb a:hover { color: #fff; }
+  .crumb__current { color: var(--c-accent); }
+
+  .lhero__eyebrow {
+    margin: 40px 0 16px; font-size: 13px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--c-accent); font-weight: 600;
+  }
+  .lhero__title {
+    margin: 0; color: #fff; font-weight: 500;
+    font-size: clamp(34px, 5vw, 64px); line-height: 1.05;
+    letter-spacing: -.015em; max-width: 18ch;
+  }
+  .lhero__sub {
+    margin: 20px 0 0; font-size: clamp(16px,1.6vw,19px);
+    line-height: 1.6; color: var(--c-on-primary-soft); max-width: 62ch;
+  }
+  .lhero__cta { margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .boards { background: var(--c-bg); padding-block: 72px 8px; }
+  .boardblock { margin-bottom: 56px; }
+  .boardblock__head { margin-bottom: 18px; }
+  .boardblock__title {
+    margin: 0; font-family: var(--font-serif); font-weight: 600;
+    font-size: 26px; color: var(--c-primary);
+  }
+  .boardblock__title a { color: inherit; }
+  .boardblock__title a:hover { color: var(--c-accent); }
+  .boardblock__meta { margin: 6px 0 0; font-size: 14px; color: var(--c-muted); }
+  .boardblock__all { color: var(--c-primary); font-weight: 600; }
+  .boardblock__all:hover { color: var(--c-accent); }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-sm); padding: 14px 16px;
+    color: var(--c-primary-ink); font-size: 15px; font-weight: 500;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .card:hover { border-color: var(--c-accent); transform: translateY(-1px); }
+  .card__code { font-size: 12.5px; color: var(--c-muted); font-weight: 400; }
+
+  .rates { background: var(--c-bg); }
+  .rates__inner { padding-block: 40px 72px; }
+  .rates__title {
+    margin: 0 0 20px; font-family: var(--font-serif); font-weight: 600;
+    font-size: 22px; color: var(--c-primary);
+  }
+  .rates__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .rate {
+    display: flex; flex-direction: column; gap: 4px;
+    background: #fff; border: 1px solid var(--c-border);
+    border-radius: var(--r-lg); padding: 24px;
+  }
+  .rate__label { font-size: 14px; color: var(--c-muted); }
+  .rate__value { font-size: 30px; font-weight: 600; color: var(--c-primary); }
+  .rate__per { font-size: 13px; color: var(--c-muted); }
+  .rates__note { margin: 16px 0 0; font-size: 14px; color: var(--c-muted); }
+
+  .cta { background: var(--c-primary); color: #fff; }
+  .cta__inner { padding-block: 60px; text-align: center; }
+  .cta__title {
+    margin: 0 auto; color: #fff; font-weight: 500;
+    font-size: clamp(26px,3.2vw,40px); line-height: 1.1; max-width: 22ch;
+  }
+  .cta__sub { margin: 14px auto 26px; font-size: 17px; color: var(--c-on-primary-soft); max-width: 52ch; }
+
+  @media (max-width: 880px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .cards { grid-template-columns: 1fr; }
+    .rates__grid { grid-template-columns: 1fr; }
+  }
+</style>
