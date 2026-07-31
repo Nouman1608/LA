@@ -54,9 +54,9 @@ https://www.learnersacademy.com.pk/*  https://learnersacademy.com.pk/:splat  301
 # ============================================================
 # Curriculum / board landing pages
 # These are now REAL pages at their original URLs (max equity, no redirect).
-# Only the short /igcse/ alias redirects, into the full IGCSE landing page.
+# /igcse/, /a-levels/ and /o-levels/ all serve real pages - do NOT redirect them.
 # ============================================================
-/igcse/   /igcse-online-tuition-classes-in-pakistan/   301
+/a-level-online-course/   /a-levels/   301
 
 # ============================================================
 # Utility / company pages
