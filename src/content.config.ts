@@ -78,6 +78,7 @@ const subjectBoards = defineCollection({
       description: z.string(),
       canonical: z.string(),
     }),
+    faqs: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
     draft: z.boolean().default(false),
   }),
 });
