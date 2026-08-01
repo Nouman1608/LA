@@ -73,3 +73,5 @@ scripts/            seed-subjects.mjs · gen-images.mjs · check-redirects.sh  (
 2. Set the env vars above; verify the Resend sender domain.
 3. Add brand assets (logo SVG, designed OG image).
 4. Add uptime monitoring. Resubmit `sitemap-index.xml` in GSC after DNS cutover.
+
+<!-- build nudge: 2026-08-01 -->
