@@ -150,3 +150,13 @@ https://www.learnersacademy.com.pk/*  https://learnersacademy.com.pk/:splat  301
 /feed/         /  301
 /comments/feed/  /  301
 /xmlrpc.php    /  301
+
+# ============================================================
+# GSC 404 fixes (Aug 2026) - WP leftovers still returning 404
+# ============================================================
+/about.php /about/ 301
+/law/ /subjects/law/ 301
+/online-tution/ / 301
+/2026/* /blog/ 301
+/a-level/page/* /a-level-online-tuition-classes-in-pakistan/ 301
+/:slug/page2/ /:slug/ 301
