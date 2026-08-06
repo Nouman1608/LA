@@ -29,8 +29,8 @@ export const site = {
     whatsapp: '923239149918',
   },
   social: {
-    facebook: 'https://www.facebook.com/labahria/',
-    instagram: 'https://www.instagram.com/learnersacademybahria/',
+    facebook: 'https://www.facebook.com/Learnersacademy.com.pk',
+    instagram: 'https://www.instagram.com/learnersacademy.com.pk/',
   },
   pricing: {
     discounts: [
