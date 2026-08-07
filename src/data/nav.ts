@@ -30,4 +30,8 @@ export const footerPrograms: NavLink[] = [
   { label: 'Oct/Nov 2026 Retakes', href: '/november-2026-retakes/' },
   { label: 'Aitchison Test Prep', href: '/aitchison-test/' },
   { label: 'Cadet College Prep', href: '/cadet-colleges-test/' },
+  { label: 'Saudi Arabia Tuition', href: '/igcse-tuition/saudi-arabia/' },
+  { label: 'Dubai & UAE Tuition', href: '/igcse-tuition/dubai/' },
+  { label: 'Qatar Tuition', href: '/igcse-tuition/qatar/' },
+  { label: 'Kuwait Tuition', href: '/igcse-tuition/kuwait/' },
 ];
