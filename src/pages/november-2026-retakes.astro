@@ -1,0 +1,102 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import LandingBody from '../components/sections/LandingBody.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { course } from '../components/seo/schemas';
+import { site } from '../data/site';
+
+const title = `Oct/Nov 2026 IGCSE & A Level Retakes in Pakistan | ${site.name}`;
+const description =
+  'Retaking Cambridge, Edexcel or AQA exams in the Oct/Nov 2026 series? Key dates, registration steps and focused online retake classes across 23 subjects. First class free.';
+
+const points = [
+  {
+    title: 'Start now, not in September',
+    body: 'The Oct/Nov series sits in roughly three months. Students who begin in August cover the syllabus twice; those who start after the entry deadline are revising against the clock.',
+  },
+  {
+    title: 'Diagnose before you re-teach',
+    body: 'We start by reading your actual paper, component by component, to find where the marks went. Retaking without knowing which paper failed you is how students repeat a grade.',
+  },
+  {
+    title: 'One subject or several',
+    body: 'Most retake students take one or two subjects. There is no requirement to re-sit a full set, and fees are charged per subject.',
+  },
+  {
+    title: 'Exam technique, not just content',
+    body: 'Most retake marks are lost to command words, timing and working-out, not to gaps in knowledge. Timed past-paper practice with detailed marking is the core of every retake course.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Can I retake just one subject?',
+    a: 'Yes. Most of our retake students take one or two subjects. There is no requirement to re-sit a full set.',
+  },
+  {
+    q: 'Does a retake grade replace my old one?',
+    a: 'Universities generally see both sittings. Most Pakistani and UK institutions accept your best grade, but policies vary — check with each university directly before you decide.',
+  },
+  {
+    q: 'How do I register as a private candidate in Pakistan?',
+    a: 'Through the British Council Pakistan School Registration System. You must register and pay before the published deadline — an unpaid entry is not submitted to the board.',
+  },
+  {
+    q: 'When does the October/November 2026 series run?',
+    a: 'The Cambridge October/November 2026 series opens on 28 September 2026 and closes on 13 November 2026.',
+  },
+  {
+    q: 'How much does retake tuition cost?',
+    a: 'The same as our standard rates: PKR 19,000 per month per subject at IGCSE and O Level, and PKR 24,000 per month per subject at A Level. There is 20% off for three or more subjects.',
+  },
+  {
+    q: 'Is there really a free first class?',
+    a: 'Yes — one full demo class with the actual teacher who would take you. No card details, no commitment.',
+  },
+];
+
+const courseSchema = course({
+  name: 'Cambridge, Edexcel & AQA Oct/Nov 2026 Retake Preparation',
+  description:
+    'Focused online retake preparation for IGCSE, O Level and A Level students sitting the October/November 2026 series.',
+  url: '/november-2026-retakes/',
+});
+---
+
+<HomeLayout
+  title={title}
+  description={description}
+  canonical="/november-2026-retakes/"
+  topBar={false}
+>
+  <JsonLd slot="head" data={courseSchema} />
+
+  <PageHeader
+    eyebrow="October/November 2026 series"
+    crumb="Oct/Nov 2026 Retakes"
+    title="Retaking in October/November 2026?"
+    sub="Start now, not in September. Three months is enough time to change a grade — six weeks usually is not."
+  />
+
+  <LandingBody
+    lead="Results day rarely ends the story. Every year a large share of Pakistani students sit the October/November series to lift a grade for university applications, to move from AS into A2 on firmer ground, or simply to correct a paper that went wrong on the day. Our retake classes are built around that specific job: read the paper that produced the grade, isolate the component that cost the marks, and drill it under timed conditions with a teacher who knows the mark scheme. Cambridge entries for the Oct/Nov 2026 series close on 13 November 2026, and the British Council late-entry deadline in Pakistan falls on 3 September — so the planning window is now."
+    pointsTitle="How our retake classes work"
+    points={points}
+    relatedTitle="Popular retake subjects"
+    related={[
+      { label: 'Chemistry', href: '/subjects/chemistry/' },
+      { label: 'Physics', href: '/subjects/physics/' },
+      { label: 'Biology', href: '/subjects/biology/' },
+      { label: 'Mathematics', href: '/subjects/mathematics/' },
+      { label: 'Economics', href: '/subjects/economics/' },
+      { label: 'All subjects', href: '/subjects/' },
+    ]}
+  />
+
+  <Faq items={faqs} />
+
+  <CtaBand title="Plan your retake with a free class." />
+</HomeLayout>
