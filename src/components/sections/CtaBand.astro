@@ -5,19 +5,23 @@ interface Props {
   sub?: string;
   cta?: string;
   href?: string;
+  target?: string;
+  rel?: string;
 }
 const {
   title,
   sub = 'Your first class is free — no commitment, instant response.',
   cta = 'Book a free demo class',
   href = '/contact/',
+  target,
+  rel,
 } = Astro.props;
 ---
 <section class="ctaband">
   <div class="container ctaband__inner">
     <h2 class="ctaband__title">{title}</h2>
     {sub && <p class="ctaband__sub">{sub}</p>}
-    <Button href={href} variant="white" size="lg">{cta}</Button>
+    <Button href={href} variant="white" size="lg" target={target} rel={rel}>{cta}</Button>
   </div>
 </section>
 
