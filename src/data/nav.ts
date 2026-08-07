@@ -27,6 +27,7 @@ export const footerPrograms: NavLink[] = [
   { label: 'IGCSE / O Level Tuition', href: '/igcse-online-tuition-classes-in-pakistan/' },
   { label: 'Edexcel Tuition', href: '/edexcel-online-tuition-classes-in-pakistan/' },
   { label: 'AQA Tuition', href: '/aqa-online-tuition-classes-in-pakistan/' },
+  { label: 'Oct/Nov 2026 Retakes', href: '/november-2026-retakes/' },
   { label: 'Aitchison Test Prep', href: '/aitchison-test/' },
   { label: 'Cadet College Prep', href: '/cadet-colleges-test/' },
 ];
