@@ -34,4 +34,6 @@ export const footerPrograms: NavLink[] = [
   { label: 'Dubai & UAE Tuition', href: '/igcse-tuition/dubai/' },
   { label: 'Qatar Tuition', href: '/igcse-tuition/qatar/' },
   { label: 'Kuwait Tuition', href: '/igcse-tuition/kuwait/' },
+  { label: 'UK Tuition', href: '/igcse-tuition/uk/' },
+  { label: 'Pakistani Expats Hub', href: '/pakistani-expats/' },
 ];
