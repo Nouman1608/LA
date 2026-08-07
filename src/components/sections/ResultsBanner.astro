@@ -1,0 +1,119 @@
+---
+/** Time-boxed results-season banner.
+ *  Astro evaluates this at BUILD time, so the site must rebuild for the phase
+ *  to advance. Cloudflare Pages rebuilds on every push; if there is a quiet
+ *  spell, trigger a manual deploy on 11 Aug, 18 Aug and 13 Nov 2026.
+ *  Renders nothing after 13 Nov 2026. */
+import Button from '../ui/Button.astro';
+
+const now = new Date();
+const on = (iso: string) => new Date(`${iso}T00:00:00Z`);
+
+let phase: 'pre' | 'aLevel' | 'igcse' | 'retakes' | null = null;
+if (now < on('2026-08-11')) phase = 'pre';
+else if (now < on('2026-08-18')) phase = 'aLevel';
+else if (now < on('2026-09-03')) phase = 'igcse';
+else if (now < on('2026-11-13')) phase = 'retakes';
+
+const copy = {
+  pre: {
+    eyebrow: 'Results season',
+    title: 'A Level results land 11 August. IGCSE & O Level on 18 August.',
+    sub: 'Whatever the envelope says, you have options — remarks, retakes and AS-to-A2 planning all have deadlines that arrive sooner than families expect.',
+    cta: 'Read the results-day guide',
+    href: '/blog/caie-results-day-2026-pakistan/',
+  },
+  aLevel: {
+    eyebrow: 'A Level results are out',
+    title: 'Got your A Level result? Here is what to do next.',
+    sub: 'Remark deadlines and Oct/Nov retake entries close faster than most families realise. IGCSE and O Level results follow on 18 August.',
+    cta: 'Read the results-day guide',
+    href: '/blog/caie-results-day-2026-pakistan/',
+  },
+  igcse: {
+    eyebrow: 'IGCSE & O Level results are out',
+    title: 'Results in hand? Plan the next step before the deadlines close.',
+    sub: 'Cambridge late entries for the Oct/Nov series close on 3 September in Pakistan, and remark requests on 18 September.',
+    cta: 'See retake options',
+    href: '/november-2026-retakes/',
+  },
+  retakes: {
+    eyebrow: 'October/November 2026 series',
+    title: 'Retaking this November? Three months is enough — six weeks is not.',
+    sub: 'Focused retake classes across 23 subjects, built around the paper that cost you the marks.',
+    cta: 'See retake options',
+    href: '/november-2026-retakes/',
+  },
+} as const;
+
+const c = phase ? copy[phase] : null;
+---
+
+{
+  c && (
+    <section class="rbanner">
+      <div class="container rbanner__inner">
+        <div class="rbanner__text">
+          <p class="rbanner__eyebrow">{c.eyebrow}</p>
+          <h2 class="rbanner__title">{c.title}</h2>
+          <p class="rbanner__sub">{c.sub}</p>
+        </div>
+        <div class="rbanner__cta">
+          <Button href={c.href} variant="white">
+            {c.cta}
+          </Button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .rbanner {
+    background: var(--c-primary-dark, #3a4885);
+    color: #fff;
+    border-block: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .rbanner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding-block: 26px;
+    flex-wrap: wrap;
+  }
+  .rbanner__text {
+    max-width: 62ch;
+  }
+  .rbanner__eyebrow {
+    margin: 0 0 6px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--c-accent, #d8b46a);
+  }
+  .rbanner__title {
+    margin: 0;
+    font-size: clamp(19px, 2.2vw, 25px);
+    line-height: 1.25;
+    font-weight: 500;
+    color: #fff;
+  }
+  .rbanner__sub {
+    margin: 8px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .rbanner__cta {
+    flex-shrink: 0;
+  }
+  @media (max-width: 720px) {
+    .rbanner__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+    }
+  }
+</style>
