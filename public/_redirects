@@ -3,8 +3,12 @@
 # Format: /source /destination 301 (most-specific first; first match wins)
 # Verify after deploy: BASE=<preview-url> ./scripts/check-redirects.sh
 #
-# LIMIT: Cloudflare Pages silently ignores rules past ~189. This file is
-# close to that cap — count the rules before adding any.
+# LIMIT: Cloudflare Pages silently ignores rules past ~186. Currently 166.
+# Count the rules before adding any.
+#
+# 8 Aug 2026: pruned 21 root-level 2022 WP blog slugs that Google no longer
+# requests (checked against the GSC "Page with redirect" report) and whose
+# target post had already been consolidated away on 7 Aug.
 
 # ============================================================
 # Host canonicalisation — force www -> apex (WordPress did this).
@@ -78,41 +82,21 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 
 # ============================================================
 # Blog (migrated 1:1 from WordPress — old root slug -> /blog/<slug>/)
+# Only the slugs Google still requests are kept; see prune note in header.
 # ============================================================
 /10-economics-online-courses-that-will-pay-dividends/ /blog/10-economics-online-courses-that-will-pay-dividends/ 301
-/10-influential-tips-to-improve-your-igcse-online-tuition-scores/ /blog/10-influential-tips-to-improve-your-igcse-online-tuition-scores/ 301
-/10-key-reasons-why-you-should-consider-igcse-online-tuition-in-pakistan/ /blog/10-key-reasons-why-you-should-consider-igcse-online-tuition-in-pakistan/ 301
-/10-myths-about-aqa-online-tuition-in-pakistan/ /blog/10-myths-about-aqa-online-tuition-in-pakistan/ 301
 /11-reasons-a-level-tuition-in-pakistan-instead-of-home-school-system/ /blog/11-reasons-a-level-tuition-in-pakistan-instead-of-home-school-system/ 301
 /4-reasons-why-you-should-study-igcse-online-in-pakistan/ /blog/4-reasons-why-you-should-study-igcse-online-in-pakistan/ 301
-/7-reasons-to-get-your-a-levels-online-classes-in-pakistan/ /blog/7-reasons-to-get-your-a-levels-online-classes-in-pakistan/ 301
 /8-benefits-of-igcse-online-tuition-in-pakistan-during-covid-19/ /blog/8-benefits-of-igcse-online-tuition-in-pakistan-during-covid-19/ 301
-/8-ways-to-score-well-in-igcse-online-tuition-in-pakistan/ /blog/8-ways-to-score-well-in-igcse-online-tuition-in-pakistan/ 301
-/a-comprehensive-guide-to-leveling-up-your-studies-with-a-level-online-tuition/ /blog/a-comprehensive-guide-to-leveling-up-your-studies-with-a-level-online-tuition/ 301
 /a-level-online-tuition-in-pakistan-the-best-tactics-for-online-learning/ /blog/a-level-online-tuition-in-pakistan-the-best-tactics-for-online-learning/ 301
-/aqa-online-tuition-in-pakistan-over-traditional-schooling/ /blog/aqa-online-tuition-in-pakistan-over-traditional-schooling/ 301
 /aqa-online-tuition-the-best-way-to-pass-your-aqa-exams/ /blog/aqa-online-tuition-the-best-way-to-pass-your-aqa-exams/ 301
-/edexcel-online-tuition-in-pakistan-the-future-of-learning/ /blog/edexcel-online-tuition-in-pakistan-the-future-of-learning/ 301
-/eight-proven-advices-to-boost-your-online-classroom-performance/ /blog/eight-proven-advices-to-boost-your-online-classroom-performance/ 301
-/embarking-on-your-online-a-level-journey-a-comprehensive-guide/ /blog/embarking-on-your-online-a-level-journey-a-comprehensive-guide/ 301
-/get-online-tuition-in-pakistan-for-hassle-free-learning/ /blog/get-online-tuition-in-pakistan-for-hassle-free-learning/ 301
-/how-can-a-level-online-classes-in-pakistan-help-you-succeed-in-the-future/ /blog/how-can-a-level-online-classes-in-pakistan-help-you-succeed-in-the-future/ 301
-/how-online-tuition-in-pakistan-can-improve-your-grades/ /blog/how-online-tuition-in-pakistan-can-improve-your-grades/ 301
 /how-to-get-started-with-a-level-online-classes-in-pakistan/ /blog/how-to-get-started-with-a-level-online-classes-in-pakistan/ 301
 /how-to-prepare-for-the-aqa-exam-in-pakistan/ /blog/how-to-prepare-for-the-aqa-exam-in-pakistan/ 301
 /igcse-online-classes-a-gateway-to-global-education/ /blog/igcse-online-classes-a-gateway-to-global-education/ 301
-/igcse-online-tuition-in-pakistan-11-effective-tips-to-boost-your-success/ /blog/igcse-online-tuition-in-pakistan-11-effective-tips-to-boost-your-success/ 301
-/online-a-level-tuition-your-path-to-academic-excellence/ /blog/online-a-level-tuition-your-path-to-academic-excellence/ 301
 /online-tuition-in-pakistan-for-and-against/ /blog/online-tuition-in-pakistan-for-and-against/ 301
-/revolutionizing-legal-education-the-benefits-of-taking-law-online-classes/ /blog/revolutionizing-legal-education-the-benefits-of-taking-law-online-classes/ 301
 /take-igcse-online-tuition-in-pakistan-and-improve-your-grades-at-high-school-or-university/ /blog/take-igcse-online-tuition-in-pakistan-and-improve-your-grades-at-high-school-or-university/ 301
-/the-power-of-aqa-online-tuition-how-to-outshine-your-peers-and-crush-your-exams/ /blog/the-power-of-aqa-online-tuition-how-to-outshine-your-peers-and-crush-your-exams/ 301
 /top-7-legal-subjects-covered-in-law-online-classes-in-pakistan/ /blog/top-7-legal-subjects-covered-in-law-online-classes-in-pakistan/ 301
-/top-reasons-to-choose-a-level-online-classes-in-pakistan/ /blog/top-reasons-to-choose-a-level-online-classes-in-pakistan/ 301
-/transform-your-study-habits-edexcel-online-tuitions-game-changing-techniques/ /blog/transform-your-study-habits-edexcel-online-tuitions-game-changing-techniques/ 301
-/why-igcse-online-tuitions-in-pakistan-is-the-best-for-your-child/ /blog/why-igcse-online-tuitions-in-pakistan-is-the-best-for-your-child/ 301
 /why-is-a-level-online-tuition-in-pakistan-a-good-option-for-your-future-career/ /blog/why-is-a-level-online-tuition-in-pakistan-a-good-option-for-your-future-career/ 301
-/why-taking-your-a-level-online-classes-in-pakistan-is-better-than-regular-school/ /blog/why-taking-your-a-level-online-classes-in-pakistan-is-better-than-regular-school/ 301
 /why-you-should-think-about-taking-a-level-online-classes-in-pakistan/ /blog/why-you-should-think-about-taking-a-level-online-classes-in-pakistan/ 301
 
 # ============================================================
@@ -125,11 +109,17 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 /a_level-sitemap.xml /sitemap-index.xml 301
 
 # Old WP location pages -> new geo landing pages
+# Slash-less variants must sit ABOVE /locations/* or the catch-all wins.
 /locations/saudi-arabia/ /igcse-tuition/saudi-arabia/ 301
 /locations/united-arab-emirates/ /igcse-tuition/dubai/ 301
 /locations/kuwait/ /igcse-tuition/kuwait/ 301
 /locations/qatar/ /igcse-tuition/qatar/ 301
 /locations/bahrain/ /pakistani-expats/ 301
+/locations/saudi-arabia /igcse-tuition/saudi-arabia/ 301
+/locations/united-arab-emirates /igcse-tuition/dubai/ 301
+/locations/kuwait /igcse-tuition/kuwait/ 301
+/locations/qatar /igcse-tuition/qatar/ 301
+/locations/bahrain /pakistani-expats/ 301
 /locations/* /pakistani-expats/ 301
 
 # Old short landing slugs
@@ -168,6 +158,8 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 # Blog consolidation — 7 Aug 2026
 # 35 thin 2022-era WP-import posts folded into the matching programme
 # pages. Nine substantial guides remain under /blog/.
+# NOTE: these are new as of 7 Aug — do NOT prune them on the basis of
+# "no GSC demand"; Google has not recrawled them yet.
 # ============================================================
 
 /blog/10-myths-about-aqa-online-tuition-in-pakistan/ /aqa-online-tuition-classes-in-pakistan/ 301
@@ -216,9 +208,7 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 # Trailing-slash variants — 8 Aug 2026
 # Pages matches sources literally: a rule written /foo/ does NOT catch
 # /foo. Built pages self-normalise, redirect sources do not.
-# NOTE: Pages silently ignores rules past ~189, and this file is near
-# that cap — so only the high-traffic legacy paths get a variant here.
-# Check the count before adding more.
+# The /locations/<country> variants live further up, above the catch-all.
 # ============================================================
 /chemistry-online-classes-for-o-level-a-level /subjects/chemistry/ 301
 /physics-online-classes-for-o-level-a-level /subjects/physics/ 301
@@ -256,11 +246,6 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 /locations /pakistani-expats/ 301
 /terms-and-conditions /terms/ 301
 /privacy-policy /privacy/ 301
-/locations/saudi-arabia /igcse-tuition/saudi-arabia/ 301
-/locations/united-arab-emirates /igcse-tuition/dubai/ 301
-/locations/kuwait /igcse-tuition/kuwait/ 301
-/locations/qatar /igcse-tuition/qatar/ 301
-/locations/bahrain /pakistani-expats/ 301
 /a-level /a-level-online-tuition-classes-in-pakistan/ 301
 /aqa-online /aqa-online-tuition-classes-in-pakistan/ 301
 /law /subjects/law/ 301
