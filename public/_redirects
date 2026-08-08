@@ -57,6 +57,7 @@ https://www.learnersacademy.com.pk/*  https://learnersacademy.com.pk/:splat  301
 # /igcse/, /a-levels/ and /o-levels/ all serve real pages - do NOT redirect them.
 # ============================================================
 /a-level-online-course/   /a-levels/   301
+/igcse-online-course/     /igcse/      301
 
 # ============================================================
 # Utility / company pages
