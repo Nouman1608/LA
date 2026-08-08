@@ -1,0 +1,240 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { breadcrumbList } from '../components/seo/schemas';
+import { site, whatsappLink } from '../data/site';
+
+const title = `Junior Classes for Grades 6–8 — Online Tuition | ${site.name}`;
+const description =
+  'Online junior classes for Grades 6 to 8 — Maths, Science, English and Computer Science. Strong foundations built early, before IGCSE and O Level begin.';
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Junior Classes', url: `${site.domain}/junior-classes/` },
+]);
+
+const subjects = [
+  {
+    name: 'Maths',
+    href: '/subjects/mathematics/',
+    body: 'Number, algebra and geometry taught in the order the IGCSE syllabus will later assume. Most Grade 9 difficulty traces back to gaps left here.',
+    label: 'Maths tuition',
+  },
+  {
+    name: 'Science',
+    href: '/subjects/',
+    body: 'Combined science foundations across biology, chemistry and physics — the groundwork before students choose separate sciences at IGCSE.',
+    label: 'Browse science subjects',
+  },
+  {
+    name: 'English',
+    href: '/subjects/english-language/',
+    body: 'Reading comprehension and structured writing. Building the habit of answering the question asked, which every later board rewards.',
+    label: 'English Language tuition',
+  },
+  {
+    name: 'Computer Science',
+    href: '/subjects/computer-science/',
+    body: 'Computational thinking and first programming steps, so the IGCSE course starts from familiar ground rather than from zero.',
+    label: 'Computer Science tuition',
+  },
+];
+
+const reasons = [
+  {
+    title: 'Foundations before the syllabus starts',
+    body: 'Grades 6 to 8 are where the habits behind good IGCSE grades are formed. Starting here means the exam years are spent learning content, not repairing gaps.',
+  },
+  {
+    title: 'The same teachers, all the way through',
+    body: 'Junior classes are taught by the same subject teachers who take students through IGCSE, O Level and A Level. No handover, no starting again with someone new.',
+  },
+  {
+    title: 'Live online, not recordings',
+    body: 'Every class is live with a teacher who can see where your child is stuck and change tack in the moment — the same format as our senior classes.',
+  },
+  {
+    title: 'Confidence before exam pressure',
+    body: 'Working with a subject specialist years before the first board exam takes the fear out of the subject while there is still plenty of time.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Which year groups are junior classes for?',
+    a: 'Grades 6, 7 and 8 — roughly ages 11 to 14, the years just before students begin their IGCSE or O Level courses.',
+  },
+  {
+    q: 'Which subjects can my child take?',
+    a: 'Maths, Science, English and Computer Science. You can take a single subject or combine several — most families start with one and add more once the routine settles.',
+  },
+  {
+    q: 'Do junior classes follow a particular exam board?',
+    a: 'No. There is no board exam at this stage, so junior classes are not tied to Cambridge, Edexcel or AQA. They build the foundations those syllabuses assume, so your child can enter any of them comfortably.',
+  },
+  {
+    q: 'Does my child need to be struggling to join?',
+    a: 'Not at all. Some students join to close gaps, others to get ahead of the IGCSE content before it arrives. Tell us where your child is and we will pitch the classes accordingly.',
+  },
+  {
+    q: 'What do junior classes cost?',
+    a: 'Fees are charged per subject, per month. WhatsApp us for current junior rates — sibling and multi-subject discounts apply.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. Send us your child grade, the subjects you are considering and a rough idea of your weekly schedule, and we will reply the same day with options.',
+  },
+];
+---
+
+<HomeLayout title={title} description={description} canonical="/junior-classes/" topBar={false}>
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="Grades 6–8"
+    crumb="Junior Classes"
+    title="Junior classes, where the foundations get built."
+    sub="Live online tuition in Maths, Science, English and Computer Science for Grades 6 to 8 — taught by the same teachers who take students through IGCSE and A Level."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        By the time a student reaches Grade 9, the IGCSE syllabus assumes a great deal already
+        in place: fluency with algebra, the discipline of a written answer, a feel for how
+        scientific ideas connect. Most of that is built in Grades 6 to 8. Our junior classes
+        cover exactly those years, with the same subject teachers your child will keep right
+        through to A Level.
+      </p>
+
+      <h2 class="guide__h2">What we teach</h2>
+      <div class="guide__stack">
+        {
+          subjects.map((s) => (
+            <a class="ccard" href={s.href}>
+              <h3 class="ccard__title">{s.name}</h3>
+              <p class="ccard__body">{s.body}</p>
+              <span class="ccard__link">{s.label} <span aria-hidden="true">→</span></span>
+            </a>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Why start before IGCSE</h2>
+      <div class="guide__grid">
+        {
+          reasons.map((r) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{r.title}</h3>
+              <p class="gcard__body">{r.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Start with a free trial</h2>
+      <p class="guide__text">
+        WhatsApp us your child&rsquo;s grade, the subjects you are considering and the days that
+        suit you. We reply the same day with class options and a free trial lesson, so your child
+        can meet the teacher before you commit to anything.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink('Hi! I would like to ask about junior classes for Grades 6-8.')} variant="primary" size="lg">
+          WhatsApp us about junior classes
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Build the foundation now, not in the exam year."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard,
+  .ccard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .ccard {
+    display: block;
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .ccard:hover {
+    border-color: var(--c-primary);
+    transform: translateY(-2px);
+  }
+  .gcard__title,
+  .ccard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body,
+  .ccard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .ccard__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
