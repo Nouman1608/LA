@@ -11,6 +11,7 @@ export const headerNav: NavLink[] = [
   { label: 'Subjects', href: '/subjects/' },
   { label: 'Team', href: '/#team' },
   { label: 'Pricing', href: '/pricing/' },
+  { label: 'Blog', href: '/blog/' },
 ];
 
 export const footerExplore: NavLink[] = [
