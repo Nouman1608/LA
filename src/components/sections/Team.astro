@@ -16,7 +16,19 @@ import { team } from '../../data/team';
     {
       team.map((t) => (
         <article class="member">
-          <div class="member__avatar" aria-hidden="true">{t.initials}</div>
+          {t.photo ? (
+            <img
+              class="member__photo"
+              src={t.photo}
+              width="640"
+              height="640"
+              alt={`${t.name}, ${t.role} at Learners Academy`}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="member__avatar" aria-hidden="true">{t.initials}</div>
+          )}
           <h3 class="member__name">{t.name}</h3>
           <p class="member__role">{t.role}</p>
         </article>
@@ -53,19 +65,27 @@ import { team } from '../../data/team';
     text-align: center;
     box-shadow: var(--shadow-card);
   }
-  .member__avatar {
-    width: 80px;
-    height: 80px;
+  .member__avatar,
+  .member__photo {
+    width: 96px;
+    height: 96px;
     margin: 0 auto;
     border-radius: 50%;
     background: #e9edf9;
     border: 1px solid var(--c-border-strong);
+  }
+  .member__avatar {
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--font-serif);
-    font-size: 28px;
+    font-size: 32px;
     color: var(--c-primary);
+  }
+  .member__photo {
+    display: block;
+    object-fit: cover;
+    object-position: center top;
   }
   .member__name {
     margin: 16px 0 4px;
