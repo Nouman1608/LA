@@ -75,6 +75,26 @@ const defaultFaqs = [
   },
 ];
 const faqs = data.faqs ?? defaultFaqs;
+
+/* Related classes — internal links across the 76 board pages. */
+const allBoards = await getCollection('subjectBoards', ({ data: d }) => !d.draft);
+const sameBoard = allBoards
+  .filter(
+    (e) =>
+      e.data.levelSlug === data.levelSlug &&
+      e.data.board === data.board &&
+      e.data.subject !== data.subject,
+  )
+  .sort((a, b) => a.data.subjectName.localeCompare(b.data.subjectName))
+  .slice(0, 10);
+const sameSubject = allBoards
+  .filter(
+    (e) =>
+      e.data.subject === data.subject &&
+      (e.data.board !== data.board || e.data.levelSlug !== data.levelSlug),
+  )
+  .sort((a, b) => (a.data.boardName + a.data.level).localeCompare(b.data.boardName + b.data.level))
+  .slice(0, 6);
 ---
 
 <BaseLayout title={data.seo.title} description={data.seo.description} canonical={canonical}>
@@ -175,6 +195,45 @@ const faqs = data.faqs ?? defaultFaqs;
         <Button href="/contact/" variant="white" size="lg">Book a free demo class</Button>
       </div>
     </section>
+
+    <!-- Related classes — cross-links between board pages -->
+    {(sameBoard.length > 0 || sameSubject.length > 0) && (
+      <section class="related">
+        <div class="container container--narrow">
+          <h2 class="related__title">Related classes</h2>
+          {sameBoard.length > 0 && (
+            <div class="related__group">
+              <h3 class="related__label">More {data.boardName} {data.level} subjects</h3>
+              <div class="related__links">
+                {sameBoard.map((e) => (
+                  <a
+                    class="related__pill"
+                    href={`/${e.data.levelSlug}/${e.data.board}/${e.data.subject}/`}
+                  >
+                    {e.data.subjectName}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+          {sameSubject.length > 0 && (
+            <div class="related__group">
+              <h3 class="related__label">{data.subjectName} with other boards &amp; levels</h3>
+              <div class="related__links">
+                {sameSubject.map((e) => (
+                  <a
+                    class="related__pill"
+                    href={`/${e.data.levelSlug}/${e.data.board}/${e.data.subject}/`}
+                  >
+                    {e.data.boardName} {e.data.level}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    )}
   </main>
 
   <Faq items={faqs} />
@@ -283,4 +342,23 @@ const faqs = data.faqs ?? defaultFaqs;
   @media (max-width: 560px) {
     .topics { grid-template-columns: 1fr; }
   }
+
+  .related {
+    background: var(--c-panel);
+    border-top: 1px solid var(--c-border);
+  }
+  .related .container { padding-block: 56px 64px; }
+  .related__title { margin: 0; font-size: clamp(24px, 2.6vw, 32px); }
+  .related__group { margin-top: 26px; }
+  .related__label {
+    margin: 0 0 12px; font-size: 13px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--c-muted); font-weight: 600;
+  }
+  .related__links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .related__pill {
+    display: inline-block; padding: 9px 16px; border-radius: 999px;
+    background: var(--c-card); border: 1px solid var(--c-border-strong);
+    color: var(--c-primary-deep); font-size: 14.5px; text-decoration: none;
+  }
+  .related__pill:hover { border-color: var(--c-primary); color: var(--c-primary); }
 </style>
