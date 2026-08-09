@@ -7,6 +7,7 @@ import JsonLd from '../../../components/seo/JsonLd.astro';
 import Button from '../../../components/ui/Button.astro';
 import Faq from '../../../components/sections/Faq.astro';
 import { site, whatsappLink } from '../../../data/site';
+import { teachersForSubject } from '../../../data/teachers';
 
 export async function getStaticPaths() {
   const pages = await getCollection('subjectBoards', ({ data }) => !data.draft);
@@ -75,6 +76,9 @@ const defaultFaqs = [
   },
 ];
 const faqs = data.faqs ?? defaultFaqs;
+
+/* Subject specialists for this page — links through to /teachers/. */
+const subjectTeachers = teachersForSubject(data.subject);
 
 /* Related classes — internal links across the 76 board pages. */
 const allBoards = await getCollection('subjectBoards', ({ data: d }) => !d.draft);
@@ -186,6 +190,35 @@ const sameSubject = allBoards
         </aside>
       </div>
     </section>
+
+    <!-- Subject teachers — E-E-A-T + links to /teachers/ -->
+    {subjectTeachers.length > 0 && (
+      <section class="tby">
+        <div class="container container--narrow">
+          <h2 class="tby__title">Who teaches {data.subjectName} here</h2>
+          <div class="tby__grid">
+            {subjectTeachers.map((t) => (
+              <a class="tby__card" href={`/teachers/#${t.slug}`}>
+                <img
+                  class="tby__photo"
+                  src={t.photo}
+                  width="640"
+                  height="640"
+                  alt={`${t.name}, ${t.subject} teacher at ${site.name}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="tby__meta">
+                  <strong>{t.name}</strong>
+                  <span>{t.years ? `${t.years} years teaching` : t.subject}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+          <p class="tby__more"><a href="/teachers/">Meet the full faculty →</a></p>
+        </div>
+      </section>
+    )}
 
     <!-- CTA band -->
     <section class="cta">
@@ -361,4 +394,24 @@ const sameSubject = allBoards
     color: var(--c-primary-deep); font-size: 14.5px; text-decoration: none;
   }
   .related__pill:hover { border-color: var(--c-primary); color: var(--c-primary); }
+
+  .tby { background: var(--c-bg); border-top: 1px solid var(--c-border); }
+  .tby .container { padding-block: 48px 52px; }
+  .tby__title { margin: 0 0 24px; font-size: clamp(22px, 2.4vw, 28px); }
+  .tby__grid { display: flex; flex-wrap: wrap; gap: 14px; }
+  .tby__card {
+    display: flex; align-items: center; gap: 14px; text-decoration: none;
+    background: var(--c-card); border: 1px solid var(--c-border-strong);
+    border-radius: var(--r-md); padding: 12px 18px 12px 12px; min-width: 240px;
+  }
+  .tby__card:hover { border-color: var(--c-primary); }
+  .tby__photo {
+    width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+    flex: 0 0 auto; background: var(--c-panel);
+  }
+  .tby__meta { display: flex; flex-direction: column; gap: 3px; }
+  .tby__meta strong { color: var(--c-primary); font-size: 15.5px; font-weight: 600; }
+  .tby__meta span { color: var(--c-muted); font-size: 13px; }
+  .tby__more { margin: 20px 0 0; font-size: 14.5px; }
+  .tby__more a { color: var(--c-primary-deep); font-weight: 600; text-decoration: none; }
 </style>
