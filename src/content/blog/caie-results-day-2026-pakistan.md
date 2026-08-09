@@ -5,7 +5,7 @@ pubDate: 2026-08-01
 draft: false
 ---
 
-Results season is here. Cambridge releases AS and A Level results for the May/June 2026 series on **Tuesday 11 August 2026**, with IGCSE and O Level results following on **Tuesday 18 August 2026** — both at 06:00 GMT, which is 11:00 am in Pakistan. For thousands of Pakistani students, the next two weeks decide what happens next: university applications, AS to A2 planning, or a retake in the October/November session.
+Results season is here. Cambridge releases AS and A Level results for the May/June 2026 series on **Tuesday 11 August 2026**, with IGCSE and O Level results following on **Tuesday 18 August 2026** — both at 05:00 GMT, which is 10:00 am in Pakistan. For thousands of Pakistani students, the next two weeks decide what happens next: university applications, AS to A2 planning, or a retake in the October/November session.
 
 Whether you are expecting straight A*s or bracing yourself, the worst position to be in is not knowing your options. This guide walks through exactly what to do after results day — including the remark and retake deadlines that matter for students in Pakistan, some of which arrive sooner than you might think.
 
