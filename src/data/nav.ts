@@ -1,5 +1,6 @@
-/** Header + footer navigation. Anchors point at homepage sections;
- *  full standalone routes exist for about/pricing/contact/subjects. */
+/** Footer navigation. NOTE: the site header builds its own nav in
+ *  components/layout/Header.astro (it needs the dynamic board dropdowns) —
+ *  `headerNav` below is kept only as the canonical top-level link list. */
 export interface NavLink {
   label: string;
   href: string;
@@ -9,7 +10,7 @@ export const headerNav: NavLink[] = [
   { label: 'About', href: '/about/' },
   { label: 'Boards', href: '/#boards' },
   { label: 'Subjects', href: '/subjects/' },
-  { label: 'Team', href: '/#team' },
+  { label: 'Teachers', href: '/teachers/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Blog', href: '/blog/' },
 ];
@@ -17,6 +18,7 @@ export const headerNav: NavLink[] = [
 export const footerExplore: NavLink[] = [
   { label: 'About', href: '/about/' },
   { label: 'Subjects', href: '/subjects/' },
+  { label: 'Teachers', href: '/teachers/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Blog', href: '/blog/' },
   { label: 'Free Trial', href: '/contact/' },
