@@ -1,0 +1,338 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Section from '../components/ui/Section.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { breadcrumbList } from '../components/seo/schemas';
+import { site, whatsappLink } from '../data/site';
+import { teachers, teacherGroups, combinedYears } from '../data/teachers';
+
+const canonical = '/teachers/';
+const url = new URL(canonical, site.domain).href;
+
+const title = `Our Teachers — Meet the Faculty | ${site.name}`;
+const description = `Meet the ${teachers.length} teachers behind Learners Academy: ${combinedYears}+ years of combined classroom experience from Aitchison College, LGS, Beaconhouse, LACAS, The City School, BISC, Froebel's and SICAS, teaching IGCSE, O Level and A Level live online.`;
+
+const yearsLabel = `${Math.floor(combinedYears / 10) * 10}+`;
+
+const personList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `Teachers at ${site.name}`,
+  itemListOrder: 'https://schema.org/ItemListUnordered',
+  numberOfItems: teachers.length,
+  itemListElement: teachers.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Person',
+      '@id': `${url}#${t.slug}`,
+      name: t.name,
+      url: `${url}#${t.slug}`,
+      image: `${site.domain}${t.photo}`,
+      jobTitle: `${t.subject} Teacher`,
+      description: t.blurb,
+      knowsAbout: t.subject,
+      worksFor: {
+        '@type': 'EducationalOrganization',
+        '@id': `${site.domain}/#organization`,
+        name: site.name,
+        url: site.domain,
+      },
+    },
+  })),
+};
+
+const crumbs = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Teachers', url },
+]);
+
+const physics = teachers.filter((t) => t.subject === 'Physics');
+const schoolList = [
+  ...new Set(teachers.flatMap((t) => t.schools)),
+].filter((s) => s !== 'Learners Academy');
+
+const faqs = [
+  {
+    q: 'Who teaches Physics at Learners Academy?',
+    a: `Physics is taught by ${physics
+      .map((t) => `${t.name} (${t.years} years)`)
+      .join(', ')
+      .replace(/, ([^,]*)$/, ' and $1')}. Between them they have taught at BTSC, SICAS, Garrison, Froebel's, LGS Bahria Town and Lecole Mondiale, and every class is taught from the official board specification.`,
+  },
+  {
+    q: 'How experienced are the teachers at Learners Academy?',
+    a: `The ${teachers.length} teachers on this page have ${yearsLabel} years of combined classroom experience, ranging from 3 years to 30 years. Most came to us from established Lahore schools including Aitchison College, LGS, Beaconhouse, LACAS, The City School, BISC, Froebel's, SICAS, Roots and Garrison.`,
+  },
+  {
+    q: 'Do the same teachers teach Cambridge, Edexcel and AQA?',
+    a: 'Yes. Our teachers work from the official specification for whichever board your child is entered for — Cambridge (CAIE), Pearson Edexcel, AQA or OxfordAQA — so the content, paper structure and command words match the exam actually being sat.',
+  },
+  {
+    q: 'Can we meet the teacher before enrolling?',
+    a: `Yes. The first class is free — your child joins a live session with the actual subject teacher, asks questions, and you decide afterwards. Message us on WhatsApp at ${site.contact.phone} with the level, board and subject and we will arrange it.`,
+  },
+  {
+    q: 'Are the classes live or recorded?',
+    a: 'Live. Your child attends a scheduled class with the teacher and asks questions in real time. Every session is also recorded, and homework is set and marked each week.',
+  },
+];
+---
+
+<HomeLayout title={title} description={description} canonical={canonical} topBar={false}>
+  <JsonLd slot="head" data={crumbs} />
+  <JsonLd slot="head" data={personList} />
+
+  <PageHeader
+    eyebrow="Our teachers"
+    crumb="Teachers"
+    title="The teachers your child will actually learn from."
+    sub={`${yearsLabel} years of combined classroom experience — from Aitchison College, LGS, Beaconhouse, LACAS, The City School, BISC, Froebel's and SICAS — now teaching live online.`}
+  />
+
+  <Section tone="panel">
+    <div class="stats">
+      <div class="stat">
+        <span class="stat__n">{teachers.length}</span>
+        <span class="stat__l">teachers on this page</span>
+      </div>
+      <div class="stat">
+        <span class="stat__n">{yearsLabel}</span>
+        <span class="stat__l">years of combined experience</span>
+      </div>
+      <div class="stat">
+        <span class="stat__n">{new Date().getFullYear() - site.founded}</span>
+        <span class="stat__l">years teaching online, since {site.founded}</span>
+      </div>
+    </div>
+    <p class="lede">
+      Every class at Learners Academy is taught by a subject specialist — not a generalist tutor.
+      Most of our faculty came from Lahore's established schools and now teach the same students
+      live online, from the official Cambridge, Edexcel, AQA and OxfordAQA specifications.
+    </p>
+  </Section>
+
+  {
+    teacherGroups.map((g, gi) => {
+      const list = teachers.filter((t) => t.group === g.key);
+      if (!list.length) return null;
+      return (
+        <Section tone={gi % 2 === 0 ? 'bg' : 'panel'} bordered>
+          <p class="eyebrow">{g.label}</p>
+          <h2 class="section-title">{g.blurb}</h2>
+          <div class="tgrid">
+            {list.map((t) => (
+              <article class="tcard" id={t.slug}>
+                <img
+                  class="tcard__photo"
+                  src={t.photo}
+                  width="640"
+                  height="640"
+                  alt={`${t.name}, ${t.subject} teacher at ${site.name}`}
+                  loading={gi === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+                <div class="tcard__body">
+                  <h3 class="tcard__name">{t.name}</h3>
+                  <p class="tcard__subject">
+                    {t.subject}
+                    {t.years && <span class="tcard__years">{t.years} yrs</span>}
+                  </p>
+                  <p class="tcard__blurb">{t.blurb}</p>
+                  {t.schools.length > 0 && (
+                    <p class="tcard__schools">
+                      <span>Previously at</span> {t.schools.join(' · ')}
+                    </p>
+                  )}
+                  <div class="tcard__links">
+                    {t.subjectPages.map((s) => (
+                      <a class="tcard__subjectlink" href={`/subjects/${s}/`}>
+                        {s.replace(/-/g, ' ')} classes
+                      </a>
+                    ))}
+                  </div>
+                  <a
+                    class="tcard__wa"
+                    href={whatsappLink(
+                      `Hi! I'd like to ask about ${t.subject} classes with ${t.name}.`,
+                    )}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Ask about {t.name.replace(/^(Sir|Miss|Dr)\s+/, '')}'s classes
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Section>
+      );
+    })
+  }
+
+  <Faq title="Questions parents ask about our teachers" items={faqs} />
+
+  <CtaBand
+    title="Meet the teacher before you decide."
+    sub="The first class is free — your child sits a real lesson with the subject teacher."
+  />
+</HomeLayout>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .stat {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+  }
+  .stat__n {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 44px;
+    line-height: 1;
+    color: var(--c-primary);
+  }
+  .stat__l {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--c-muted);
+  }
+  .lede {
+    margin: 28px 0 0;
+    max-width: 68ch;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .tgrid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+  }
+  .tcard {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    scroll-margin-top: 90px;
+  }
+  .tcard__photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: var(--c-panel);
+  }
+  .tcard__body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .tcard__name {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .tcard__subject {
+    margin: 6px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .tcard__years {
+    background: #e9edf9;
+    color: var(--c-primary-deep);
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .tcard__blurb {
+    margin: 14px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .tcard__schools {
+    margin: 14px 0 0;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--c-muted);
+  }
+  .tcard__schools span {
+    color: var(--c-primary-ink);
+    font-weight: 600;
+  }
+  .tcard__links {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tcard__subjectlink {
+    font-size: 12.5px;
+    text-transform: capitalize;
+    border: 1px solid var(--c-border-strong);
+    border-radius: 999px;
+    padding: 5px 11px;
+    color: var(--c-primary);
+    background: var(--c-panel);
+  }
+  .tcard__subjectlink:hover {
+    background: #e9edf9;
+  }
+  .tcard__wa {
+    margin-top: auto;
+    padding-top: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-primary-deep);
+  }
+  .tcard__wa::after {
+    content: ' →';
+  }
+
+  /* Phones: compact row layout so the page stays scannable. */
+  @media (max-width: 560px) {
+    .tgrid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .tcard {
+      flex-direction: row;
+    }
+    .tcard__photo {
+      flex: 0 0 116px;
+      width: 116px;
+      align-self: flex-start;
+    }
+    .tcard__body {
+      padding: 16px 16px 18px;
+    }
+    .tcard__blurb {
+      margin-top: 10px;
+      font-size: 14.5px;
+    }
+  }
+</style>
