@@ -8,6 +8,8 @@ import Header from '../../../components/layout/Header.astro';
 import Footer from '../../../components/layout/Footer.astro';
 import JsonLd from '../../../components/seo/JsonLd.astro';
 import Button from '../../../components/ui/Button.astro';
+import Faq from '../../../components/sections/Faq.astro';
+import { boardIntros } from '../../../data/board-intros';
 import { site, whatsappLink } from '../../../data/site';
 
 export async function getStaticPaths() {
@@ -48,6 +50,8 @@ export async function getStaticPaths() {
 
 const { levelSlug, board } = Astro.params;
 const { levelName, boardName, priceFrom, oneToOne, subjects } = Astro.props;
+
+const intro = boardIntros[`${levelSlug}|${board}`];
 
 const canonical = `/${levelSlug}/${board}/`;
 const url = new URL(canonical, site.domain).href;
@@ -114,7 +118,15 @@ const itemListJsonLd = {
     <section id="subjects" class="body">
       <div class="container container--narrow body__grid">
         <div class="body__main">
-          <h2 class="body__h2">{boardName} {levelName} subjects</h2>
+          {intro && (
+            <div class="prose">
+              <h2 class="body__h2">How {boardName} {levelName} works</h2>
+              <p class="prose__lead">{intro.lead}</p>
+              {intro.paragraphs.map((para) => <p class="prose__p">{para}</p>)}
+            </div>
+          )}
+
+          <h2 class="body__h2 body__h2--sub" id="subject-list">{boardName} {levelName} subjects</h2>
           <p class="body__intro">
             Every course below is a live, small-group or 1-to-1 class. Pick a subject to see its
             syllabus code, paper structure and full topic list.
@@ -148,6 +160,8 @@ const itemListJsonLd = {
         </aside>
       </div>
     </section>
+
+    {intro && <Faq items={intro.faqs} />}
 
     <section class="cta">
       <div class="container container--narrow cta__inner">
@@ -198,6 +212,12 @@ const itemListJsonLd = {
     display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; align-items: start;
   }
   .body__h2 { margin: 0; font-size: clamp(26px,3vw,38px); line-height: 1.1; }
+  .body__h2--sub { margin-top: 52px; }
+  .prose__lead {
+    margin: 20px 0 0; font-size: clamp(17px,1.7vw,20px); line-height: 1.6;
+    color: var(--c-text); font-weight: 500;
+  }
+  .prose__p { margin: 18px 0 0; line-height: 1.75; color: var(--c-text-soft); }
   .body__intro { margin: 14px 0 26px; font-size: 16px; color: var(--c-muted); max-width: 56ch; }
 
   .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
