@@ -14,9 +14,32 @@ import path from 'node:path';
 
 const MIN_DISTINCT_DATES = 3;
 
+/**
+ * CI providers (Cloudflare Pages included) clone with --depth 1, which collapses
+ * every file onto a single commit date. Deepen the history first so the dates are
+ * real; if the fetch is not possible the guard below drops lastmod entirely.
+ */
+function unshallow() {
+  try {
+    const shallow = execSync('git rev-parse --is-shallow-repository', {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    if (shallow === 'true') {
+      execSync('git fetch --unshallow --quiet', {
+        stdio: ['ignore', 'ignore', 'ignore'],
+        timeout: 120000,
+      });
+    }
+  } catch {
+    /* no git, no network, or already complete — handled by the guard */
+  }
+}
+
 /** file path (repo-relative) -> ISO date of the commit that last touched it */
 function gitDates() {
   try {
+    unshallow();
     const out = execSync('git log --no-merges --pretty=format:%cI --name-only', {
       encoding: 'utf8',
       maxBuffer: 64 * 1024 * 1024,
