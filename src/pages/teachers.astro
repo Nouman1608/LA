@@ -51,10 +51,6 @@ const crumbs = breadcrumbList([
 ]);
 
 const physics = teachers.filter((t) => t.subject === 'Physics');
-const schoolList = [
-  ...new Set(teachers.flatMap((t) => t.schools)),
-].filter((s) => s !== 'Learners Academy');
-
 const faqs = [
   {
     q: 'Who teaches Physics at Learners Academy?',
