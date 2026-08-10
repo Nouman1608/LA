@@ -2,6 +2,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import { buildLastmodMap } from './scripts/sitemap-lastmod.mjs';
+
+// Real per-file git dates; empty map (= no lastmod emitted) if git is unavailable.
+const lastmod = buildLastmodMap();
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +16,11 @@ export default defineConfig({
     sitemap({
       // Drop draft/utility pages from the sitemap.
       filter: (page) => !page.includes('/404'),
+      serialize(item) {
+        const date = lastmod.get(new URL(item.url).pathname);
+        if (date) item.lastmod = date;
+        return item;
+      },
     }),
   ],
   build: {
