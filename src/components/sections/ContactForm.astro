@@ -8,7 +8,19 @@ const { heading = 'Book your demo', source = 'homepage' } = Astro.props;
 
 // Cloudflare Turnstile sitekey. Falls back to the public test key so the form
 // renders in dev/preview before real keys are set in the Pages dashboard.
-const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '1x00000000000000000000AA';
+// Turnstile SITE keys are public by design — this one is already visible in the
+// page source of every deployed contact page, so it belongs in the repo.
+//
+// It used to default to Cloudflare's always-pass TEST key (1x0000…). When
+// PUBLIC_TURNSTILE_SITEKEY was missing from the Cloudflare Pages build settings
+// the site silently shipped that test key, while the Function verified tokens
+// against the REAL secret — so siteverify rejected every submission and the form
+// failed for all visitors, with nothing in the build log to show for it.
+// Defaulting to the real key makes that failure mode impossible.
+// `||` rather than `??` on purpose: an env var that is defined but EMPTY would
+// otherwise render data-sitekey="" and the widget would never appear at all.
+const sitekey =
+  import.meta.env.PUBLIC_TURNSTILE_SITEKEY?.trim() || '0x4AAAAAADn5qRIuNaEgSftO';
 ---
 <div class="formwrap">
   <!-- Success panel (revealed by JS after a successful fetch; also the
