@@ -2,7 +2,10 @@
 /** Time-boxed results-season banner.
  *  Astro evaluates this at BUILD time, so the site must rebuild for the phase
  *  to advance. Cloudflare Pages rebuilds on every push; if there is a quiet
- *  spell, trigger a manual deploy on 11 Aug, 18 Aug and 13 Nov 2026.
+ *  spell, trigger a manual deploy on 11 Aug, 18 Aug, 3 Sep and 13 Nov 2026.
+ *  Deploy log: 11 Aug 2026 — rebuilt on A Level results morning (pre → aLevel).
+ *  Next required rebuilds: 18 Aug (aLevel → igcse), 3 Sep (igcse → retakes),
+ *  13 Nov (retakes → banner removes itself).
  *  Renders nothing after 13 Nov 2026. */
 import Button from '../ui/Button.astro';
 
