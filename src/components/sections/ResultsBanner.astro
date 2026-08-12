@@ -1,22 +1,31 @@
 ---
 /** Time-boxed results-season banner.
- *  Astro evaluates this at BUILD time, so the site must rebuild for the phase
- *  to advance. Cloudflare Pages rebuilds on every push; if there is a quiet
- *  spell, trigger a manual deploy on 11 Aug, 18 Aug, 3 Sep and 13 Nov 2026.
- *  Deploy log: 11 Aug 2026 — rebuilt on A Level results morning (pre → aLevel).
- *  Next required rebuilds: 18 Aug (aLevel → igcse), 3 Sep (igcse → retakes),
- *  13 Nov (retakes → banner removes itself).
+ *
+ *  Astro renders the phase that is correct at BUILD time, then the small
+ *  inline script at the bottom re-checks the date in the visitor's browser and
+ *  rewrites the copy if the site has not been rebuilt since the phase changed.
+ *  No manual deploy is needed on 18 Aug, 3 Sep or 13 Nov 2026 — the banner
+ *  advances itself. With JavaScript disabled the build-time phase still shows,
+ *  so the worst case is the old behaviour, never a blank banner.
+ *
+ *  Boundaries are UTC midnight (05:00 PKT), matching the original logic.
  *  Renders nothing after 13 Nov 2026. */
 import Button from '../ui/Button.astro';
 
-const now = new Date();
-const on = (iso: string) => new Date(`${iso}T00:00:00Z`);
+/** [phase, exclusive end date]. Single source of truth — the build-time render
+ *  and the runtime script below both read this, so they cannot drift apart. */
+const PHASES = [
+  ['pre', '2026-08-11'],
+  ['aLevel', '2026-08-18'],
+  ['igcse', '2026-09-03'],
+  ['retakes', '2026-11-13'],
+] as const;
 
-let phase: 'pre' | 'aLevel' | 'igcse' | 'retakes' | null = null;
-if (now < on('2026-08-11')) phase = 'pre';
-else if (now < on('2026-08-18')) phase = 'aLevel';
-else if (now < on('2026-09-03')) phase = 'igcse';
-else if (now < on('2026-11-13')) phase = 'retakes';
+type Phase = (typeof PHASES)[number][0];
+
+const nowMs = Date.now();
+const phase: Phase | null =
+  PHASES.find(([, end]) => nowMs < Date.parse(`${end}T00:00:00Z`))?.[0] ?? null;
 
 const copy = {
   pre: {
@@ -54,15 +63,15 @@ const c = phase ? copy[phase] : null;
 
 {
   c && (
-    <section class="rbanner">
+    <section class="rbanner" data-rbanner>
       <div class="container rbanner__inner">
         <div class="rbanner__text">
-          <p class="rbanner__eyebrow">{c.eyebrow}</p>
-          <h2 class="rbanner__title">{c.title}</h2>
-          <p class="rbanner__sub">{c.sub}</p>
+          <p class="rbanner__eyebrow" data-rbanner-eyebrow>{c.eyebrow}</p>
+          <h2 class="rbanner__title" data-rbanner-title>{c.title}</h2>
+          <p class="rbanner__sub" data-rbanner-sub>{c.sub}</p>
         </div>
         <div class="rbanner__cta">
-          <Button href={c.href} variant="white">
+          <Button href={c.href} variant="white" data-rbanner-cta>
             {c.cta}
           </Button>
         </div>
@@ -70,6 +79,52 @@ const c = phase ? copy[phase] : null;
     </section>
   )
 }
+
+{/* Advances the banner without a rebuild. Runs inline, right after the markup,
+    so there is no flash of stale copy. Fails closed: any error leaves the
+    build-time phase in place. */}
+<script is:inline define:vars={{ phases: PHASES, copy, builtPhase: phase }}>
+  (function () {
+    try {
+      var el = document.querySelector('[data-rbanner]');
+      if (!el) return;
+
+      var now = Date.now();
+      var live = null;
+      for (var i = 0; i < phases.length; i++) {
+        if (now < Date.parse(phases[i][1] + 'T00:00:00Z')) {
+          live = phases[i][0];
+          break;
+        }
+      }
+
+      if (!live) {
+        el.remove();
+        return;
+      }
+      if (live === builtPhase) return;
+
+      var c = copy[live];
+      if (!c) return;
+
+      var set = function (sel, text) {
+        var node = el.querySelector(sel);
+        if (node) node.textContent = text;
+      };
+      set('[data-rbanner-eyebrow]', c.eyebrow);
+      set('[data-rbanner-title]', c.title);
+      set('[data-rbanner-sub]', c.sub);
+
+      var cta = el.querySelector('[data-rbanner-cta]');
+      if (cta) {
+        cta.textContent = c.cta;
+        cta.setAttribute('href', c.href);
+      }
+    } catch (e) {
+      /* leave the build-time banner untouched */
+    }
+  })();
+</script>
 
 <style>
   .rbanner {
