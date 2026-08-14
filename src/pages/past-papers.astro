@@ -1,0 +1,458 @@
+---
+import { getCollection } from 'astro:content';
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { breadcrumbList } from '../components/seo/schemas';
+import { site } from '../data/site';
+
+/**
+ * Past papers hub. We never re-host exam board PDFs — every "Official past
+ * papers" link below goes straight to the exam board's own site. Cambridge
+ * links are deep links straight to each syllabus's past-papers page (curl-
+ * verified 200 for all 37 — a few needed the board's real subject name
+ * rather than ours, e.g. 0417 is "information-and-communication-technology"
+ * not "ict", and 4024 is "mathematics-d" not "mathematics"). AQA has one
+ * public finder that takes a syllabus code as a query param (verified
+ * against two codes). Pearson's search is a form, not a URL, so Edexcel
+ * rows link to the general tool with instructions. OxfordAQA's one syllabus
+ * (9645) is distributed to registered centres rather than published openly,
+ * so it gets an honest note instead of a fake "past papers" link.
+ */
+
+const LEVEL_ORDER: Record<string, number> = { 'o-levels': 0, igcse: 1, 'a-levels': 2 };
+const LEVEL_LABEL: Record<string, string> = { 'o-levels': 'O Level', igcse: 'IGCSE', 'a-levels': 'A Level' };
+
+const CAMBRIDGE_PAST_PAPERS: Record<string, string> = {
+  '0452': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-accounting-0452/past-papers/',
+  '9706': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-accounting-9706/past-papers/',
+  '0610': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-biology-0610/past-papers/',
+  '5090': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-biology-5090/past-papers/',
+  '9700': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-biology-9700/past-papers/',
+  '0264': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-business-0264/past-papers/',
+  '7081': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-business-7081/past-papers/',
+  '9609': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-business-9609/past-papers/',
+  '0620': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-chemistry-0620/past-papers/',
+  '5070': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-chemistry-5070/past-papers/',
+  '9701': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-chemistry-9701/past-papers/',
+  '7100': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-commerce-7100/past-papers/',
+  '0478': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-computer-science-0478/past-papers/',
+  '2210': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-computer-science-2210/past-papers/',
+  '9618': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-computer-science-9618/past-papers/',
+  '0455': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-economics-0455/past-papers/',
+  '2281': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-economics-2281/past-papers/',
+  '9708': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-economics-9708/past-papers/',
+  '1123': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-english-language-1123/past-papers/',
+  '9093': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-english-language-9093/past-papers/',
+  '0417': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-information-and-communication-technology-0417/past-papers/',
+  '9626': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-information-technology-9626/past-papers/',
+  '9084': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-law-9084/past-papers/',
+  '0580': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-mathematics-0580/past-papers/',
+  '4024': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-mathematics-d-4024/past-papers/',
+  '9709': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-mathematics-9709/past-papers/',
+  '0625': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-physics-0625/past-papers/',
+  '5054': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-physics-5054/past-papers/',
+  '9702': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-physics-9702/past-papers/',
+  '9990': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-psychology-9990/past-papers/',
+  '0495': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-sociology-0495/past-papers/',
+  '2251': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-sociology-2251/past-papers/',
+  '9699': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-sociology-9699/past-papers/',
+  '4040': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-statistics-4040/past-papers/',
+  '0470': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-history-0470/past-papers/',
+  '2147': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-o-level-history-2147/past-papers/',
+  '9489': 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-history-9489/past-papers/',
+};
+
+const AQA_FINDER = 'https://www.aqa.org.uk/find-past-papers-and-mark-schemes';
+const EDEXCEL_SEARCH = 'https://qualifications.pearson.com/en/support/support-topics/exams/past-papers.html';
+const OXFORDAQA_SITE = 'https://www.oxfordaqa.com/';
+
+function officialLink(board: string, code: string): string | null {
+  if (board === 'cambridge') return CAMBRIDGE_PAST_PAPERS[code] ?? null;
+  if (board === 'aqa') return `${AQA_FINDER}?q=${encodeURIComponent(code)}`;
+  if (board === 'edexcel') return EDEXCEL_SEARCH;
+  return null;
+}
+
+const allEntries = (await getCollection('subjectBoards', ({ data }) => !data.draft)).sort(
+  (a, b) =>
+    a.data.subjectName.localeCompare(b.data.subjectName) ||
+    LEVEL_ORDER[a.data.levelSlug] - LEVEL_ORDER[b.data.levelSlug]
+);
+
+const byBoard = {
+  cambridge: allEntries.filter((e) => e.data.board === 'cambridge'),
+  edexcel: allEntries.filter((e) => e.data.board === 'edexcel'),
+  aqa: allEntries.filter((e) => e.data.board === 'aqa'),
+};
+const oxfordaqa = allEntries.find((e) => e.data.board === 'oxfordaqa');
+
+const boardSections = [
+  {
+    key: 'cambridge',
+    name: 'Cambridge International (CAIE)',
+    blurb:
+      "Cambridge publishes past papers, mark schemes, examiner reports and specimen papers openly on each syllabus's own page — free, no account needed. Every link below goes straight to the right syllabus.",
+    entries: byBoard.cambridge,
+  },
+  {
+    key: 'aqa',
+    name: 'AQA',
+    blurb:
+      'AQA runs one past-papers finder for every subject. Each link below is pre-searched using the syllabus code, so the right papers come straight up.',
+    entries: byBoard.aqa,
+  },
+  {
+    key: 'edexcel',
+    name: 'Pearson Edexcel',
+    blurb:
+      'Pearson’s past-paper search is free for students, though only teachers can access papers from the last 12 months. Open the search tool below, choose “International GCSE” or “International Advanced Level” as the qualification family, then enter the subject name shown.',
+    entries: byBoard.edexcel,
+  },
+];
+
+const title = `Past Papers & Exam Resources | ${site.name}`;
+const description = `Free official past papers, mark schemes and examiner reports for all ${allEntries.length} Cambridge, Edexcel and AQA syllabuses we teach — direct links to each exam board, organised by subject and syllabus code.`;
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Past Papers', url: `${site.domain}/past-papers/` },
+]);
+
+const tips = [
+  {
+    title: 'Work topic-by-topic first',
+    body: "Don't hand your child a full past paper on a topic they haven't finished studying — pull individual questions on just that topic instead. Ask their teacher for a topic-sorted set; most exam board archives are only sorted by exam series.",
+  },
+  {
+    title: 'Always mark against the real mark scheme',
+    body: 'Exam boards award marks for specific keywords, method steps and structure, not just a correct-sounding answer. Marking without the official mark scheme is one of the biggest reasons predicted and actual grades drift apart.',
+  },
+  {
+    title: 'Read the examiner report, not just the mark scheme',
+    body: 'Where published (Cambridge and Edexcel both do this well), examiner reports say exactly where most students lost marks that series — often the fastest way to close a gap before the next attempt.',
+  },
+  {
+    title: 'Move to full timed conditions closer to the exam',
+    body: "Once a topic is covered, full papers under real time pressure build the pacing and stamina that topic-by-topic practice doesn't. Save these for the last few weeks before the exam.",
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you host the past paper PDFs on this site?',
+    a: "No — every link on this page goes straight to the exam board's own official site (Cambridge International, AQA or Pearson Edexcel), so your child always gets the current, correct paper and mark scheme. We don't re-host or edit exam board material.",
+  },
+  {
+    q: 'Why do I need the syllabus code?',
+    a: 'Each exam board teaches several versions of the same subject — the code (e.g. 0610 for Cambridge IGCSE Biology) tells you and the search tool exactly which one. It’s the same code that appears on your child’s school timetable and exam entry, and it’s shown next to every subject below.',
+  },
+  {
+    q: 'Some papers seem to be missing or restricted — why?',
+    a: "Exam boards hold back the very latest series for registered schools and teachers for a period after the exam, to protect security while it's still being used for future re-sits and comparisons — Pearson states 12 months, and Cambridge's most recent series works the same way. Everything older is open to the public.",
+  },
+  {
+    q: 'Can Learners Academy help my child work through these?',
+    a: 'Yes — this is what our subject teachers do every week: assign the right papers, mark them against the real scheme, and go through examiner feedback together. Book a free trial class and we’ll set a plan for your child’s subjects.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/past-papers/" topBar={false}>
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="Free resources · direct from the exam boards"
+    crumb="Past Papers"
+    title="Past papers, mark schemes and examiner reports for every subject we teach."
+    sub={`${allEntries.length} syllabuses across Cambridge, Edexcel and AQA — each one linked straight to the exam board's own official past papers, not a re-uploaded copy.`}
+  />
+
+  <section class="intro">
+    <div class="container container--narrow">
+      <p class="intro__lead">
+        We don't keep our own copy of anything below — exam boards update, correct and occasionally
+        withdraw past papers, so a page hosting old PDFs quietly goes stale. Instead, every link here
+        goes straight to Cambridge International, AQA or Pearson Edexcel's own site, matched to the
+        exact syllabus code your child's class follows.
+      </p>
+
+      <h2 class="intro__h2">Getting the most out of past papers</h2>
+      <div class="tips__grid">
+        {
+          tips.map((t) => (
+            <div class="tip">
+              <h3 class="tip__title">{t.title}</h3>
+              <p class="tip__body">{t.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="filterbar">
+    <div class="container container--narrow">
+      <label class="filterbar__label" for="pp-filter">Jump to a subject</label>
+      <input
+        id="pp-filter"
+        class="filterbar__input"
+        type="search"
+        placeholder="Start typing a subject, e.g. Chemistry…"
+        autocomplete="off"
+      />
+    </div>
+  </section>
+
+  {
+    boardSections.map((section) => (
+      <section class="board" id={section.key}>
+        <div class="container container--narrow">
+          <h2 class="board__h2">{section.name}</h2>
+          <p class="board__blurb">{section.blurb}</p>
+          <div class="table-wrap">
+            <table class="ptable">
+              <thead>
+                <tr>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Level</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Resources</th>
+                </tr>
+              </thead>
+              <tbody>
+                {section.entries.map((e) => (
+                  <tr data-subject={e.data.subjectName.toLowerCase()}>
+                    <td>{e.data.subjectName}</td>
+                    <td>{LEVEL_LABEL[e.data.levelSlug]}</td>
+                    <td><span class="code">{e.data.syllabusCode}</span></td>
+                    <td class="ptable__links">
+                      <a href={e.data.seo.canonical}>Class page →</a>
+                      {officialLink(e.data.board, e.data.syllabusCode) && (
+                        <a
+                          href={officialLink(e.data.board, e.data.syllabusCode) as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Past papers ↗
+                        </a>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  {
+    oxfordaqa && (
+      <section class="board" id="oxfordaqa">
+        <div class="container container--narrow">
+          <h2 class="board__h2">OxfordAQA</h2>
+          <p class="board__blurb">
+            We also teach OxfordAQA's International A Level {oxfordaqa.data.subjectName} ({oxfordaqa.data.syllabusCode}) — a distinct awarding body run in partnership with AQA.
+            Its past papers are distributed to registered exam centres rather than published openly, so
+            there's no public link to give you here. <a href={oxfordaqa.data.seo.canonical}>See the class page</a>{' '}
+            or message us on WhatsApp and we'll help source the right practice material, or check{' '}
+            <a href={OXFORDAQA_SITE} target="_blank" rel="noopener noreferrer">OxfordAQA's own site ↗</a>.
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Past papers get you practising. A teacher gets you improving."
+    sub="Book a free trial class — we'll mark your child's next past paper and show you exactly where the marks are being lost."
+  />
+</HomeLayout>
+
+<script>
+  const input = document.getElementById('pp-filter') as HTMLInputElement | null;
+  const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('tr[data-subject]'));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('section.board'));
+
+  input?.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    rows.forEach((row) => {
+      const subject = row.dataset.subject ?? '';
+      row.hidden = q.length > 0 && !subject.includes(q);
+    });
+    sections.forEach((section) => {
+      const tableRows = section.querySelectorAll<HTMLTableRowElement>('tr[data-subject]');
+      if (tableRows.length === 0) return; // leave non-table sections (e.g. OxfordAQA note) alone
+      const anyVisible = Array.from(tableRows).some((row) => !row.hidden);
+      section.hidden = !anyVisible;
+    });
+  });
+</script>
+
+<style>
+  .intro {
+    background: var(--c-bg);
+    padding-block: var(--section-y) 48px;
+  }
+  .intro__lead {
+    margin: 0 auto;
+    max-width: 72ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .intro__h2 {
+    margin: 48px 0 20px;
+    font-size: clamp(24px, 2.8vw, 32px);
+    line-height: 1.15;
+    color: var(--c-primary-ink);
+  }
+  .tips__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .tip {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .tip__title {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: var(--c-primary-ink);
+  }
+  .tip__body {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--c-text);
+  }
+
+  .filterbar {
+    background: var(--c-bg);
+    padding-block: 0 32px;
+  }
+  .filterbar__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .filterbar__input {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--c-primary-ink);
+    background: var(--c-field);
+    border: 1px solid var(--c-field-border);
+    border-radius: var(--r-sm);
+  }
+  .filterbar__input:focus-visible {
+    outline: 2px solid var(--c-primary);
+    outline-offset: 1px;
+  }
+
+  .board {
+    background: var(--c-panel);
+    padding-block: 48px;
+    border-top: 1px solid var(--c-border);
+  }
+  .board:nth-of-type(odd) {
+    background: var(--c-bg);
+  }
+  .board__h2 {
+    margin: 0 0 10px;
+    font-size: clamp(24px, 2.8vw, 32px);
+    line-height: 1.15;
+    color: var(--c-primary-ink);
+  }
+  .board__blurb {
+    margin: 0 0 24px;
+    max-width: 72ch;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .board__blurb a {
+    color: var(--c-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--r-md);
+    background: var(--c-card);
+    box-shadow: var(--shadow-card);
+  }
+  .ptable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .ptable th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    border-bottom: 1px solid var(--c-border-strong);
+    white-space: nowrap;
+  }
+  .ptable td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--c-border);
+    color: var(--c-text);
+    vertical-align: middle;
+  }
+  .ptable tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .ptable tbody tr:hover {
+    background: var(--c-panel);
+  }
+  .code {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--c-primary-deep);
+    background: var(--c-accent);
+    border-radius: var(--r-sm);
+    white-space: nowrap;
+  }
+  .ptable__links {
+    white-space: nowrap;
+  }
+  .ptable__links a {
+    color: var(--c-primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .ptable__links a:hover {
+    text-decoration: underline;
+  }
+  .ptable__links a + a {
+    margin-left: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .ptable__links a + a {
+      display: block;
+      margin-left: 0;
+      margin-top: 4px;
+    }
+  }
+</style>
