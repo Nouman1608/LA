@@ -20,6 +20,7 @@ export const footerExplore: NavLink[] = [
   { label: 'Subjects', href: '/subjects/' },
   { label: 'Teachers', href: '/teachers/' },
   { label: 'Results & Reviews', href: '/results/' },
+  { label: 'Past Papers', href: '/past-papers/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Blog', href: '/blog/' },
   { label: 'Free Trial', href: '/contact/' },
