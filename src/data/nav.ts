@@ -31,6 +31,7 @@ export const footerPrograms: NavLink[] = [
   { label: 'Edexcel Tuition', href: '/edexcel-online-tuition-classes-in-pakistan/' },
   { label: 'AQA Tuition', href: '/aqa-online-tuition-classes-in-pakistan/' },
   { label: 'Oct/Nov 2026 Retakes', href: '/november-2026-retakes/' },
+  { label: 'O Level Tuition Lahore', href: '/o-level-tuition-lahore/' },
   { label: 'Aitchison Test Prep', href: '/aitchison-test/' },
   { label: 'Cadet College Prep', href: '/cadet-colleges-test/' },
   { label: 'Saudi Arabia Tuition', href: '/igcse-tuition/saudi-arabia/' },
