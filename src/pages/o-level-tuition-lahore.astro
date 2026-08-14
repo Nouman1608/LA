@@ -1,0 +1,248 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../components/seo/schemas';
+import { site, whatsappLink } from '../data/site';
+import { teachers, combinedYears } from '../data/teachers';
+
+const title = `O Level Tuition in Lahore — In-Person & Online | ${site.name}`;
+const description =
+  'O Level tuition in Lahore — live online or in person at our Bahria Town campus. Cambridge & Edexcel specialists from Lahore’s leading schools. Free trial class.';
+
+const courseSchema = course({
+  name: 'O Level Tuition in Lahore',
+  description:
+    'O Level tuition for students in Lahore, taught in person at our Bahria Town campus or live online — Cambridge and Edexcel exam boards.',
+  url: `${site.domain}/o-level-tuition-lahore/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'O Level Tuition Lahore', url: `${site.domain}/o-level-tuition-lahore/` },
+]);
+
+const gaps = [
+  {
+    title: 'The only option that’s genuinely both',
+    body: 'Most Lahore tuition is either an in-home tutor with no online option, or a pure online platform with no physical presence in the city. We run both from one Bahria Town campus — your child sits in the classroom or joins live online, subject by subject, whichever the week calls for.',
+  },
+  {
+    title: 'Elite-school teachers, without the elite-school commute',
+    body: `Our ${teachers.length} teachers have taught at Aitchison College, LGS, Beaconhouse, LACAS, The City School, BISC, Froebel's and SICAS — ${Math.floor(combinedYears / 10) * 10}+ years of combined classroom experience between them, at a fraction of what a private in-home tutor with that background usually costs.`,
+  },
+  {
+    title: 'Built for the O Level → A Level jump',
+    body: 'The same teacher who takes your child through O Level Chemistry or Mathematics can carry straight on into A Level with them — no handover, no re-explaining what’s already been covered.',
+  },
+  {
+    title: 'Real prices, on the website',
+    body: 'No “ask for a quote”, no negotiating a rate over the phone. Fees are published, per subject, per month, with the discounts already worked out — and the first class is free so you can judge the teaching before paying anything.',
+  },
+];
+
+const help = [
+  {
+    title: 'At an established Lahore school',
+    body: 'LGS, Beaconhouse, Aitchison, The City School, BISC, LACAS or elsewhere — we teach from the exact Cambridge or Edexcel specification your child’s school follows, so lessons reinforce school rather than pull in a different direction.',
+  },
+  {
+    title: 'Studying as a private candidate',
+    body: 'Cambridge and Edexcel O Level exams run in Lahore through registered private centres. We cover the full syllabus, set timed marked mocks, and keep you ahead of each registration deadline.',
+  },
+  {
+    title: 'Preparing for Aitchison or a Cadet College alongside O Level',
+    body: 'A number of our O Level families are juggling admission-test preparation at the same time. Our dedicated Aitchison and Cadet College guides sit alongside regular subject tuition, taught by teachers who know both syllabuses.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is this in-person or online?',
+    a: `Both, and you choose per subject. Classes run in person at our ${site.location} campus or live online — many families mix the two, depending on the child's schedule and the subject.`,
+  },
+  {
+    q: 'Where exactly is the campus?',
+    a: `${site.address.street}, ${site.address.locality}, ${site.address.region} ${site.address.postalCode}. Message us on WhatsApp and we'll confirm timings before you visit.`,
+  },
+  {
+    q: 'Which exam boards and levels do you teach?',
+    a: 'Cambridge (CAIE), Pearson Edexcel and AQA, across O Level, IGCSE and A Level — 23 subjects in total, each taught from the official specification and syllabus code your school uses.',
+  },
+  {
+    q: 'What does O Level tuition cost in Lahore?',
+    a: '₨19,000 per subject per month in a group class, or ₨3,500 per class for 1-to-1 — the same rate as our IGCSE tuition. Take 20% off from three subjects and 10% off for up to two siblings. Message us on WhatsApp for the total on your subject list.',
+  },
+  {
+    q: 'Do you also help with Aitchison or Cadet College entry tests?',
+    a: 'Yes — Aitchison Test Prep and Cadet College Prep are two of our signature programmes, and can run alongside regular O Level tuition for families preparing for both at once.',
+  },
+  {
+    q: 'How experienced are the teachers?',
+    a: `${teachers.length} teachers, ${Math.floor(combinedYears / 10) * 10}+ years of combined classroom experience, drawn from Aitchison College, LGS, Beaconhouse, LACAS, The City School, BISC, Froebel's and SICAS. Meet the full faculty on our teachers page.`,
+  },
+  {
+    q: 'Can my child continue into A Level with the same teacher?',
+    a: 'Yes — it’s one of the most common paths families take with us. The same subject teacher can continue from O Level straight into A Level, so nothing gets re-taught from scratch.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. WhatsApp us your child’s subjects, year group and exam board, and whether you’d prefer in-person or online — we reply the same day.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/o-level-tuition-lahore/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="O Level tuition · Lahore"
+    crumb="O Level Tuition Lahore"
+    title="O Level tuition in Lahore — in person or online."
+    sub={`Cambridge and Edexcel classes taught from our ${site.location} campus or live online — elite-school teachers, transparent pricing, your choice of format.`}
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Lahore has no shortage of O Level tutors — what it doesn’t have much of is a single place
+        offering both a real campus and a genuine online option, taught by teachers who’ve actually
+        worked inside the schools your child is being examined against. Learners Academy has run
+        from {site.location} since {site.founded}, teaching O Level, IGCSE and A Level students
+        both on campus and live online, with published pricing and a free first class so you can
+        judge the teaching before committing to anything.
+      </p>
+
+      <h2 class="guide__h2">Why Lahore families choose us</h2>
+      <div class="guide__grid">
+        {
+          gaps.map((g) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{g.title}</h3>
+              <p class="gcard__body">{g.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Whatever your child&rsquo;s situation</h2>
+      <div class="guide__stack">
+        {
+          help.map((h) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{h.title}</h3>
+              <p class="gcard__body">{h.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works in Lahore</h2>
+      <p class="guide__text">
+        Send a WhatsApp message with your child&rsquo;s subjects, year group, exam board and
+        whether you&rsquo;d prefer in-person or online. We reply the same day with options —
+        campus sessions at {site.location}, live online classes, or a mix of both. Classes are
+        interactive either way, homework is set and marked every week, and past-paper practice
+        builds up ahead of the May/June exam session, with October/November available for retakes.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! I'm looking for O Level tuition in Lahore.")} variant="primary" size="lg">
+          WhatsApp us about O Level tuition
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">More from Learners Academy</h2>
+      <div class="related__links">
+        <a class="related__link" href="/aitchison-test/">Aitchison College Test Prep <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/cadet-colleges-test/">Cadet College Prep <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/teachers/">Meet our teachers <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/subjects/">All subjects &amp; boards <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/igcse-online-tuition-classes-in-pakistan/">IGCSE &amp; O Level tuition in Pakistan <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/pricing/">Full pricing by region <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="O Level tuition in Lahore, on your terms."
+    sub="Book a free trial class — in person at Bahria Town or live online, whichever works for your family."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
