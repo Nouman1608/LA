@@ -4,8 +4,20 @@
  */
 import { site } from '../../data/site';
 
-export function educationalOrganization() {
-  return {
+export function educationalOrganization(opts?: {
+  /** Only pass this on pages that actually display the reviews/rating —
+   *  Google's guidelines treat review markup on pages without visible
+   *  review content as spam, so the sitewide HomeLayout call must stay
+   *  bare and only /results/ opts in. */
+  aggregateRating?: { ratingValue: number; reviewCount: number; bestRating?: number };
+  reviews?: {
+    author: string;
+    reviewBody: string;
+    ratingValue: number;
+    datePublished?: string;
+  }[];
+}) {
+  const org: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': ['EducationalOrganization', 'LocalBusiness', 'Organization'],
     '@id': `${site.domain}/#organization`,
@@ -38,6 +50,31 @@ export function educationalOrganization() {
     },
     sameAs: [site.social.facebook, site.social.instagram],
   };
+
+  if (opts?.aggregateRating) {
+    org.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: opts.aggregateRating.ratingValue,
+      reviewCount: opts.aggregateRating.reviewCount,
+      bestRating: opts.aggregateRating.bestRating ?? 5,
+    };
+  }
+
+  if (opts?.reviews?.length) {
+    org.review = opts.reviews.map((r) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: r.author },
+      reviewBody: r.reviewBody,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: r.ratingValue,
+        bestRating: 5,
+      },
+      ...(r.datePublished ? { datePublished: r.datePublished } : {}),
+    }));
+  }
+
+  return org;
 }
 
 export function course(opts: { name: string; description: string; url: string }) {
