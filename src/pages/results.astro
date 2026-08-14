@@ -1,0 +1,473 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { educationalOrganization, breadcrumbList } from '../components/seo/schemas';
+import { site } from '../data/site';
+
+const title = `Real Student Results & Reviews | ${site.name}`;
+const description =
+  'Real O Level and A Level grades shared by our own students after results day, plus genuine Google reviews — 51 grades, 67% A*/A, 4.6★ from 32 reviews. Nothing fabricated.';
+
+const REVIEW_URL = 'https://g.page/r/CY7Oo82BPlnIEBM/review';
+
+const stats = [
+  { value: '51', label: 'Grades shared with us this results season' },
+  { value: '67%', label: 'Were A* or A' },
+  { value: '44', label: 'Students who told us their result' },
+  { value: '4.6★', label: '32 Google reviews' },
+];
+
+const gradeBreakdown = [
+  { grade: 'A*', cls: 'astar', count: 4 },
+  { grade: 'A', cls: 'a', count: 30 },
+  { grade: 'B', cls: 'b', count: 16 },
+  { grade: 'C', cls: 'c', count: 1 },
+];
+
+const testimonials = [
+  {
+    name: 'Parent of Ayesha K.',
+    result: 'A* — A Level Business',
+    quote:
+      'Seeing her achieve an A* in Business has filled our hearts with immense pride and happiness… You not only taught her the subject but also motivated her, built her confidence, and encouraged her to always aim higher.',
+  },
+  {
+    name: 'Arham K.',
+    result: 'B — A Level Business',
+    quote:
+      'You did far more than just teach the syllabus — you inspired confidence in me and made learning a truly memorable journey. Your lessons and kindness will stay with me for a lifetime.',
+  },
+  {
+    name: 'Ibrahim A.',
+    result: 'A — Business Studies',
+    quote:
+      "Thank you so much for all your help and guidance throughout. Couldn't have done it without you. JazakAllah Khair Sir.",
+  },
+  {
+    name: 'Subhan A.',
+    result: 'B — A Level Business',
+    quote:
+      "I got a B — though after giving the paper I was expecting an A. It's still good for A Level standards, Alhumdulillah, and in sha Allah will only get better under your guidance.",
+  },
+  {
+    name: 'Maira Y.',
+    result: 'A — A Level Business',
+    quote: 'Thank you so much for helping me out in A2.',
+  },
+  {
+    name: 'Walishah',
+    result: 'A — Business',
+    quote: 'Sir I got an A, thank you for all the effort you put on us.',
+  },
+];
+
+const resultsWall = [
+  { name: 'Abdul Haseeb J.', grades: 'A* Business, A Accounting, A Economics' },
+  { name: 'Ayan K.', grades: 'A* Business, C Economics' },
+  { name: 'Ayesha K.', grades: 'A* Business' },
+  { name: 'Meerab A.', grades: 'A*' },
+  { name: 'Sariya F.', grades: 'A Business, A Urdu, A Accounting' },
+  { name: 'Fatima A.', grades: 'A Business' },
+  { name: 'Hamnah', grades: 'A, incl. Business' },
+  { name: 'Jumaan A.', grades: 'A Business' },
+  { name: 'Zaigham D.', grades: 'A Business' },
+  { name: 'Ahmed R.', grades: 'A' },
+  { name: 'Hassan H.', grades: 'A' },
+  { name: 'Soha Z.', grades: 'A' },
+  { name: 'Muzamal A.', grades: 'A' },
+  { name: 'Moeed B.', grades: 'B, A' },
+  { name: 'Huzefa I.', grades: 'B' },
+  { name: 'Sana S.', grades: 'B' },
+  { name: 'Talha B.', grades: 'B' },
+  { name: 'Aaliyan C.', grades: 'B' },
+  { name: 'Asadullah', grades: 'B' },
+  { name: 'Armeen', grades: 'B' },
+];
+
+const reviews = [
+  {
+    author: 'Hamza Farooqui',
+    rating: 5,
+    quote:
+      'I struggled with chemistry a lot but after studying from Sir Nouman my understanding of the subject has gotten much better.',
+    datePublished: '2026-08-12',
+  },
+  {
+    author: 'Shaikh Azam Siddique',
+    rating: 5,
+    quote: 'Learners Academy is the best place for all the subjects.',
+    datePublished: '2026-08-12',
+  },
+  {
+    author: 'Musa Toor',
+    rating: 5,
+    quote:
+      'I had a great experience at Learners Academy Lahore. The teachers are professional, friendly, and explain concepts in a simple way. The classes are well-organized, and the learning environment is positive. They provide excellent guidance for O Level. I highly recommend this academy to anyone looking for quality education.',
+    datePublished: '2026-07-24',
+  },
+  {
+    author: 'Hina Mogul',
+    rating: 5,
+    quote: "The best academy for IGCSE O'Levels and A'levels.",
+    datePublished: '2026-07-17',
+  },
+  {
+    author: 'Students Resource',
+    rating: 5,
+    quote:
+      'My child attended the online classes, and the experience was very good. The teachers are excellent at using digital tools and keeping students engaged with worksheets and interactive teaching. Online classes save travel time and fuel costs too.',
+    datePublished: '2026-07-17',
+  },
+  {
+    author: 'Fanoos Dean',
+    rating: 5,
+    quote: 'Best academy for O levels.',
+    datePublished: '2026-01-06',
+  },
+];
+
+const orgSchema = educationalOrganization({
+  aggregateRating: { ratingValue: 4.6, reviewCount: 32 },
+  reviews: reviews.map((r) => ({
+    author: r.author,
+    reviewBody: r.quote,
+    ratingValue: r.rating,
+    datePublished: r.datePublished,
+  })),
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Results & Reviews', url: `${site.domain}/results/` },
+]);
+
+const faqs = [
+  {
+    q: 'Are these results real?',
+    a: "Yes. Every grade on this page was shared directly with us by the student or their parent right after results day, and where we were sent one, we've checked it against the official Cambridge International Statement of Results. We haven't hidden the B's and the one C behind only the top grades — that's the real spread this results season.",
+  },
+  {
+    q: 'Why are most of these results in Business Studies?',
+    a: "Most of these messages came straight to Sir Nouman, our founder and lead Business teacher, so Business is the best-represented subject here. We teach 23 subjects in total across Cambridge, Edexcel and AQA — see the full list on our Subjects page.",
+  },
+  {
+    q: 'Are the reviews below real Google reviews?',
+    a: "Yes — pulled directly from our Google Business Profile and shown with the same name and rating the reviewer posted publicly. We haven't removed or hidden any review to inflate the average — the 4.6 above is our real rating from all 32 reviews.",
+  },
+  {
+    q: 'How do I leave a review?',
+    a: "If Learners Academy has helped your child, we'd genuinely appreciate a Google review — it's how other Lahore families find us. Use the button above the reviews on this page.",
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/results/" topBar={false}>
+  <JsonLd slot="head" data={orgSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="Proof, not promises"
+    crumb="Results & Reviews"
+    title="Real results. Real reviews. Nothing dressed up."
+    sub="A running record of the grades our students actually got this results season, and what families actually said — not a highlight reel."
+  />
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        {
+          stats.map((s) => (
+            <div class="stat">
+              <p class="stat__value">{s.value}</p>
+              <p class="stat__label">{s.label}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="results">
+    <div class="container container--narrow">
+      <p class="results__lead">
+        This page isn&rsquo;t a curated wall of A stars. It&rsquo;s the messages students and
+        parents actually sent us the moment their results landed this August 2026, from students at
+        The City School, Beaconhouse, Froebel&rsquo;s International, Foundation Public School and
+        more. Most are Business Studies, since that&rsquo;s Sir Nouman&rsquo;s own subject and most
+        came straight to him — the rest span Economics, Accounting and Urdu. We&rsquo;ve kept the
+        B&rsquo;s and the one C in, because that&rsquo;s what actually happened.
+      </p>
+
+      <h2 class="results__h2">Grade breakdown</h2>
+      <div class="breakdown">
+        {
+          gradeBreakdown.map((g) => (
+            <div class={`chip chip--${g.cls}`}>
+              <span class="chip__grade">{g.grade}</span>
+              <span class="chip__count">× {g.count}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="results__h2">In their own words</h2>
+      <div class="tgrid">
+        {
+          testimonials.map((t) => (
+            <div class="tcard">
+              <p class="tcard__quote">&ldquo;{t.quote}&rdquo;</p>
+              <p class="tcard__name">{t.name}</p>
+              <p class="tcard__result">{t.result}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="results__h2">This season&rsquo;s results</h2>
+      <div class="wall">
+        {
+          resultsWall.map((r) => (
+            <div class="wallrow">
+              <span class="wallrow__name">{r.name}</span>
+              <span class="wallrow__grades">{r.grades}</span>
+            </div>
+          ))
+        }
+      </div>
+      <p class="wall__note">
+        …plus more students whose results we have on file but haven&rsquo;t individually listed
+        here. First names and initials only — some of our students are minors.
+      </p>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="container container--narrow">
+      <h2 class="results__h2">What families say on Google</h2>
+      <p class="reviews__rating">
+        <span class="reviews__stars" aria-hidden="true">★★★★★</span> 4.6 out of 5 — 32 Google reviews
+      </p>
+      <div class="rgrid">
+        {
+          reviews.map((r) => (
+            <div class="rcard">
+              <p class="rcard__stars" aria-hidden="true">{'★'.repeat(r.rating)}</p>
+              <p class="rcard__quote">&ldquo;{r.quote}&rdquo;</p>
+              <p class="rcard__name">{r.author} <span class="rcard__when">· Google review</span></p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="reviews__actions">
+        <Button href={REVIEW_URL} variant="primary" size="lg" target="_blank" rel="noopener">
+          Leave a Google review
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="See the teaching before you take our word for it."
+    sub="Book a free trial class — no commitment, instant response."
+  />
+</HomeLayout>
+
+<style>
+  .stats {
+    background: var(--c-primary-dark, #3a4885);
+    color: #fff;
+  }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-block: 40px;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat__value {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 600;
+    color: #fff;
+  }
+  .stat__label {
+    margin: 6px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .results {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .results__lead {
+    margin: 0 auto;
+    max-width: 72ch;
+    font-size: clamp(17px, 1.7vw, 19px);
+    line-height: 1.75;
+    color: var(--c-text);
+  }
+  .results__h2 {
+    margin: 56px 0 20px;
+    font-size: clamp(24px, 2.8vw, 32px);
+    line-height: 1.15;
+    color: var(--c-primary-ink);
+  }
+
+  .breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--r-pill);
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .chip__grade {
+    font-size: 17px;
+  }
+  .chip--astar {
+    background: #fbeecd;
+    color: #92660f;
+  }
+  .chip--a {
+    background: #dcf1e6;
+    color: #206b45;
+  }
+  .chip--b {
+    background: var(--c-accent);
+    color: var(--c-primary-deep);
+  }
+  .chip--c {
+    background: var(--c-border-strong);
+    color: var(--c-muted);
+  }
+
+  .tgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .tcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .tcard__quote {
+    margin: 0 0 14px;
+    line-height: 1.65;
+    color: var(--c-text);
+    flex-grow: 1;
+  }
+  .tcard__name {
+    margin: 0;
+    font-weight: 700;
+    color: var(--c-primary-ink);
+  }
+  .tcard__result {
+    margin: 2px 0 0;
+    font-size: 14px;
+    color: var(--c-muted);
+  }
+
+  .wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2px;
+    background: var(--c-border);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .wallrow {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--c-card);
+    padding: 14px 18px;
+    font-size: 14.5px;
+  }
+  .wallrow__name {
+    font-weight: 700;
+    color: var(--c-primary-ink);
+  }
+  .wallrow__grades {
+    color: var(--c-text);
+    text-align: right;
+  }
+  .wall__note {
+    margin: 16px 0 0;
+    font-size: 13.5px;
+    color: var(--c-muted);
+  }
+
+  .reviews {
+    background: var(--c-panel);
+    padding-block: var(--section-y);
+  }
+  .reviews__rating {
+    margin: 0 0 32px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--c-primary-ink);
+  }
+  .reviews__stars {
+    color: #d8a53a;
+    letter-spacing: 2px;
+  }
+  .rgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .rcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .rcard__stars {
+    margin: 0 0 10px;
+    color: #d8a53a;
+    letter-spacing: 2px;
+  }
+  .rcard__quote {
+    margin: 0 0 14px;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .rcard__name {
+    margin: 0;
+    font-weight: 700;
+    color: var(--c-primary-ink);
+  }
+  .rcard__when {
+    font-weight: 400;
+    color: var(--c-muted);
+  }
+  .reviews__actions {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
