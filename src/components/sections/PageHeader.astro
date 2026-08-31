@@ -1,11 +1,15 @@
 ---
+import RatingBadge from '../ui/RatingBadge.astro';
+
 interface Props {
   eyebrow: string;
   title: string;
   sub?: string;
   crumb: string;
+  /** Show the "★ 4.6 · 32 Google reviews" trust badge under the sub copy. */
+  rating?: boolean;
 }
-const { eyebrow, title, sub, crumb } = Astro.props;
+const { eyebrow, title, sub, crumb, rating = false } = Astro.props;
 ---
 <section class="phead">
   <div class="phead__glow" aria-hidden="true"></div>
@@ -17,6 +21,7 @@ const { eyebrow, title, sub, crumb } = Astro.props;
     <p class="phead__eyebrow">{eyebrow}</p>
     <h1 class="phead__title">{title}</h1>
     {sub && <p class="phead__sub">{sub}</p>}
+    {rating && <div class="phead__rating"><RatingBadge tone="on-dark" /></div>}
   </div>
 </section>
 
@@ -72,5 +77,8 @@ const { eyebrow, title, sub, crumb } = Astro.props;
     line-height: 1.6;
     color: var(--c-on-primary-soft);
     max-width: 58ch;
+  }
+  .phead__rating {
+    margin-top: 22px;
   }
 </style>
