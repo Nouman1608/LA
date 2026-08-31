@@ -1,0 +1,247 @@
+---
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Faq from '../../components/sections/Faq.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import Button from '../../components/ui/Button.astro';
+import JsonLd from '../../components/seo/JsonLd.astro';
+import { course, breadcrumbList } from '../../components/seo/schemas';
+import { site, whatsappLink } from '../../data/site';
+
+const title = `IGCSE & A Level Tuition for Pakistani Families in Europe | ${site.name}`;
+const description =
+  'Live online IGCSE, O Level and A Level classes for Pakistani and expat families across Europe. Cambridge, Edexcel & AQA specialists, evening slots that fit European time zones. Free trial class.';
+
+const courseSchema = course({
+  name: 'IGCSE & A Level Online Tuition for Pakistani Families in Europe',
+  description:
+    'Live online IGCSE, O Level and A Level classes for Pakistani and expat students across mainland Europe — Cambridge, Edexcel and AQA exam boards, on CET/CEST-friendly timings.',
+  url: `${site.domain}/igcse-tuition/europe/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'IGCSE Tuition Europe', url: `${site.domain}/igcse-tuition/europe/` },
+]);
+
+const reasons = [
+  {
+    title: 'One teacher, wherever you are in Europe',
+    body: 'Germany, Italy, Spain, France, the Netherlands, Norway, Denmark — the country changes, the teacher and syllabus do not. Families move for work; we keep the one thing that shouldn’t have to reset.',
+  },
+  {
+    title: 'Built around CET/CEST evenings',
+    body: 'Mainland Europe is three to four hours behind Pakistan depending on the time of year. After-school hours in Berlin, Milan or Madrid land inside our teaching evening, so classes do not eat into bedtime.',
+  },
+  {
+    title: 'Teachers from home, boards from Cambridge',
+    body: 'Pakistani teachers who explain things the way your child is used to — teaching the official Cambridge, Edexcel and AQA specifications, paper by paper, since 2016.',
+  },
+  {
+    title: 'A fraction of Western European tutoring rates',
+    body: 'Private subject tutors in Western Europe commonly run €25–40 an hour. Ours are €70 per subject per month for IGCSE and €90 for A Level — the same teacher every week, at a price that makes year-round tuition realistic.',
+  },
+];
+
+const situations = [
+  {
+    title: 'At an international or British school',
+    body: 'Several international schools across Germany, Switzerland, the Netherlands and Scandinavia teach Cambridge IGCSE and A Levels. We reinforce exactly what school covers — same board, same syllabus code, past-paper practice built around it.',
+  },
+  {
+    title: 'Home educating or between school systems',
+    body: 'Families moving between European school systems — or choosing to home educate — often turn to Cambridge or Edexcel IGCSE because it is assessed by written exam, with a clear, internationally recognised structure. That is precisely what we teach.',
+  },
+  {
+    title: 'Aiming at university offers',
+    body: 'Whether the target is a UK university, a Dutch or German English-taught programme, or a return to Pakistan, A Level grades on Cambridge, Edexcel or AQA specifications keep every option open. We run structured past-paper cycles through the year.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Which European countries do you teach in?',
+    a: 'Anywhere with a stable internet connection. We have taught Pakistani and expat families across Germany, Italy, Spain, France, the Netherlands, Norway, Denmark and beyond — classes are live online, so the country changes nothing about how we teach.',
+  },
+  {
+    q: 'How do timings work from Europe?',
+    a: 'Mainland Europe (CET/CEST) is three to four hours behind Pakistan depending on the season. A 6pm class in Pakistan is around 2–3pm in Berlin or Rome, so we schedule evening slots — typically 5–7pm Central European time — that fit after-school hours without running late.',
+  },
+  {
+    q: 'Which exam boards and levels do you cover?',
+    a: 'Cambridge (CAIE), Pearson Edexcel and AQA, across IGCSE, O Level and A Level. Tell us the exact specification your child follows — from an international school, a British curriculum school, or as a private candidate — and preparation matches those exact papers.',
+  },
+  {
+    q: 'Can you prepare my child as a private candidate?',
+    a: 'Yes. Many families in Europe register their children for Cambridge or Edexcel exams as private candidates at approved centres. We cover the full syllabus, set marked work and mocks, and guide you on registration timelines and nearby exam centres.',
+  },
+  {
+    q: 'What does it cost from Europe?',
+    a: '€70 per subject per month for IGCSE and €90 for A Level, billed monthly — 20% off from three subjects and 10% off for a second sibling. For most families this comes in well under half of local private tutoring rates. Message us on WhatsApp and we will confirm the total for your subject list.',
+  },
+  {
+    q: 'Can my child keep the same teacher if we relocate within Europe?',
+    a: 'Yes — that is one of the main reasons families choose us. A move from Frankfurt to Amsterdam or Milan to Madrid changes nothing: same teacher, same syllabus, same schedule adjusted for the new time zone if needed.',
+  },
+  {
+    q: 'Do you teach Urdu and Islamiyat alongside the sciences?',
+    a: 'Yes — many Pakistani families in Europe want their children to keep these up formally alongside maths, sciences and humanities. Ask us about the right level and board options.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Book a free trial class. WhatsApp us your country, your child’s subjects, year group and exam board — we reply the same day with class options on Central European evening timings.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/igcse-tuition/europe/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <PageHeader
+    eyebrow="IGCSE tuition · Europe"
+    crumb="IGCSE Tuition Europe"
+    title="IGCSE and A Level tuition for Pakistani families across Europe."
+    sub="Cambridge, Edexcel and AQA classes for families across Germany, Italy, Spain, France and beyond — on CET/CEST-friendly evening timings, from €70 per subject per month."
+    rating
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Pakistani and expat families are spread across every corner of Europe — from Berlin and
+        Milan to Oslo and Barcelona — and they share the same problem: local private tutors are
+        expensive and hard to find on short notice, and international schools rarely offer the
+        per-subject depth a child needs before exams. Live online tuition closes that gap cleanly.
+        Your child learns from an experienced Pakistani teacher on the official Cambridge, Edexcel
+        or AQA specification, on a schedule built around Central European evenings, at a fraction
+        of local tutoring rates.
+      </p>
+
+      <h2 class="guide__h2">Why families across Europe choose us</h2>
+      <div class="guide__grid">
+        {
+          reasons.map((r) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{r.title}</h3>
+              <p class="gcard__body">{r.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Whatever your child&rsquo;s school situation</h2>
+      <div class="guide__stack">
+        {
+          situations.map((s) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{s.title}</h3>
+              <p class="gcard__body">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works from Europe</h2>
+      <p class="guide__text">
+        WhatsApp us your child&rsquo;s subjects, year group and exam board — including the
+        specification code if you know it. We reply the same day with class options on
+        CET/CEST-friendly evening slots. Every class is live and interactive, homework is set and
+        marked weekly, and past-paper practice ramps up through the year towards the May/June exam
+        session, with January sessions covered for early Edexcel entries and resits.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! We're in Europe and would like to ask about IGCSE/A Level classes.")} variant="primary" size="lg">
+          WhatsApp us from Europe
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">Also for Pakistani families abroad</h2>
+      <div class="related__links">
+        <a class="related__link" href="/igcse-tuition/uk/">IGCSE & A Level tuition in the UK <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/igcse-tuition/dubai/">IGCSE tuition in Dubai &amp; UAE <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/pakistani-expats/">All countries — Pakistani expats hub <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/subjects/">All subjects &amp; boards <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="European rates? No. A fraction of them."
+    sub="Book a free trial class — meet the teacher, see the method, no commitment."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>

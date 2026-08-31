@@ -1,0 +1,67 @@
+---
+/**
+ * Small visible trust-signal badge — "★ 4.6 · 32 Google reviews".
+ *
+ * NOTE ON WHY THIS EXISTS INSTEAD OF SCHEMA:
+ * The site deliberately keeps AggregateRating out of the sitewide
+ * Organization JSON-LD (see educationalOrganization() in seo/schemas.ts) —
+ * Google's guidelines treat review markup on pages without visible review
+ * content as spam. This component is the correct way to "surface the
+ * rating" on pages like the homepage and country landing pages: real,
+ * visible content, linking through to /results/ where the reviews (and the
+ * matching schema) actually live. Do not pair this with aggregateRating
+ * schema on the same page unless the review content itself is also shown.
+ */
+interface Props {
+  /** 'on-dark' for navy hero/header backgrounds (default). 'on-light' for light section backgrounds. */
+  tone?: 'on-dark' | 'on-light';
+}
+const { tone = 'on-dark' } = Astro.props;
+---
+
+<a class={`rbadge rbadge--${tone}`} href="/results/">
+  <span class="rbadge__star" aria-hidden="true">★</span>
+  <span class="rbadge__text"><strong>4.6</strong> · 32 Google reviews</span>
+</a>
+
+<style>
+  .rbadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: var(--r-pill, 999px);
+    font-size: 14px;
+    line-height: 1;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    width: max-content;
+  }
+  .rbadge__star {
+    color: var(--c-accent, #d8b46a);
+    font-size: 15px;
+  }
+  .rbadge--on-dark {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: var(--c-on-primary-soft, rgba(255, 255, 255, 0.85));
+  }
+  .rbadge--on-dark strong {
+    color: #fff;
+  }
+  .rbadge--on-dark:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.36);
+  }
+  .rbadge--on-light {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    color: var(--c-text);
+  }
+  .rbadge--on-light strong {
+    color: var(--c-primary-ink);
+  }
+  .rbadge--on-light:hover {
+    border-color: var(--c-primary);
+  }
+</style>
