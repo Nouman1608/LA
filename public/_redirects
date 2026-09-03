@@ -3,7 +3,7 @@
 # Format: /source /destination 301 (most-specific first; first match wins)
 # Verify after deploy: BASE=<preview-url> ./scripts/check-redirects.sh
 #
-# LIMIT: Cloudflare Pages silently ignores rules past ~186. Currently 166.
+# LIMIT: Cloudflare Pages silently ignores rules past ~186. Currently 178.
 # Count the rules before adding any.
 #
 # 8 Aug 2026: pruned 21 root-level 2022 WP blog slugs that Google no longer
@@ -98,6 +98,28 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 /top-7-legal-subjects-covered-in-law-online-classes-in-pakistan/ /blog/top-7-legal-subjects-covered-in-law-online-classes-in-pakistan/ 301
 /why-is-a-level-online-tuition-in-pakistan-a-good-option-for-your-future-career/ /blog/why-is-a-level-online-tuition-in-pakistan-a-good-option-for-your-future-career/ 301
 /why-you-should-think-about-taking-a-level-online-classes-in-pakistan/ /blog/why-you-should-think-about-taking-a-level-online-classes-in-pakistan/ 301
+
+# ============================================================
+# Root-level legacy blog slugs missing a redirect — 3 Sep 2026
+# These 12 slugs were live-tested 404 (confirmed by direct browser load,
+# not cache) after being flagged by GSC "Crawled - currently not indexed"
+# and 3 rejected "REQUEST INDEXING" live tests. No _redirects rule ever
+# existed for them (unlike their siblings above, which map to /blog/<slug>/).
+# They redirect straight to the final consolidated hub page, skipping the
+# now-content-less /blog/<slug>/ hop.
+# ============================================================
+/top-reasons-to-choose-a-level-online-classes-in-pakistan/ /a-level-online-tuition-classes-in-pakistan/ 301
+/10-myths-about-aqa-online-tuition-in-pakistan/ /aqa-online-tuition-classes-in-pakistan/ 301
+/online-a-level-tuition-your-path-to-academic-excellence/ /a-level-online-tuition-classes-in-pakistan/ 301
+/how-can-a-level-online-classes-in-pakistan-help-you-succeed-in-the-future/ /a-level-online-tuition-classes-in-pakistan/ 301
+/a-comprehensive-guide-to-leveling-up-your-studies-with-a-level-online-tuition/ /a-level-online-tuition-classes-in-pakistan/ 301
+/edexcel-online-tuition-in-pakistan-the-future-of-learning/ /edexcel-online-tuition-classes-in-pakistan/ 301
+/10-influential-tips-to-improve-your-igcse-online-tuition-scores/ /igcse-online-tuition-classes-in-pakistan/ 301
+/get-online-tuition-in-pakistan-for-hassle-free-learning/ / 301
+/transform-your-study-habits-edexcel-online-tuitions-game-changing-techniques/ /edexcel-online-tuition-classes-in-pakistan/ 301
+/10-key-reasons-why-you-should-consider-igcse-online-tuition-in-pakistan/ /igcse-online-tuition-classes-in-pakistan/ 301
+/igcse-online-tuition-in-pakistan-11-effective-tips-to-boost-your-success/ /igcse-online-tuition-classes-in-pakistan/ 301
+/how-online-tuition-in-pakistan-can-improve-your-grades/ / 301
 
 # ============================================================
 # GSC 404 fixes (July 2026) — old WP URLs found in Search Console
