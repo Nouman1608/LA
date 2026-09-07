@@ -48,6 +48,17 @@ const levelsLabel =
 const seoTitle = `${data.name} Online Tuition in Pakistan — ${levelsLabel} | ${site.name}`;
 const seoDesc = data.seo?.description ?? data.subcopy;
 const wa = whatsappLink(`Hi! I'd like to ask about ${data.name} classes.`);
+
+// Course.offers for schema — priceFrom.currency is a display symbol
+// (defaults to '₨'), so map the symbols this collection actually uses to
+// ISO 4217 codes. Falls back to PKR, which matches every entry today.
+const CURRENCY_CODE: Record<string, string> = { '₨': 'PKR', '£': 'GBP', '€': 'EUR', $: 'USD' };
+const offers = [
+  {
+    price: data.priceFrom.amount.replace(/,/g, ''),
+    priceCurrency: CURRENCY_CODE[data.priceFrom.currency] ?? 'PKR',
+  },
+];
 ---
 <SubjectLayout
   title={seoTitle}
@@ -55,6 +66,7 @@ const wa = whatsappLink(`Hi! I'd like to ask about ${data.name} classes.`);
   canonical={canonical}
   subjectName={data.name}
   courseName={data.title}
+  offers={offers}
 >
   <!-- Breadcrumb + hero -->
   <section class="shero">
