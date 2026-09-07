@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import HomeLayout from '../../layouts/HomeLayout.astro';
 import JsonLd from '../../components/seo/JsonLd.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
-import { blogPosting, breadcrumbList } from '../../components/seo/schemas';
+import { blogPosting, breadcrumbList, faqPage } from '../../components/seo/schemas';
 import { site } from '../../data/site';
 import { isPublished } from '../../data/blog';
 
@@ -37,6 +37,9 @@ const crumbs = breadcrumbList([
   { name: 'Blog', url: `${site.domain}/blog/` },
   { name: data.title, url },
 ]);
+// Only posts with a structured faqs list get FAQPage schema — matches the
+// visible "Frequently asked questions" section in those posts' bodies.
+const faq = data.faqs?.length ? faqPage(data.faqs) : null;
 ---
 <HomeLayout
   title={`${data.title} | ${site.name}`}
@@ -47,6 +50,7 @@ const crumbs = breadcrumbList([
 >
   <JsonLd slot="head" data={posting} />
   <JsonLd slot="head" data={crumbs} />
+  {faq && <JsonLd slot="head" data={faq} />}
 
   <article>
     <header class="phead">
