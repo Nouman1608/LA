@@ -3,6 +3,13 @@ title: "How Pakistani Expat Students in Dubai & Riyadh Can Prepare for IGCSE/A L
 description: "A step-by-step guide for Pakistani expat families in Dubai and Riyadh on IGCSE/A Level results day — checking grades, remarks, retakes and IBCC equivalence."
 pubDate: 2026-08-31
 draft: false
+faqs:
+  - q: "Can Learners Academy help with a remark or retake decision?"
+    a: "Yes — we offer a free 1:1 guidance call to talk through whether a remark, retake, or neither makes sense for a specific grade and subject."
+  - q: "Do you support students preparing for a retake?"
+    a: "Yes, live online across Pakistan, the Gulf and the UK, taught by subject specialists who know the CAIE and Edexcel mark schemes. See our Dubai & UAE and Saudi Arabia pages for timings and pricing."
+  - q: "We're not currently enrolled — can we still book the guidance call?"
+    a: "Yes, the guidance call is open to any family with questions about results, remarks or retakes, whether or not you're already studying with us."
 ---
 
 Results day is stressful enough without also being several time zones away from the exam board's home country and, often, from extended family who've been through it before. If you're a Pakistani expat family in Dubai, Abu Dhabi, Riyadh or Jeddah, here's a straightforward checklist for the days before and after results are released.
