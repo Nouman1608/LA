@@ -77,19 +77,55 @@ export function educationalOrganization(opts?: {
   return org;
 }
 
-export function course(opts: { name: string; description: string; url: string }) {
-  return {
+export function course(opts: {
+  name: string;
+  description: string;
+  url: string;
+  /** e.g. "Cambridge IGCSE Mathematics (0580)" — only pass this when the page
+   *  covers one specific board+level combination, not a general subject hub. */
+  educationalCredentialAwarded?: string;
+  /** Monthly per-subject fees. priceCurrency must be an ISO 4217 code (e.g. "PKR"). */
+  offers?: { price: string; priceCurrency: string; category?: string }[];
+  hasCourseInstance?: { courseMode?: string; courseWorkload?: string }[];
+}) {
+  const c: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Course',
+    '@id': `${opts.url}#course`,
     name: opts.name,
     description: opts.description,
     url: opts.url,
-    provider: {
-      '@type': 'EducationalOrganization',
-      name: site.name,
-      url: site.domain,
-    },
+    inLanguage: 'en',
+    // Reference the sitewide Organization node instead of duplicating it, so
+    // engines resolve one connected entity graph rather than disconnected
+    // fragments (see educationalOrganization() above for the canonical node).
+    provider: { '@id': `${site.domain}/#organization` },
   };
+
+  if (opts.educationalCredentialAwarded) {
+    c.educationalCredentialAwarded = opts.educationalCredentialAwarded;
+  }
+
+  if (opts.offers?.length) {
+    c.offers = opts.offers.map((o) => ({
+      '@type': 'Offer',
+      price: o.price,
+      priceCurrency: o.priceCurrency,
+      category: o.category ?? 'Paid',
+      availability: 'https://schema.org/InStock',
+      url: opts.url,
+    }));
+  }
+
+  if (opts.hasCourseInstance?.length) {
+    c.hasCourseInstance = opts.hasCourseInstance.map((ci) => ({
+      '@type': 'CourseInstance',
+      courseMode: ci.courseMode ?? 'Online',
+      ...(ci.courseWorkload ? { courseWorkload: ci.courseWorkload } : {}),
+    }));
+  }
+
+  return c;
 }
 
 export function blogPosting(opts: {
