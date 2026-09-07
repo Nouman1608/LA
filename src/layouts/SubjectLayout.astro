@@ -3,7 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
-import { course, breadcrumbList } from '../components/seo/schemas';
+import { course, breadcrumbList, educationalOrganization } from '../components/seo/schemas';
 import { site } from '../data/site';
 
 interface Props {
@@ -14,8 +14,10 @@ interface Props {
   subjectName: string;
   courseName: string;
   ogImage?: string;
+  /** Monthly per-subject fees to expose as Course.offers (ISO 4217 currency code). */
+  offers?: { price: string; priceCurrency: string }[];
 }
-const { title, description, canonical, subjectName, courseName, ogImage } = Astro.props;
+const { title, description, canonical, subjectName, courseName, ogImage, offers } = Astro.props;
 const url = new URL(canonical, site.domain).href;
 
 const breadcrumb = breadcrumbList([
@@ -23,7 +25,7 @@ const breadcrumb = breadcrumbList([
   { name: 'Subjects', url: `${site.domain}/subjects/` },
   { name: subjectName, url },
 ]);
-const courseSchema = course({ name: courseName, description, url });
+const courseSchema = course({ name: courseName, description, url, offers });
 ---
 <BaseLayout
   title={title}
@@ -32,6 +34,7 @@ const courseSchema = course({ name: courseName, description, url });
   ogImage={ogImage}
   ogType="article"
 >
+  <JsonLd slot="head" data={educationalOrganization()} />
   <JsonLd slot="head" data={courseSchema} />
   <JsonLd slot="head" data={breadcrumb} />
   <Header />

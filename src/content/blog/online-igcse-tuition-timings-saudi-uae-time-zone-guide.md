@@ -3,6 +3,13 @@ title: "Online IGCSE Tuition Timings for Saudi Arabia & UAE Families (KSA/UAE Ti
 description: "A time-zone guide for Saudi Arabia and UAE families: how our live online IGCSE and A Level classes fit KSA/UAE evenings, with sample weekly schedules."
 pubDate: 2026-08-31
 draft: false
+faqs:
+  - q: "Do class times change with daylight saving?"
+    a: "Pakistan, Saudi Arabia and the UAE do not observe daylight saving, so once your weekly slot is set it stays fixed year-round."
+  - q: "Can we request a specific evening time before enrolling?"
+    a: "Yes — we confirm a fixed weekly slot with you before the first paid class, based on your child's school timings and the subject teacher's availability."
+  - q: "Is the first class free?"
+    a: "Yes. Every family gets a free trial class with no commitment before deciding to continue."
 ---
 
 One of the first questions Gulf-based parents ask us is simple: "Will the class times even work from Riyadh or Dubai?" It's a fair question — a lot of online tuition is built around Pakistan's clock and just assumes everyone else will adjust. At [Learners Academy](/), our evening slots for Cambridge, Edexcel and AQA classes are scheduled with Saudi Arabia and UAE families in mind, not as an afterthought.

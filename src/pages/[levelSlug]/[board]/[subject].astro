@@ -8,6 +8,7 @@ import Button from '../../../components/ui/Button.astro';
 import Faq from '../../../components/sections/Faq.astro';
 import { site, whatsappLink } from '../../../data/site';
 import { teachersForSubject } from '../../../data/teachers';
+import { course, educationalOrganization } from '../../../components/seo/schemas';
 
 export async function getStaticPaths() {
   const pages = await getCollection('subjectBoards', ({ data }) => !data.draft);
@@ -40,18 +41,20 @@ const breadcrumbJsonLd = {
   ],
 };
 
-const courseJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
+// Linked to the sitewide #organization node, with offers and a course
+// instance so the page can qualify for Course rich results — previously
+// this only had bare name/description/url/provider.
+const courseJsonLd = course({
   name: data.title,
   description: data.seo.description,
-  url: url,
-  provider: {
-    '@type': 'Organization',
-    name: site.name,
-    url: site.domain,
-  },
-};
+  url,
+  educationalCredentialAwarded: `${data.boardName} ${data.level} ${data.subjectName} (${data.syllabusCode})`,
+  offers: [
+    { price: data.priceFrom.replace(/,/g, ''), priceCurrency: 'PKR', category: 'Group class (per month)' },
+    { price: data.oneToOne.replace(/,/g, ''), priceCurrency: 'PKR', category: '1-to-1 (per class)' },
+  ],
+  hasCourseInstance: [{ courseMode: 'Online' }],
+});
 
 const defaultFaqs = [
   {
@@ -103,6 +106,7 @@ const sameSubject = allBoards
 
 <BaseLayout title={data.seo.title} description={data.seo.description} canonical={canonical}>
   <JsonLd data={breadcrumbJsonLd} />
+  <JsonLd data={educationalOrganization()} />
   <JsonLd data={courseJsonLd} />
 
   <Header />
