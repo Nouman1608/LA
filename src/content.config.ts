@@ -46,6 +46,10 @@ const blog = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
+    /** Structured Q&A mirroring any "Frequently asked questions" section in
+     *  the post body, so it can also be emitted as FAQPage JSON-LD. Optional —
+     *  only add this when the post actually has a visible FAQ section. */
+    faqs: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
     draft: z.boolean().default(false),
   }),
 });
