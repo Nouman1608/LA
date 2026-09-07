@@ -3,7 +3,8 @@
 # Format: /source /destination 301 (most-specific first; first match wins)
 # Verify after deploy: BASE=<preview-url> ./scripts/check-redirects.sh
 #
-# LIMIT: Cloudflare Pages silently ignores rules past ~186. Currently 178.
+# LIMIT: Cloudflare Pages silently ignores rules past ~186. Currently 178
+# (was 177 before the /sitemap.xml rule added 7 Sep 2026 — see GSC/AEO note below).
 # Count the rules before adding any.
 #
 # 8 Aug 2026: pruned 21 root-level 2022 WP blog slugs that Google no longer
@@ -129,6 +130,10 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 /post-sitemap.xml /sitemap-index.xml 301
 /page-sitemap.xml /sitemap-index.xml 301
 /a_level-sitemap.xml /sitemap-index.xml 301
+# 7 Sep 2026 — AI/answer-engine crawlers and some third-party tools probe
+# the conventional /sitemap.xml path by default; we only ever generate
+# /sitemap-index.xml, so without this it 404s (see Marketing Review 7 Sep 2026).
+/sitemap.xml /sitemap-index.xml 301
 
 # Old WP location pages -> new geo landing pages
 # Slash-less variants must sit ABOVE /locations/* or the catch-all wins.
