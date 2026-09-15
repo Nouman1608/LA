@@ -1,0 +1,257 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { course, breadcrumbList, faqPage } from '../components/seo/schemas';
+import { site, whatsappLink } from '../data/site';
+import { teachers, combinedYears } from '../data/teachers';
+
+const title = `Online O Level Tuition for Karachi Students — Live Classes | ${site.name}`;
+const description =
+  'Live online O Level and IGCSE tuition for students in Karachi — Cambridge and Edexcel, small groups or 1-to-1, Rs 19,000 per subject per month, no registration fee, first class free.';
+
+const yearsLabel = `${Math.floor(combinedYears / 10) * 10}+`;
+
+const courseSchema = course({
+  name: 'Online O Level Tuition for Karachi Students',
+  description:
+    'Live online O Level and IGCSE tuition for students in Karachi, Pakistan — Cambridge and Edexcel exam boards, taught by named subject teachers in small groups or one-to-one.',
+  url: `${site.domain}/o-level-tuition-karachi/`,
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'O Level Tuition Karachi', url: `${site.domain}/o-level-tuition-karachi/` },
+]);
+
+const gaps = [
+  {
+    title: 'No commute across Karachi',
+    body: 'Most Karachi O Level tuition means an evening drive to a centre in DHA, Clifton, Gulshan or Bahadurabad — and back. Our classes are live online, so a student in Malir, North Nazimabad or Bahria Town Karachi gets the same teacher and the same class as one in DHA Phase 6, with the evening back.',
+  },
+  {
+    title: 'Named teachers, not a rotating pool',
+    body: `Every subject is taught by a named teacher whose profile is published on this site — ${teachers.length} teachers with ${yearsLabel} years of combined classroom experience from schools such as Aitchison College, LGS, Beaconhouse, The City School and BISC. You know who is teaching your child before the first class, not after.`,
+  },
+  {
+    title: 'Same time zone, same exam series',
+    body: 'Karachi and Lahore share a clock and a Cambridge timetable. Classes run in the early evening (after school) and on weekends, and the whole course is paced to the May/June series, with October/November available for retakes.',
+  },
+  {
+    title: 'Fees on the website, not on the phone',
+    body: 'Rs 19,000 per subject per month for a group class at O Level and IGCSE, Rs 3,500 per one-to-one class, no registration fee, 20% off from three subjects and 10% off for siblings. The first class is free so you can judge the teaching before paying anything.',
+  },
+];
+
+const help = [
+  {
+    title: 'At a Karachi school and needs a second explanation',
+    body: 'Whether your child is at Karachi Grammar, Bay View, Beaconhouse, The City School, Foundation Public, Habib Public, Generation’s or elsewhere, we teach from the exact Cambridge or Edexcel syllabus code the school has entered them for — so tuition reinforces the school’s course rather than pulling in a different direction.',
+  },
+  {
+    title: 'Retaking a subject in October/November',
+    body: 'Most retake students take one or two subjects, not a full set. Fees are per subject, and one-to-one is charged per class, so a focused past-paper block before the November series does not mean paying for a whole programme.',
+  },
+  {
+    title: 'Sitting as a private candidate',
+    body: 'Private candidates in Karachi register through the British Council’s online registration system and sit at British Council venues in the city. We cover the full syllabus, set timed marked mocks, and keep families ahead of each registration deadline — see our private-candidate registration guide for the current dates.',
+  },
+  {
+    title: 'Moving from O Level to A Level',
+    body: 'The same subject teacher can carry your child from O Level Chemistry, Physics or Mathematics straight into A Level — useful whether the plan is a Karachi A Level college or continuing online.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is there a Learners Academy campus in Karachi?',
+    a: `No. Our campus is in ${site.location}; Karachi students join the same live classes online. Every class is interactive — the teacher sees and hears the student, homework is set and marked each week, and each session is recorded for revision.`,
+  },
+  {
+    q: 'What does online O Level tuition cost for Karachi students?',
+    a: 'Rs 19,000 per subject per month for a group class at O Level and IGCSE, or Rs 3,500 per class for one-to-one. There is no registration fee. Three or more subjects get 20% off, and up to two siblings get 10% off — the discounts combine.',
+  },
+  {
+    q: 'What are the class timings for Karachi?',
+    a: 'Karachi and Lahore are in the same time zone, so classes run in the early evening after school and at weekends. Group classes meet on a fixed weekly timetable per subject; one-to-one classes are scheduled around the student.',
+  },
+  {
+    q: 'Which exam boards do Karachi students usually need?',
+    a: 'Most Karachi schools enter students for Cambridge (CAIE) O Level or IGCSE; a smaller number use Pearson Edexcel International GCSE. We teach both, plus AQA, from the official specification and syllabus code the school uses.',
+  },
+  {
+    q: 'How do I register my child as a private candidate in Karachi?',
+    a: 'Private candidates in Pakistan register with the British Council through its online registration system, and payment must be made by the deadline — a registration without payment is not an entry. Our private-candidate guide keeps the current Cambridge, Edexcel and OxfordAQA deadlines in one place.',
+  },
+  {
+    q: 'Can we try a class before enrolling?',
+    a: `Yes — the first class is free, with the actual teacher who would take your child. Message us on WhatsApp at ${site.contact.phone} with the subject, year group and exam board and we will arrange it, usually the same day.`,
+  },
+  {
+    q: 'How can we pay from Karachi?',
+    a: 'Bank transfer, Easypaisa or JazzCash, monthly per subject. There is no registration or joining fee.',
+  },
+  {
+    q: 'What if my child is preparing for A Level at a Karachi college next year?',
+    a: 'The same teacher can continue into A Level with them, so nothing is re-taught from scratch. Our O Level to A Level transition guide covers subject choices and what changes between the two.',
+  },
+];
+---
+<HomeLayout title={title} description={description} canonical="/o-level-tuition-karachi/" topBar={false}>
+  <JsonLd slot="head" data={courseSchema} />
+  <JsonLd slot="head" data={breadcrumb} />
+  <JsonLd slot="head" data={faqPage(faqs)} />
+  <PageHeader
+    eyebrow="O Level tuition · Karachi"
+    crumb="O Level Tuition Karachi"
+    title="Online O Level tuition for Karachi students."
+    sub="Live Cambridge and Edexcel classes with named teachers — small groups or 1-to-1, Rs 19,000 per subject per month, no registration fee, first class free."
+  />
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        Karachi has more O Level tuition centres than any city in Pakistan, and almost all of them
+        ask the same thing of a family: drive there in the evening, several times a week. Learners
+        Academy has taught O Level, IGCSE and A Level live online since {site.founded} — from
+        {site.location}, to students across Pakistan and the Gulf — with published fees, named
+        teachers, and a free first class. For a Karachi family it is the same live teaching as a good
+        local centre, without the traffic on Shahrah-e-Faisal.
+      </p>
+
+      <h2 class="guide__h2">Why Karachi families choose us</h2>
+      <div class="guide__grid">
+        {
+          gaps.map((g) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{g.title}</h3>
+              <p class="gcard__body">{g.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Whatever your child&rsquo;s situation</h2>
+      <div class="guide__stack">
+        {
+          help.map((h) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{h.title}</h3>
+              <p class="gcard__body">{h.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">How it works for Karachi students</h2>
+      <p class="guide__text">
+        Send a WhatsApp message with your child&rsquo;s subjects, year group and exam board. We
+        reply the same day with the teacher, the weekly timetable and a free first class. Classes
+        are live and interactive, homework is set and marked every week against the real mark
+        scheme, and past-paper practice builds up ahead of the May/June session — with
+        October/November available for retakes.
+      </p>
+      <div class="guide__actions">
+        <Button href={whatsappLink("Hi! I'm in Karachi and looking for online O Level tuition.")} variant="primary" size="lg">
+          WhatsApp us about O Level tuition
+        </Button>
+        <a class="guide__plink" href="/pricing/">See pricing →</a>
+      </div>
+
+      <h2 class="guide__h2">More from Learners Academy</h2>
+      <div class="related__links">
+        <a class="related__link" href="/igcse-online-tuition-classes-in-pakistan/">IGCSE &amp; O Level tuition in Pakistan <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/blog/private-candidate-registration-pakistan-oct-nov-2026/">Private candidate registration — Oct/Nov 2026 dates <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/november-2026-retakes/">October/November 2026 retakes <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/blog/o-level-to-a-level-transition-guide/">O Level to A Level — what changes <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/teachers/">Meet our teachers <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/results/">Student results &amp; reviews <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/o-level-tuition-lahore/">O Level tuition in Lahore (in person or online) <span aria-hidden="true">→</span></a>
+        <a class="related__link" href="/pricing/">Full pricing <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Online O Level tuition for Karachi, without the commute."
+    sub="Book a free trial class — live, with the actual teacher, from anywhere in Karachi."
+  />
+</HomeLayout>
+
+<style>
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .related__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .related__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>
