@@ -5,28 +5,53 @@ import Pricing from '../components/sections/Pricing.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { faqPage } from '../components/seo/schemas';
+import { regions } from '../data/pricing';
 import { site } from '../data/site';
 
-const title = `Pricing & Fees — IGCSE & A Level Online Tuition | ${site.name}`;
+const title = `O Level, IGCSE & A Level Online Tuition Fees in Pakistan | ${site.name}`;
 const description =
-  'Transparent per-subject monthly fees for IGCSE and A Level online classes at Learners Academy, by region (Pakistan, Saudi, UAE, Europe). Sibling and multi-subject discounts available.';
+  'How much does online O Level, IGCSE and A Level tuition cost in Pakistan? Rs 19,000 per subject per month for O Level and IGCSE, Rs 24,000 for A Level. One-to-one from Rs 3,500 per class. Full rate card for Pakistan, the Gulf, the UK and Europe. First class free.';
 
 const faqs = [
   {
-    q: 'Is the trial class really free?',
-    a: 'Yes — your first demo class is free with no commitment, so you can meet the teacher and see the virtual classroom before deciding.',
+    q: 'How much does online O Level and IGCSE tuition cost in Pakistan?',
+    a: 'Rs 19,000 per subject, per month for group classes at O Level and IGCSE. That covers live classes with a vetted board-specific teacher, homework set and marked every week, class recordings and progress reports.',
   },
   {
-    q: 'Are prices per subject?',
-    a: 'All fees are per subject, per month. Take as many or as few subjects as you need.',
+    q: 'How much does online A Level tuition cost in Pakistan?',
+    a: 'Rs 24,000 per subject, per month for group classes at A Level, including live classes, weekly marked homework, recordings and progress reports.',
   },
   {
-    q: 'Do you offer discounts?',
-    a: 'We offer 20% off when you enrol in 3 or more subjects, and 10% off for up to 2 siblings.',
+    q: 'What would three subjects cost per month?',
+    a: 'At O Level or IGCSE, three subjects at Rs 19,000 each is Rs 57,000, and the 20% multi-subject discount brings that to Rs 45,600 per month. At A Level, three subjects at Rs 24,000 each is Rs 72,000, or Rs 57,600 per month after the same discount.',
   },
   {
-    q: 'How do I pay from outside Pakistan?',
-    a: 'We support international families across the Gulf and Europe — message us on WhatsApp and we’ll share the payment options for your region.',
+    q: 'How much are one-to-one classes?',
+    a: 'One-to-one classes are Rs 3,500 per class at O Level and IGCSE, and Rs 4,000 per class at A Level. One-to-one is charged per class rather than per month, so you can take a short focused block — a past-paper review programme before an exam, for example — without committing to a full month.',
+  },
+  {
+    q: 'Are fees charged per subject or per student?',
+    a: 'Per subject, per month. Take as many or as few subjects as you need — most retake students take one or two, while full-course students typically take three to five.',
+  },
+  {
+    q: 'What discounts do you offer?',
+    a: '20% off when you enrol in three or more subjects, and 10% off for up to two siblings. At O Level and IGCSE the multi-subject discount takes three subjects from Rs 57,000 to Rs 45,600 per month.',
+  },
+  {
+    q: 'What does the monthly fee include?',
+    a: 'Live classes with the teacher, homework set and marked every week against the real mark scheme, recordings of your classes, and progress reports. Past papers and class materials are provided.',
+  },
+  {
+    q: 'What do classes cost from Saudi Arabia, the UAE, Qatar or Kuwait?',
+    a: 'SAR 270, AED 270 and QAR 270 per subject per month at O Level and IGCSE, and SAR/AED/QAR 330 at A Level. In Kuwait it is KWD 22.500 at O Level and IGCSE and KWD 27.500 at A Level. Bahrain is BHD 27.500 and BHD 33.500; Oman is OMR 28.000 and OMR 34.000.',
+  },
+  {
+    q: 'What do classes cost from the UK or Europe?',
+    a: '£60 per subject per month at O Level and IGCSE and £75 at A Level from the UK; €70 and €90 respectively from Europe. Classes are scheduled to suit the time difference.',
+  },
+  {
+    q: 'Is the first class really free?',
+    a: 'Yes. Your first demo class is free, with the actual teacher who would take you — no card details and no commitment. If it is not right, you simply do not enrol.',
   },
 ];
 ---
@@ -35,10 +60,72 @@ const faqs = [
   <PageHeader
     eyebrow="Rate card"
     crumb="Pricing"
-    title="Transparent pricing, per subject."
-    sub="Pick your region to see monthly fees. No hidden charges — and your first class is free."
+    title="O Level, IGCSE and A Level fees — per subject, per month."
+    sub="Rs 19,000 a month per subject at O Level and IGCSE, Rs 24,000 at A Level. No hidden charges, and your first class is free."
   />
+
+  <section class="answer">
+    <div class="container answer__inner">
+      <h2 class="answer__q">How much does online O Level, IGCSE and A Level tuition cost in Pakistan?</h2>
+      <p class="answer__a">
+        Group classes at Learners Academy cost <strong>Rs 19,000 per subject, per month for O Level and
+        IGCSE</strong>, and <strong>Rs 24,000 per subject, per month for A Level</strong>. One-to-one classes
+        are <strong>Rs 3,500 per class at O Level and IGCSE</strong> and <strong>Rs 4,000 per class at A
+        Level</strong>. There is <strong>20% off for three or more subjects</strong> and <strong>10% off for up
+        to two siblings</strong>, and the first class is free.
+      </p>
+      <p class="answer__note">
+        A worked example: three subjects at O Level or IGCSE is Rs 57,000 a month at the standard rate, or
+        <strong>Rs 45,600 a month</strong> once the 20% multi-subject discount is applied. Three A Level
+        subjects is Rs 72,000, or <strong>Rs 57,600 a month</strong> after the discount. Every fee below is per
+        subject, per month, and includes live classes, weekly marked homework, class recordings and progress
+        reports.
+      </p>
+    </div>
+  </section>
+
   <Pricing />
+
+  <section class="ratecard">
+    <div class="container ratecard__inner">
+      <h2 class="section-title">Full rate card by country</h2>
+      <p class="ratecard__sub">Per subject, per month. Overseas families are taught in the same live classes, scheduled around the time difference.</p>
+      <div class="ratecard__scroll">
+        <table class="ratecard__table">
+          <thead>
+            <tr>
+              <th scope="col">Country</th>
+              <th scope="col">O Level &amp; IGCSE</th>
+              <th scope="col">A Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              regions.map((r) => (
+                <tr>
+                  <th scope="row">{r.label}</th>
+                  <td>{r.currency} {r.igcse}</td>
+                  <td>{r.currency} {r.alevel}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="ratecard__note">
+        One-to-one classes in Pakistan are Rs 3,500 per class at O Level and IGCSE and Rs 4,000 per class at A
+        Level. For one-to-one rates outside Pakistan, message us on WhatsApp and we will confirm the rate for
+        your country.
+      </p>
+      <ul class="ratecard__discounts">
+        {
+          site.pricing.discounts.map((d) => (
+            <li><strong>{d.strong}</strong> {d.rest}</li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
   <section class="faq">
     <div class="container faq__inner">
@@ -60,6 +147,86 @@ const faqs = [
 </HomeLayout>
 
 <style>
+  .answer {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .answer__inner {
+    max-width: 820px;
+  }
+  .answer__q {
+    font-size: clamp(22px, 3.2vw, 30px);
+    line-height: 1.3;
+    color: var(--c-primary);
+    margin: 0 0 18px;
+  }
+  .answer__a {
+    font-size: 18px;
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+  .answer__note {
+    font-size: 16px;
+    line-height: 1.75;
+    margin: 0;
+    color: var(--c-muted, inherit);
+  }
+
+  .ratecard {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .ratecard__inner {
+    max-width: 820px;
+  }
+  .ratecard__sub {
+    text-align: center;
+    margin: 12px 0 28px;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .ratecard__scroll {
+    overflow-x: auto;
+  }
+  .ratecard__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .ratecard__table th,
+  .ratecard__table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--c-border);
+  }
+  .ratecard__table thead th {
+    background: var(--c-panel, #f6f7f9);
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .ratecard__table tbody tr:last-child th,
+  .ratecard__table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .ratecard__note {
+    margin: 20px 0 0;
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+  .ratecard__discounts {
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-size: 15.5px;
+  }
+
   .faq {
     background: var(--c-bg);
     padding-block: var(--section-y);
