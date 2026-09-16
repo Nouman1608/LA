@@ -1,0 +1,131 @@
+---
+// Slim, non-blocking analytics consent bar.
+// Google Analytics is gated via Consent Mode v2 (defaults set in BaseLayout).
+// Microsoft Clarity is gated via the Cloudflare Zaraz Consent API.
+---
+
+<div data-consent-banner role="region" aria-label="Cookie consent" class="consent-bar" hidden>
+    <div class="consent-bar__inner">
+        <p class="consent-bar__text">
+            We'd like to use analytics to understand how visitors use this site.
+            No analytics cookie is set unless you accept.
+            See our <a href="/privacy/">Privacy Policy</a>.
+        </p>
+        <div class="consent-bar__actions">
+            <button type="button" data-consent-reject class="consent-bar__btn consent-bar__btn--ghost">Reject</button>
+            <button type="button" data-consent-accept class="consent-bar__btn consent-bar__btn--solid">Accept</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .consent-bar {
+        position: fixed;
+        inset-inline: 0;
+        bottom: 0;
+        z-index: 90;
+        background: #0E2145;
+        border-top: 1px solid #2A3F66;
+        color: #C9D2E0;
+        padding: 1.15rem 1.5rem;
+    }
+    .consent-bar[hidden] { display: none; }
+
+    .consent-bar__inner {
+        max-width: 1200px;
+        margin-inline: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .consent-bar__text {
+        margin: 0;
+        max-width: 62ch;
+        font-size: 14.5px;
+        line-height: 1.6;
+    }
+    .consent-bar__text a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: #E3B341;
+        text-underline-offset: 2px;
+    }
+
+    .consent-bar__actions { display: flex; gap: 0.75rem; }
+
+    .consent-bar__btn {
+        min-height: 44px;
+        padding: 0.625rem 1.25rem;
+        border-radius: 3px;
+        font-size: 14.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+    }
+    .consent-bar__btn--ghost {
+        background: transparent;
+        border: 1px solid #3A4A63;
+        color: #C9D2E0;
+    }
+    .consent-bar__btn--ghost:hover { background: #16294B; }
+
+    .consent-bar__btn--solid {
+        background: #E3B341;
+        border: 1px solid #E3B341;
+        color: #0E2145;
+    }
+    .consent-bar__btn--solid:hover { background: #D4A32F; }
+
+    @media (max-width: 640px) {
+        .consent-bar__inner { flex-direction: column; align-items: stretch; }
+        .consent-bar__actions { justify-content: flex-end; }
+    }
+</style>
+
+<script is:inline>
+    (function () {
+        var KEY = 'la_consent';
+        var bar = document.querySelector('[data-consent-banner]');
+        if (!bar) return;
+
+        var stored = null;
+        try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+        function applyZaraz(granted) {
+            try {
+                if (window.zaraz && window.zaraz.consent) {
+                    window.zaraz.consent.setAll(granted);
+                    if (window.zaraz.consent.sendQueuedEvents) {
+                        window.zaraz.consent.sendQueuedEvents();
+                    }
+                }
+            } catch (e) {}
+        }
+
+        if (stored === 'granted') {
+            applyZaraz(true);
+        } else if (stored === 'denied') {
+            applyZaraz(false);
+        } else {
+            bar.hidden = false;
+        }
+
+        function choose(value) {
+            var granted = value === 'granted';
+            try { localStorage.setItem(KEY, value); } catch (e) {}
+            if (window.gtag) {
+                window.gtag('consent', 'update', {
+                    analytics_storage: granted ? 'granted' : 'denied'
+                });
+            }
+            applyZaraz(granted);
+            bar.hidden = true;
+        }
+
+        bar.querySelector('[data-consent-accept]').addEventListener('click', function () { choose('granted'); });
+        bar.querySelector('[data-consent-reject]').addEventListener('click', function () { choose('denied'); });
+    })();
+</script>
