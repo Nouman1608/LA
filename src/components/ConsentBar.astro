@@ -6,9 +6,14 @@
 
 <div data-consent-banner role="region" aria-label="Cookie consent" class="consent-bar" hidden>
     <div class="consent-bar__inner">
-        <p class="consent-bar__text">
+        <p class="consent-bar__text" data-consent-copy-optin>
             We'd like to use analytics to understand how visitors use this site.
             No analytics cookie is set unless you accept.
+            See our <a href="/privacy/">Privacy Policy</a>.
+        </p>
+        <p class="consent-bar__text" data-consent-copy-optout hidden>
+            We use Google Analytics to understand how visitors use this site.
+            Choose Reject to switch it off on this device.
             See our <a href="/privacy/">Privacy Policy</a>.
         </p>
         <div class="consent-bar__actions">
@@ -105,25 +110,57 @@
             } catch (e) {}
         }
 
+        var implied = !!window.__laImpliedConsentRegion;
+        if (implied) {
+            bar.querySelector('[data-consent-copy-optin]').hidden = true;
+            bar.querySelector('[data-consent-copy-optout]').hidden = false;
+        }
+
         if (stored === 'granted') {
             applyZaraz(true);
         } else if (stored === 'denied') {
             applyZaraz(false);
+        } else if (implied) {
+            // Rest of the world, no stored choice: GA already runs (BaseLayout),
+            // no bar; Microsoft Clarity runs by default too.
+            applyZaraz(true);
         } else {
+            // Opt-in regions (EEA, UK, Switzerland, unknown): ask first.
             bar.hidden = false;
+        }
+
+        function clearGaCookies() {
+            try {
+                var host = location.hostname.replace(/^www\./, '');
+                document.cookie.split(';').forEach(function (c) {
+                    var name = c.split('=')[0].trim();
+                    if (name === '_ga' || name.indexOf('_ga_') === 0) {
+                        var exp = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+                        document.cookie = name + exp;
+                        document.cookie = name + exp + '; domain=' + host;
+                        document.cookie = name + exp + '; domain=.' + host;
+                    }
+                });
+            } catch (e) {}
         }
 
         function choose(value) {
             var granted = value === 'granted';
             try { localStorage.setItem(KEY, value); } catch (e) {}
-            if (window.gtag) {
-                window.gtag('consent', 'update', {
-                    analytics_storage: granted ? 'granted' : 'denied'
-                });
+            if (granted && window.__laLoadAnalytics) {
+                window.__laLoadAnalytics();
+            } else if (window.gtag) {
+                window.gtag('consent', 'update', { analytics_storage: 'denied' });
+                clearGaCookies();
             }
             applyZaraz(granted);
             bar.hidden = true;
         }
+
+        document.addEventListener('click', function (e) {
+            var t = e.target && e.target.closest && e.target.closest('[data-consent-open]');
+            if (t) { e.preventDefault(); bar.hidden = false; }
+        });
 
         bar.querySelector('[data-consent-accept]').addEventListener('click', function () { choose('granted'); });
         bar.querySelector('[data-consent-reject]').addEventListener('click', function () { choose('denied'); });

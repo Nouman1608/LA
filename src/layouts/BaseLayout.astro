@@ -39,7 +39,11 @@ const { title, description, canonical, ogImage, ogType, noindex } = Astro.props;
     />
     <slot name="head" />
     <!-- Google Analytics -->
-    <!-- Consent Mode v2 defaults - must run before gtag.js -->
+    <!-- Consent Mode v2 + region-aware consent (see functions/_middleware.ts).
+         Pages served to countries that don't require opt-in carry
+         <html data-la-consent-region="optout">: analytics runs by default and
+         "Cookie settings" in the footer switches it off. Everywhere else
+         (EEA, UK, Switzerland, unknown) gtag.js is not loaded until Accept. -->
     <script is:inline>
         window.dataLayer = window.dataLayer || [];
         function gtag(){ dataLayer.push(arguments); }
@@ -50,16 +54,28 @@ const { title, description, canonical, ogImage, ogType, noindex } = Astro.props;
             ad_user_data: 'denied',
             ad_personalization: 'denied'
         });
-        try {
-            if (localStorage.getItem('la_consent') === 'granted') {
+        (function () {
+            var GA_ID = 'G-QCC7YN632L';
+            var implied = document.documentElement.getAttribute('data-la-consent-region') === 'optout';
+            window.__laImpliedConsentRegion = implied;
+            var loaded = false;
+            window.__laLoadAnalytics = function () {
                 gtag('consent', 'update', { analytics_storage: 'granted' });
+                if (loaded) return;
+                loaded = true;
+                gtag('js', new Date());
+                gtag('config', GA_ID, { anonymize_ip: true });
+                var s = document.createElement('script');
+                s.async = true;
+                s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+                document.head.appendChild(s);
+            };
+            var stored = null;
+            try { stored = localStorage.getItem('la_consent'); } catch (e) {}
+            if (stored === 'granted' || (stored !== 'denied' && implied)) {
+                window.__laLoadAnalytics();
             }
-        } catch (e) {}
-    </script>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-QCC7YN632L"></script>
-    <script is:inline>
-        gtag('js', new Date());
-        gtag('config', 'G-QCC7YN632L', { anonymize_ip: true });
+        })();
     </script>
   </head>
   <body>
