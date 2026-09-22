@@ -80,7 +80,34 @@ const faqs = data.faqs ?? defaultFaqs;
 /* Subject specialists for this page — links through to /teachers/. */
 const subjectTeachers = teachersForSubject(data.subject);
 
-/* Related classes — internal links across the 76 board pages. */
+/* Related classes — internal links across the 76 board pages.
+   Same board + level: every other subject is listed (no cut-off, so late-alphabet
+   subjects like Physics and Sociology are never dropped), with natural study
+   pairings first — e.g. Chemistry shows Biology, Physics, Mathematics before the rest. */
+const SUBJECT_AFFINITY: Record<string, string[]> = {
+  chemistry: ['biology', 'physics', 'mathematics'],
+  biology: ['chemistry', 'physics', 'psychology'],
+  physics: ['mathematics', 'chemistry', 'computer-science'],
+  mathematics: ['physics', 'statistics', 'economics', 'computer-science'],
+  statistics: ['mathematics', 'economics', 'psychology'],
+  'computer-science': ['mathematics', 'ict', 'physics'],
+  ict: ['computer-science', 'business', 'mathematics'],
+  economics: ['business', 'accounting', 'mathematics'],
+  business: ['economics', 'accounting', 'commerce'],
+  accounting: ['business', 'economics', 'commerce'],
+  commerce: ['accounting', 'business', 'economics'],
+  psychology: ['sociology', 'biology', 'law'],
+  sociology: ['psychology', 'law', 'world-history'],
+  law: ['sociology', 'psychology', 'business'],
+  'world-history': ['sociology', 'english-language', 'law'],
+  'english-language': ['world-history', 'urdu-language', 'sociology'],
+  'urdu-language': ['english-language', 'world-history'],
+};
+const affinity = SUBJECT_AFFINITY[data.subject] ?? [];
+const affinityRank = (slug: string) => {
+  const i = affinity.indexOf(slug);
+  return i === -1 ? affinity.length : i;
+};
 const allBoards = await getCollection('subjectBoards', ({ data: d }) => !d.draft);
 const sameBoard = allBoards
   .filter(
@@ -89,16 +116,22 @@ const sameBoard = allBoards
       e.data.board === data.board &&
       e.data.subject !== data.subject,
   )
-  .sort((a, b) => a.data.subjectName.localeCompare(b.data.subjectName))
-  .slice(0, 10);
+  .sort(
+    (a, b) =>
+      affinityRank(a.data.subject) - affinityRank(b.data.subject) ||
+      a.data.subjectName.localeCompare(b.data.subjectName),
+  );
 const sameSubject = allBoards
   .filter(
     (e) =>
       e.data.subject === data.subject &&
       (e.data.board !== data.board || e.data.levelSlug !== data.levelSlug),
   )
-  .sort((a, b) => (a.data.boardName + a.data.level).localeCompare(b.data.boardName + b.data.level))
-  .slice(0, 6);
+  .sort((a, b) => (a.data.boardName + a.data.level).localeCompare(b.data.boardName + b.data.level));
+
+/* Subject hub (/subjects/<slug>/) — only linked when that hub page exists. */
+const subjectHubs = await getCollection('subjects', ({ data: d }) => !d.draft);
+const hasSubjectHub = subjectHubs.some((h) => h.id === data.subject);
 ---
 
 <BaseLayout title={data.seo.title} description={data.seo.description} canonical={canonical}>
@@ -230,7 +263,7 @@ const sameSubject = allBoards
     </section>
 
     <!-- Related classes — cross-links between board pages -->
-    {(sameBoard.length > 0 || sameSubject.length > 0) && (
+    {(sameBoard.length > 0 || sameSubject.length > 0 || hasSubjectHub) && (
       <section class="related">
         <div class="container container--narrow">
           <h2 class="related__title">Related classes</h2>
@@ -249,7 +282,7 @@ const sameSubject = allBoards
               </div>
             </div>
           )}
-          {sameSubject.length > 0 && (
+          {(sameSubject.length > 0 || hasSubjectHub) && (
             <div class="related__group">
               <h3 class="related__label">{data.subjectName} with other boards &amp; levels</h3>
               <div class="related__links">
@@ -261,6 +294,11 @@ const sameSubject = allBoards
                     {e.data.boardName} {e.data.level}
                   </a>
                 ))}
+                {hasSubjectHub && (
+                  <a class="related__pill" href={`/subjects/${data.subject}/`}>
+                    All {data.subjectName} classes
+                  </a>
+                )}
               </div>
             </div>
           )}
