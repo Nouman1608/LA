@@ -6,6 +6,7 @@ import Footer from '../../../components/layout/Footer.astro';
 import JsonLd from '../../../components/seo/JsonLd.astro';
 import Button from '../../../components/ui/Button.astro';
 import Faq from '../../../components/sections/Faq.astro';
+import { marlbridgeUrlFor } from '../../../data/marlbridge-links';
 import { site, whatsappLink } from '../../../data/site';
 import { teachersForSubject } from '../../../data/teachers';
 
@@ -26,6 +27,7 @@ const { data } = entry;
 const { Content } = await render(entry);
 
 const canonical = `/${data.levelSlug}/${data.board}/${data.subject}/`;
+const marlbridgeUrl = marlbridgeUrlFor(canonical);
 const url = new URL(canonical, site.domain).href;
 const wa = whatsappLink(`Hi! I'd like to ask about ${data.subjectName} ${data.level} ${data.boardName} classes.`);
 
@@ -220,6 +222,12 @@ const hasSubjectHub = subjectHubs.some((h) => h.id === data.subject);
           </dl>
           <Button href="/contact/" variant="primary" block class="glance__cta">Book free trial</Button>
           <a href={wa} class="glance__ask" target="_blank" rel="noopener">Ask on WhatsApp</a>
+          {marlbridgeUrl && (
+            <p class="glance__mb">
+              Free syllabus guide and revision resources for this subject on
+              <a href={marlbridgeUrl}>Marlbridge</a>, our sister site.
+            </p>
+          )}
         </aside>
       </div>
     </section>
@@ -397,6 +405,8 @@ const hasSubjectHub = subjectHubs.some((h) => h.id === data.subject);
     font-weight: 600; padding: 13px; border-radius: var(--r-sm);
   }
   .glance__ask:hover { border-color: var(--c-accent); }
+  .glance__mb { margin: 14px 0 0; font-size: 14px; line-height: 1.5; color: var(--c-text); text-align: center; }
+  .glance__mb a { color: var(--c-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 
   .cta { background: var(--c-primary); color: #fff; }
   .cta__inner { padding-block: 60px; text-align: center; }
