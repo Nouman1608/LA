@@ -114,3 +114,19 @@ export function marlbridgeUrlFor(pagePath: string): string | undefined {
   const path = MARLBRIDGE_PAGES[key];
   return path ? MARLBRIDGE_ORIGIN + path : undefined;
 }
+
+/**
+ * Syllabus codes with a free 10-minute diagnostic on Marlbridge (checked live
+ * on 24 Sep 2026: /practice/<code>/ returned 200 for all 19). The practice
+ * page lists that syllabus's diagnostics; /diagnostics/ lists all of them.
+ */
+export const MARLBRIDGE_DIAGNOSTICS_HUB = MARLBRIDGE_ORIGIN + '/diagnostics/';
+const DIAGNOSTIC_CODES = new Set([
+  '0580', '0610', '0620', '0625', '2210', '2281', '4024', '4CH1', '4PH1', '5054',
+  '5070', '7115', '9609', '9618', '9700', '9701', '9702', '9708', '9709',
+]);
+
+export function marlbridgeDiagnosticFor(code: string): string | undefined {
+  const c = code.trim().toUpperCase();
+  return DIAGNOSTIC_CODES.has(c) ? `${MARLBRIDGE_ORIGIN}/practice/${c}/` : undefined;
+}

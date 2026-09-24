@@ -65,4 +65,6 @@ Self-marking has a blind spot: you can't always see your own recurring error, be
 
 This is where a structured class helps, especially in a tight retake window. At Learners Academy, we've prepared Cambridge, Edexcel and AQA students online since 2016 from our base in Bahria Town, Lahore, with live classes led by vetted teachers who mark past papers against the real mark scheme and target exactly what's costing you marks. Group classes are Rs 24,000/month per subject for A Level and Rs 19,000/month for IGCSE and O Level; 1-to-1 classes — well suited to a focused past-paper review programme — are Rs 4,000/class (A Level) or Rs 3,500/class (IGCSE/O Level).
 
+**Short on time to diagnose?** Marlbridge, our sister site, has [free 10-minute diagnostics](https://marlbridge.com/diagnostics/) for 19 Cambridge and Edexcel syllabuses: a few exam-style questions with worked answers that show which topics to practise first.
+
 **Want your past-paper practice reviewed by a teacher who knows exactly what your board is looking for? Book a free demo class with Learners Academy.** [Book your free demo class here](/contact/) or message us on WhatsApp at [+92 323 9149918](https://wa.me/923239149918).
