@@ -47,4 +47,6 @@ Learners Academy has taught A Level sciences online since 2016, with chemistry t
 
 Or start from our [chemistry tuition overview](/subjects/chemistry/) to compare levels and boards.
 
+**Before you book, try a quick check:** the [free Cambridge A Level Chemistry 9701 diagnostic](https://marlbridge.com/practice/9701/) on our sister site Marlbridge shows which AS or A Level topics need work.
+
 **[Book a free demo class](/contact/)** — your child sits a real lesson with the actual teacher before you commit to anything.

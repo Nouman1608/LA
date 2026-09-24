@@ -48,4 +48,6 @@ If your child needs structure and accountability for that plan, that is precisel
 
 Wondering whether your child should be doing IGCSE Chemistry instead? Read our comparison: [IGCSE Chemistry (0620) vs O Level Chemistry (5070)](/blog/igcse-vs-o-level-chemistry-0620-5070/).
 
+**Check where you stand in 10 minutes:** our sister site Marlbridge has a [free O Level Chemistry 5070 diagnostic](https://marlbridge.com/practice/5070/) with worked answers.
+
 **The first class is free.** [Book a demo chemistry class](/contact/) — your child meets the teacher and sits a real lesson before you decide anything.

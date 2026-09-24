@@ -59,4 +59,6 @@ Physics at O Level is also the foundation for [IGCSE Physics (0625)](/igcse/camb
 
 Our [O Level Physics (5054) classes](/o-levels/cambridge/physics/) are built around exam technique — working through past papers, tightening definitions, and giving direct feedback on where marks are being lost, whether that's Paper 2 structure or Paper 4 practical reasoning. Group classes are Rs 19,000/month, or Rs 3,500/class for 1-to-1 sessions if a student needs focused support on specific topics before Oct/Nov.
 
+**Check where you stand in 10 minutes:** our sister site Marlbridge has a [free O Level Physics 5054 diagnostic](https://marlbridge.com/practice/5054/) with worked answers.
+
 **The first class is free.** [Book a demo class](/contact/) or message us on WhatsApp at [+92 323 9149918](https://wa.me/923239149918) to start revising with a teacher who knows exactly how 5054 is marked.

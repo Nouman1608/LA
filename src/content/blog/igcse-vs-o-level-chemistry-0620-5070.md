@@ -40,4 +40,6 @@ Our chemistry classes are board- and syllabus-specific, taught live in small gro
 
 Group classes are ₨ 19,000 per month at both levels — details on the [chemistry tuition overview](/subjects/chemistry/) and [pricing page](/pricing/).
 
+**Want a quick read on where your child stands?** Try the free 10-minute diagnostic on our sister site Marlbridge: [IGCSE Chemistry 0620](https://marlbridge.com/practice/0620/) or [O Level Chemistry 5070](https://marlbridge.com/practice/5070/).
+
 **Not sure which tier or route your child is on?** [Book a free demo class](/contact/) — bring the question, and the teacher will assess where they stand in the first session.

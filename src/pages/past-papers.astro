@@ -7,6 +7,7 @@ import CtaBand from '../components/sections/CtaBand.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { breadcrumbList } from '../components/seo/schemas';
 import { site } from '../data/site';
+import { marlbridgeDiagnosticFor, MARLBRIDGE_DIAGNOSTICS_HUB } from '../data/marlbridge-links';
 
 /**
  * Past papers hub. We never re-host exam board PDFs — every "Official past
@@ -176,6 +177,12 @@ const faqs = [
         goes straight to Cambridge International, AQA or Pearson Edexcel's own site, matched to the
         exact syllabus code your child's class follows.
       </p>
+      <p class="intro__lead">
+        Not sure where to start? Our sister site Marlbridge has
+        <a href={MARLBRIDGE_DIAGNOSTICS_HUB}>free 10-minute diagnostics</a> for 19 Cambridge and Edexcel
+        syllabuses: a few exam-style questions, marked against worked answers, showing which topics to
+        practise first. Where one exists for a syllabus, it's linked in the table below.
+      </p>
 
       <h2 class="intro__h2">Getting the most out of past papers</h2>
       <div class="tips__grid">
@@ -236,6 +243,9 @@ const faqs = [
                         >
                           Past papers ↗
                         </a>
+                      )}
+                      {marlbridgeDiagnosticFor(e.data.syllabusCode) && (
+                        <a href={marlbridgeDiagnosticFor(e.data.syllabusCode) as string}>Free 10-min check ↗</a>
                       )}
                     </td>
                   </tr>

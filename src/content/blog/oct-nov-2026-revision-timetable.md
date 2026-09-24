@@ -67,4 +67,6 @@ If you're a private candidate, a retake student, or simply want a structured pus
 
 Whatever stage you're at, the sooner your revision has a real structure, the more of these remaining weeks actually count.
 
+**Not sure which topics to revise first?** Our sister site Marlbridge has [free 10-minute diagnostics](https://marlbridge.com/diagnostics/) for 19 Cambridge and Edexcel syllabuses — a quick way to find the weak topics before you plan the weeks.
+
 **Book a free demo class** to build a subject-by-subject revision plan with one of our teachers — [get in touch here](/contact/) or message us directly on [WhatsApp: +92 323 9149918](https://wa.me/923239149918?text=Hi!%20I'd%20like%20to%20ask%20about%20a%20revision%20plan%20for%20Oct/Nov%202026.).
