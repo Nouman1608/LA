@@ -21,7 +21,7 @@ export const boards: Board[] = [
   {
     name: 'AQA',
     tag: 'UK Board',
-    blurb: 'AQA IGCSE and A Level subjects with examiner-focused exam technique.',
+    blurb: 'AQA GCSE and A Level subjects with examiner-focused exam technique.',
     levels: ['IGCSE', 'A Level'],
   },
 ];

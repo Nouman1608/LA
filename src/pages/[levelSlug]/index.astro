@@ -8,6 +8,7 @@ import Footer from '../../components/layout/Footer.astro';
 import JsonLd from '../../components/seo/JsonLd.astro';
 import Button from '../../components/ui/Button.astro';
 import { site } from '../../data/site';
+import { levelHubName } from '../../data/levels';
 
 export async function getStaticPaths() {
   const pages = await getCollection('subjectBoards', ({ data }) => !data.draft);
@@ -18,12 +19,13 @@ export async function getStaticPaths() {
     return {
       params: { levelSlug },
       props: {
-        levelName: entries[0].data.level,
+        levelName: levelHubName(levelSlug, entries[0].data.level),
         priceFrom: entries[0].data.priceFrom,
         oneToOne: entries[0].data.oneToOne,
         items: entries.map((e) => ({
           board: e.data.board,
           boardName: e.data.boardName,
+          level: e.data.level,
           subject: e.data.subject,
           subjectName: e.data.subjectName,
           syllabusCode: e.data.syllabusCode,
@@ -41,6 +43,9 @@ const boards = [...new Map(items.map((i) => [i.board, i.boardName])).entries()]
   .map(([board, boardName]) => ({
     board,
     boardName,
+    // The qualification this board's courses lead to at this level. Usually the
+    // hub's own name; "GCSE" for AQA on the IGCSE hub.
+    qual: items.find((i) => i.board === board)?.level ?? levelName,
     subjects: items
       .filter((i) => i.board === board)
       .sort((a, b) => a.subjectName.localeCompare(b.subjectName)),
@@ -50,8 +55,14 @@ const boards = [...new Map(items.map((i) => [i.board, i.boardName])).entries()]
 const canonical = `/${levelSlug}/`;
 const url = new URL(canonical, site.domain).href;
 
-const seoTitle = `${levelName} Online Tuition Pakistan — Cambridge, Edexcel & AQA | ${site.name}`;
-const seoDescription = `Live online ${levelName} classes for Cambridge (CAIE), Edexcel and AQA: ${items.length} board-specific courses, group classes from ₨ ${priceFrom}/month. Free demo class.`;
+// e.g. "Cambridge, Edexcel & AQA GCSE" on the IGCSE hub: a board whose courses
+// lead to a different qualification is named with it.
+const boardLabel = (name: string) => {
+  const b = boards.find((x) => x.boardName === name);
+  return b && b.qual !== levelName ? `${name} ${b.qual}` : name;
+};
+const seoTitle = `${levelName} Online Tuition Pakistan — Cambridge, Edexcel & ${boardLabel('AQA')} | ${site.name}`;
+const seoDescription = `Live online ${levelName} classes for Cambridge (CAIE), Edexcel and ${boardLabel('AQA')}: ${items.length} board-specific courses, group classes from ₨ ${priceFrom}/month. Free demo class.`;
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -70,7 +81,7 @@ const itemListJsonLd = {
   url,
   hasPart: boards.map((b) => ({
     '@type': 'ItemList',
-    name: `${b.boardName} ${levelName}`,
+    name: `${b.boardName} ${b.qual}`,
     url: `${site.domain}/${levelSlug}/${b.board}/`,
     numberOfItems: b.subjects.length,
   })),
@@ -112,13 +123,13 @@ const itemListJsonLd = {
           <div class="boardblock">
             <div class="boardblock__head">
               <h2 class="boardblock__title">
-                <a href={`/${levelSlug}/${b.board}/`}>{b.boardName}</a>
+                <a href={`/${levelSlug}/${b.board}/`}>{b.boardName}{b.qual !== levelName && ` ${b.qual}`}</a>
               </h2>
               <p class="boardblock__meta">
                 {b.subjects.length} {b.subjects.length === 1 ? 'subject' : 'subjects'}
                 <span aria-hidden="true"> · </span>
                 <a href={`/${levelSlug}/${b.board}/`} class="boardblock__all">
-                  View all {b.boardName} {levelName} &rarr;
+                  View all {b.boardName} {b.qual} &rarr;
                 </a>
               </p>
             </div>

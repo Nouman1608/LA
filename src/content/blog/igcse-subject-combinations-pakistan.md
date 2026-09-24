@@ -15,7 +15,7 @@ In the British curriculum system, IGCSE is not just "high school." Universities 
 
 Three things Pakistani families consistently underestimate:
 
-- **Board differences matter.** Cambridge, Edexcel and AQA don't offer identical subject lists. AQA, for instance, doesn't offer Accounting, Commerce or ICT — schools using AQA route those students through Combined Science or different electives instead.
+- **Board differences matter.** Cambridge, Edexcel and AQA don't offer identical subject lists. AQA, for instance, doesn't offer Accounting, Commerce or ICT at GCSE — schools using AQA route those students through different electives or another board instead.
 - **Combined vs. separate sciences is a real fork in the road.** A student who does Combined Science at IGCSE and later wants A Level Biology, Chemistry and Physics separately will have gaps to fill.
 - **"Keeping options open" has limits.** Ten subjects sounds safe, but it usually means less depth in the ones that actually matter for university admission.
 
@@ -39,7 +39,7 @@ This is where a lot of subject-selection mistakes happen, because parents assume
 
 **Edexcel** overlaps heavily with Cambridge on core subjects — Sciences, Maths, Business, Economics — but structures some papers differently, and it's the board most Pakistani schools use for A Level Urdu.
 
-**AQA** is narrower — no Accounting, Commerce or ICT. Schools using AQA generally lean on it for Sciences, English and Maths, with Combined Science standing in as the IGCSE-equivalent where AQA has no separate-sciences IGCSE.
+**AQA** is narrower — no Accounting, Commerce or ICT. AQA does not publish an IGCSE at all: what AQA schools enter at this stage is the UK GCSE, with separate Biology (8461), Chemistry (8462) and Physics (8463) or Combined Science. Schools using AQA generally lean on it for Sciences, English and Maths. (OxfordAQA, a separate board, offers International GCSEs.)
 
 Ask your school directly which board each subject is examined under — it's common for one school to mix boards across subjects, using Cambridge for Sciences and Edexcel for Business Studies, for example.
 

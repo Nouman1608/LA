@@ -11,6 +11,7 @@ import Button from '../../../components/ui/Button.astro';
 import Faq from '../../../components/sections/Faq.astro';
 import { boardIntros } from '../../../data/board-intros';
 import { site, whatsappLink } from '../../../data/site';
+import { levelHubName } from '../../../data/levels';
 
 export async function getStaticPaths() {
   const pages = await getCollection('subjectBoards', ({ data }) => !data.draft);
@@ -50,6 +51,9 @@ export async function getStaticPaths() {
 
 const { levelSlug, board } = Astro.params;
 const { levelName, boardName, priceFrom, oneToOne, subjects } = Astro.props;
+// Breadcrumb parent: the hub's own name (IGCSE), which can differ from the
+// qualification these courses lead to (AQA: GCSE).
+const hubName = levelHubName(levelSlug, levelName);
 
 const intro = boardIntros[`${levelSlug}|${board}`];
 
@@ -65,7 +69,7 @@ const breadcrumbJsonLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain + '/' },
-    { '@type': 'ListItem', position: 2, name: levelName, item: `${site.domain}/${levelSlug}/` },
+    { '@type': 'ListItem', position: 2, name: hubName, item: `${site.domain}/${levelSlug}/` },
     { '@type': 'ListItem', position: 3, name: boardName, item: url },
   ],
 };
@@ -97,7 +101,7 @@ const itemListJsonLd = {
       <div class="container container--narrow bhero__inner">
         <nav class="crumb" aria-label="Breadcrumb">
           <a href="/">Home</a><span aria-hidden="true">/</span>
-          <a href={`/${levelSlug}/`}>{levelName}</a><span aria-hidden="true">/</span>
+          <a href={`/${levelSlug}/`}>{hubName}</a><span aria-hidden="true">/</span>
           <span class="crumb__current">{boardName}</span>
         </nav>
 
