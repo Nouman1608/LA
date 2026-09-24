@@ -6,14 +6,14 @@ import Logo from './Logo.astro';
 const boardPages = await getCollection('subjectBoards', ({ data }) => !data.draft);
 
 // Group: levelSlug → board → sorted subjects
-type BoardEntry = { subject: string; subjectName: string; board: string; boardName: string; levelSlug: string };
+type BoardEntry = { subject: string; subjectName: string; board: string; boardName: string; levelSlug: string; level: string };
 const byLevel: Record<string, Record<string, BoardEntry[]>> = {};
 
 for (const page of boardPages) {
-  const { levelSlug, board, boardName, subject, subjectName } = page.data;
+  const { levelSlug, board, boardName, subject, subjectName, level } = page.data;
   if (!byLevel[levelSlug]) byLevel[levelSlug] = {};
   if (!byLevel[levelSlug][board]) byLevel[levelSlug][board] = [];
-  byLevel[levelSlug][board].push({ subject, subjectName, board, boardName, levelSlug });
+  byLevel[levelSlug][board].push({ subject, subjectName, board, boardName, levelSlug, level });
 }
 
 // Sort subjects alphabetically within each board
@@ -86,7 +86,8 @@ const boardOrder = ['cambridge', 'edexcel', 'aqa'];
               <div class="header__menu-inner">
                 {boards.map((board) => (
                   <div class="header__col">
-                    <p class="header__col-head">{levelBoards[board][0].boardName}</p>
+                    {/* AQA courses in the IGCSE menu lead to the UK GCSE: say so. */}
+                    <p class="header__col-head">{levelBoards[board][0].boardName}{levelBoards[board][0].level === 'GCSE' && ' GCSE'}</p>
                     {levelBoards[board].map((p) => (
                       <a href={`/${p.levelSlug}/${p.board}/${p.subject}/`} class="header__item">
                         {p.subjectName}

@@ -36,7 +36,7 @@ Where the choice genuinely exists: a student aiming at A Level sciences should b
 Our chemistry classes are board- and syllabus-specific, taught live in small groups with weekly marked homework:
 
 - [O Level Chemistry — Cambridge 5070](/o-levels/cambridge/chemistry/)
-- [IGCSE Chemistry — Cambridge 0620](/igcse/cambridge/chemistry/), plus [Edexcel 4CH1](/igcse/edexcel/chemistry/) and [AQA 8462](/igcse/aqa/chemistry/)
+- [IGCSE Chemistry — Cambridge 0620](/igcse/cambridge/chemistry/), plus [Edexcel 4CH1](/igcse/edexcel/chemistry/) and the UK GCSE alternative, [AQA GCSE Chemistry 8462](/igcse/aqa/chemistry/)
 
 Group classes are ₨ 19,000 per month at both levels — details on the [chemistry tuition overview](/subjects/chemistry/) and [pricing page](/pricing/).
 
