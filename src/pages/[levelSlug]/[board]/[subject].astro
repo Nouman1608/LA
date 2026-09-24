@@ -4,6 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Header from '../../../components/layout/Header.astro';
 import Footer from '../../../components/layout/Footer.astro';
 import JsonLd from '../../../components/seo/JsonLd.astro';
+import { course } from '../../../components/seo/schemas';
 import Button from '../../../components/ui/Button.astro';
 import Faq from '../../../components/sections/Faq.astro';
 import { marlbridgeUrlFor } from '../../../data/marlbridge-links';
@@ -42,18 +43,18 @@ const breadcrumbJsonLd = {
   ],
 };
 
-const courseJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
+/* Fees in the markup come from the same fields the "At a glance" panel shows. */
+const toPkr = (v: string) => Number(String(v).replace(/[^0-9]/g, ''));
+const courseJsonLd = course({
   name: data.title,
   description: data.seo.description,
-  url: url,
-  provider: {
-    '@type': 'Organization',
-    name: site.name,
-    url: site.domain,
-  },
-};
+  url,
+  courseCode: data.syllabusCode,
+  offers: [
+    { price: toPkr(data.priceFrom), description: 'Group classes, per month' },
+    { price: toPkr(data.oneToOne), description: '1-to-1 lessons, per class' },
+  ].filter((o) => o.price > 0),
+});
 
 const defaultFaqs = [
   {

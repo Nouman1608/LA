@@ -1,6 +1,6 @@
 ---
 title: "A Level Chemistry Tutor Online in Pakistan: How to Choose the Right One"
-description: "Looking for an A Level chemistry tutor online in Pakistan? What to check before you pay — board expertise, class format, real costs — plus questions to ask in a demo class."
+description: "Looking for an online A Level chemistry tutor in Pakistan? What to check before you pay: board expertise, class format, real costs and demo-class questions."
 pubDate: 2026-07-20
 draft: false
 ---

@@ -77,19 +77,49 @@ export function educationalOrganization(opts?: {
   return org;
 }
 
-export function course(opts: { name: string; description: string; url: string }) {
-  return {
+export function course(opts: {
+  name: string;
+  description: string;
+  url: string;
+  /** Syllabus/specification code, only for a page about one exact syllabus. */
+  courseCode?: string;
+  /**
+   * Fees shown ON THIS PAGE, in PKR. Pass them from the same data the page
+   * renders so the markup can never disagree with what visitors see.
+   */
+  offers?: { price: number; description: string }[];
+}) {
+  const c: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Course',
+    '@id': `${opts.url}#course`,
     name: opts.name,
     description: opts.description,
     url: opts.url,
+    inLanguage: 'en',
+    // Same @id as the sitewide organisation node (educationalOrganization()),
+    // so search and answer engines join the course to one entity. Name and
+    // url stay inline because not every layout emits that node.
     provider: {
       '@type': 'EducationalOrganization',
+      '@id': `${site.domain}/#organization`,
       name: site.name,
       url: site.domain,
     },
+    hasCourseInstance: [{ '@type': 'CourseInstance', courseMode: 'Online' }],
   };
+  if (opts.courseCode) c.courseCode = opts.courseCode;
+  if (opts.offers?.length) {
+    c.offers = opts.offers.map((o) => ({
+      '@type': 'Offer',
+      price: String(o.price),
+      priceCurrency: 'PKR',
+      category: 'Paid',
+      description: o.description,
+      url: opts.url,
+    }));
+  }
+  return c;
 }
 
 export function blogPosting(opts: {

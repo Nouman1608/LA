@@ -13,9 +13,9 @@ const canonical = '/teachers/';
 const url = new URL(canonical, site.domain).href;
 
 const title = `Our Teachers — Meet the Faculty | ${site.name}`;
-const description = `Meet the ${teachers.length} teachers behind Learners Academy: ${combinedYears}+ years of combined classroom experience from Aitchison College, LGS, Beaconhouse, LACAS, The City School, BISC, Froebel's and SICAS, teaching IGCSE, O Level and A Level live online.`;
-
 const yearsLabel = `${Math.floor(combinedYears / 10) * 10}+`;
+// Same rounded figure as the page body (yearsLabel), so the snippet never shows a different number.
+const description = `Meet the ${teachers.length} teachers behind Learners Academy: ${yearsLabel} years of combined teaching experience from Aitchison, LGS, Beaconhouse, LACAS and more, teaching live online.`;
 
 const personList = {
   '@context': 'https://schema.org',
