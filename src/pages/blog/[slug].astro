@@ -3,7 +3,8 @@ import { getCollection, render } from 'astro:content';
 import HomeLayout from '../../layouts/HomeLayout.astro';
 import JsonLd from '../../components/seo/JsonLd.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
-import { blogPosting, breadcrumbList } from '../../components/seo/schemas';
+import { blogPosting, breadcrumbList, faqPage } from '../../components/seo/schemas';
+import { faqsFromMarkdown } from '../../data/blog-faqs';
 import { site } from '../../data/site';
 import { isPublished } from '../../data/blog';
 
@@ -32,6 +33,8 @@ const posting = blogPosting({
   datePublished: isoDate,
   dateModified: data.updatedDate?.toISOString().slice(0, 10),
 });
+/* FAQPage markup is read from the post's own visible FAQ section, so it always matches the text on the page. */
+const faqs = faqsFromMarkdown(entry.body ?? '');
 const crumbs = breadcrumbList([
   { name: 'Home', url: `${site.domain}/` },
   { name: 'Blog', url: `${site.domain}/blog/` },
@@ -47,6 +50,7 @@ const crumbs = breadcrumbList([
 >
   <JsonLd slot="head" data={posting} />
   <JsonLd slot="head" data={crumbs} />
+  {faqs.length >= 2 && <JsonLd slot="head" data={faqPage(faqs)} />}
 
   <article>
     <header class="phead">

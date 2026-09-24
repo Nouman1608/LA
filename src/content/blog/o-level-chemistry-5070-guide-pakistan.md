@@ -1,6 +1,6 @@
 ---
 title: "O Level Chemistry (5070): The Complete Guide for Pakistani Students"
-description: "Everything Pakistani students and parents need to know about Cambridge O Level Chemistry 5070 — papers, marks, topics, common mistakes and how to prepare for an A*."
+description: "Cambridge O Level Chemistry 5070 for Pakistani students and parents: papers, marks, topics, common mistakes and how to prepare for an A*."
 pubDate: 2026-07-20
 draft: false
 ---

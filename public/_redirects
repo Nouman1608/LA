@@ -129,6 +129,8 @@ https://www.learnersacademy.com.pk/* https://learnersacademy.com.pk/:splat 301!
 /post-sitemap.xml /sitemap-index.xml 301
 /page-sitemap.xml /sitemap-index.xml 301
 /a_level-sitemap.xml /sitemap-index.xml 301
+# 24 Sep 2026: tools and crawlers probe the conventional /sitemap.xml; we only generate /sitemap-index.xml.
+/sitemap.xml /sitemap-index.xml 301
 
 # Old WP location pages -> new geo landing pages
 # Slash-less variants must sit ABOVE /locations/* or the catch-all wins.

@@ -1,6 +1,6 @@
 ---
 title: "IGCSE Chemistry (0620) vs O Level Chemistry (5070): Which Should Your Child Take?"
-description: "Cambridge IGCSE Chemistry 0620 and O Level Chemistry 5070 compared — papers, tiers, practical routes and which suits your child. A clear answer for Pakistani parents."
+description: "Cambridge IGCSE Chemistry 0620 vs O Level Chemistry 5070: papers, tiers, practical routes and which suits your child. A clear answer for Pakistani parents."
 pubDate: 2026-07-20
 draft: false
 ---
