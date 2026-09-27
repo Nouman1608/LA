@@ -1,0 +1,523 @@
+---
+import HomeLayout from '../layouts/HomeLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { Image } from 'astro:assets';
+import { breadcrumbList } from '../components/seo/schemas';
+import { site, juniorCampus as jc, whatsappLink } from '../data/site';
+
+import imgScrabble from '../assets/junior-campus/scrabble-classroom.jpg';
+import imgLava from '../assets/junior-campus/science-experiment-lava-lamp.jpg';
+import imgMemory from '../assets/junior-campus/memory-game-group.jpg';
+import imgVolcano from '../assets/junior-campus/volcano-experiment.jpg';
+import imgBoard from '../assets/junior-campus/board-game-pair.jpg';
+import imgThinking from '../assets/junior-campus/critical-thinking.jpg';
+import imgGroup from '../assets/junior-campus/group-activity.jpg';
+import imgWords from '../assets/junior-campus/science-pair.jpg';
+import imgScience from '../assets/junior-campus/science-experiment.jpg';
+
+const url = `${site.domain}/junior-campus/`;
+const title = `Tuition for Grade 2 to 8 in Bahria Town, Lahore — Junior Campus | ${site.name}`;
+const description =
+  'After-school tuition for Grade 2 to 8 at our Junior Campus, Umer Block, Bahria Town Lahore. Maths, English, Science & Urdu in small groups. ₨15,000 per subject, 20% off 2+ subjects. 2–9 PM.';
+
+const fee = jc.fee.perSubject;
+const fmt = (n: number) => `₨${n.toLocaleString('en-US')}`;
+const examples = [1, 2, 3, 4].map((n) => {
+  const full = fee * n;
+  const total = n >= 2 ? full * 0.8 : full;
+  return { n, full, total };
+});
+
+const breadcrumb = breadcrumbList([
+  { name: 'Home', url: `${site.domain}/` },
+  { name: 'Junior Campus', url },
+]);
+
+const campusSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['EducationalOrganization', 'LocalBusiness'],
+  '@id': `${url}#campus`,
+  name: jc.name,
+  description:
+    'On-campus after-school tuition for Grade 2 to 8 in Bahria Town, Lahore — Maths, English, Science and Urdu in small groups.',
+  url,
+  telephone: site.contact.phone,
+  priceRange: `${jc.fee.label} per subject per month`,
+  image: `${site.domain}/og/og-default.jpg`,
+  parentOrganization: { '@id': `${site.domain}/#organization` },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: jc.address.street,
+    addressLocality: jc.address.locality,
+    addressRegion: jc.address.region,
+    postalCode: jc.address.postalCode,
+    addressCountry: jc.address.country,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: jc.hours.open,
+      closes: jc.hours.close,
+    },
+  ],
+  sameAs: ['https://www.instagram.com/learnerspreschool/'],
+};
+
+const facts = [
+  { k: 'Grades', v: '2 to 8' },
+  { k: 'Fee', v: `${jc.fee.label} / subject / month` },
+  { k: 'Discount', v: '20% off 2+ subjects' },
+  { k: 'Timings', v: `Mon–Fri, ${jc.hours.label}` },
+];
+
+const subjects = [
+  {
+    name: 'Maths',
+    body: 'Number sense, times tables, fractions and word problems in the early grades, building up to algebra and geometry by Grade 7 and 8 — taught in the order the school syllabus follows.',
+  },
+  {
+    name: 'English',
+    body: 'Reading, comprehension, grammar and structured writing. Children learn to answer the question actually asked — the habit every later exam rewards.',
+  },
+  {
+    name: 'Science',
+    body: 'Hands-on from the start: experiments, observation and clear explanations, so the ideas behind biology, chemistry and physics make sense before they get harder.',
+  },
+  {
+    name: 'Urdu',
+    body: 'Reading fluency, vocabulary, grammar and written expression, matched to what your child is covering at school.',
+  },
+];
+
+const reasons = [
+  {
+    title: 'Homework and school tests, handled',
+    body: 'Classes follow your child’s school syllabus. Homework gets done with a teacher on hand, and we prepare children for their class tests, mid-terms and finals as they come up.',
+  },
+  {
+    title: 'Small groups, real attention',
+    body: 'Children learn in small groups, so the teacher knows where each child is stuck and can slow down or push ahead as needed.',
+  },
+  {
+    title: 'Learning that feels active',
+    body: 'Science experiments, word games, memory games and critical-thinking activities keep children engaged and build confidence alongside the core subjects.',
+  },
+  {
+    title: 'Progress you can see',
+    body: 'Parents get regular updates on test scores, teacher feedback and what’s coming up next — no guessing how things are going.',
+  },
+  {
+    title: 'Timings that fit school',
+    body: `Open ${jc.hours.label}, ${jc.hours.days.toLowerCase()}. Come straight after school, or later in the evening after a break.`,
+  },
+  {
+    title: 'A path all the way to O Level',
+    body: `Learners Academy has taught in Bahria Town since ${site.founded}. Grade 7 and 8 students build the foundations O Level assumes, then continue with the same academy right through O and A Level.`,
+  },
+];
+
+const gallery = [
+  { src: imgScrabble, alt: 'Two students playing Scrabble during a word-building class at the Junior Campus' },
+  { src: imgLava, alt: 'A student pouring liquid into a jar during a lava-lamp science experiment' },
+  { src: imgMemory, alt: 'A teacher leading a group memory game with four students' },
+  { src: imgVolcano, alt: 'Students and a teacher making a model volcano in a science activity' },
+  { src: imgBoard, alt: 'Two students concentrating on a board game in class' },
+  { src: imgThinking, alt: 'A student working through a word puzzle during a critical-thinking session' },
+  { src: imgGroup, alt: 'A group activity on the classroom floor mats with a teacher' },
+  { src: imgWords, alt: 'Two students pouring and mixing liquids in a science experiment' },
+  { src: imgScience, alt: 'A student watching colours mix in a glass during a science experiment' },
+];
+
+const faqs = [
+  {
+    q: 'Which grades do you teach at the Junior Campus?',
+    a: 'Grade 2 to Grade 8 — roughly ages 7 to 14. Classes are grouped by grade so each child learns alongside children at the same stage.',
+  },
+  {
+    q: 'Which subjects can my child take?',
+    a: 'Maths, English, Science and Urdu. You can choose one subject or several, and add more later.',
+  },
+  {
+    q: 'What are the fees?',
+    a: `${jc.fee.label} per subject per month. Take 2 or more subjects and you get 20% off — for example, 2 subjects come to ${fmt(examples[1].total)} a month instead of ${fmt(examples[1].full)}.`,
+  },
+  {
+    q: 'What are the timings?',
+    a: `${jc.hours.days}, ${jc.hours.label}. WhatsApp us your child’s grade and subjects and we’ll share the exact slot for each class.`,
+  },
+  {
+    q: 'Where is the Junior Campus?',
+    a: `${jc.address.street}, ${jc.address.locality}. It is a separate building from our main Learners Academy campus for O and A Level.`,
+  },
+  {
+    q: 'Do you follow my child’s school syllabus?',
+    a: 'Yes. Tell us which school and grade your child is in, and we teach to what they are covering in class, including homework and upcoming tests.',
+  },
+  {
+    q: 'Do you also teach online?',
+    a: 'The Junior Campus is on-campus only. For online classes for Grade 6 to 8, see our online junior classes.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'WhatsApp us or visit the campus between 2 and 9 PM on a weekday. Share your child’s grade and the subjects you are interested in, and we will arrange admission.',
+  },
+];
+
+const waMsg = 'Hi! I would like to ask about admission at the Junior Campus (Grade 2-8).';
+---
+
+<HomeLayout title={title} description={description} canonical="/junior-campus/" topBar={false}>
+  <JsonLd slot="head" data={breadcrumb} />
+  <JsonLd slot="head" data={campusSchema} />
+  <PageHeader
+    eyebrow="Junior Campus · Grade 2–8 · Bahria Town"
+    crumb="Junior Campus"
+    title="After-school classes for Grade 2 to 8, close to home."
+    sub="Maths, English, Science and Urdu in small groups at our Junior Campus, Umer Block, Bahria Town — with homework support and school test preparation built in."
+  />
+
+  <section class="facts" aria-label="Key details">
+    <div class="container">
+      <dl class="facts__grid">
+        {
+          facts.map((f) => (
+            <div class="facts__item">
+              <dt class="facts__k">{f.k}</dt>
+              <dd class="facts__v">{f.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="guide">
+    <div class="container container--narrow">
+      <p class="guide__lead">
+        The years from Grade 2 to Grade 8 are when reading, number sense and good study habits
+        take shape. Our Junior Campus gives children a calm, supervised place to do exactly that
+        after school: small classes that follow their school syllabus, help with homework and
+        tests, and hands-on activities that make learning something they enjoy.
+      </p>
+
+      <h2 class="guide__h2">What we teach</h2>
+      <div class="guide__grid guide__grid--2">
+        {
+          subjects.map((s) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{s.name}</h3>
+              <p class="gcard__body">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="guide__h2">Why parents choose the Junior Campus</h2>
+      <div class="guide__grid">
+        {
+          reasons.map((r) => (
+            <div class="gcard">
+              <h3 class="gcard__title">{r.title}</h3>
+              <p class="gcard__body">{r.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 class="guide__h2 guide__h2--wide">Life at the Junior Campus</h2>
+      <div class="gallery">
+        {
+          gallery.map((g, i) => (
+            <figure class={`gallery__item${i === 0 ? ' gallery__item--lead' : ''}`}>
+              <Image
+                src={g.src}
+                alt={g.alt}
+                widths={[400, 800]}
+                sizes="(max-width: 700px) 50vw, 25vw"
+                format="webp"
+                quality={78}
+                loading="lazy"
+                class="gallery__img"
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="container container--narrow">
+      <h2 class="guide__h2">Fees</h2>
+      <p class="guide__text">
+        <strong>{jc.fee.label} per subject, per month.</strong> Take two or more subjects and
+        the monthly fee drops by 20%.
+      </p>
+      <div class="fees">
+        <table class="fees__table">
+          <thead>
+            <tr>
+              <th scope="col">Subjects</th>
+              <th scope="col">Standard</th>
+              <th scope="col">You pay / month</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              examples.map((e) => (
+                <tr>
+                  <td>{e.n} {e.n === 1 ? 'subject' : 'subjects'}</td>
+                  <td>{e.n >= 2 ? <s>{fmt(e.full)}</s> : fmt(e.full)}</td>
+                  <td class="fees__pay">
+                    {fmt(e.total)}
+                    {e.n >= 2 && <span class="fees__tag">20% off</span>}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="guide__h2">Visit us</h2>
+      <div class="visit">
+        <div class="visit__col">
+          <p class="visit__label">Address</p>
+          <p class="visit__text">{jc.address.street}, {jc.address.locality}</p>
+          <a class="guide__plink" href={jc.mapsUrl} target="_blank" rel="noopener">Get directions on Google Maps →</a>
+        </div>
+        <div class="visit__col">
+          <p class="visit__label">Timings</p>
+          <p class="visit__text">{jc.hours.days}<br />{jc.hours.label}</p>
+        </div>
+        <div class="visit__col">
+          <p class="visit__label">Phone &amp; WhatsApp</p>
+          <p class="visit__text"><a href={site.contact.phoneHref}>{site.contact.phone}</a></p>
+        </div>
+      </div>
+      <div class="guide__actions">
+        <Button href={whatsappLink(waMsg)} variant="primary" size="lg">
+          WhatsApp us about admission
+        </Button>
+        <a class="guide__plink" href="/junior-classes/">Looking for online classes? Grade 6–8 online →</a>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <CtaBand
+    title="Give your child a strong start, right after school."
+    sub={`Grade 2–8 · ${jc.fee.label} per subject · 20% off 2+ subjects · Umer Block, Bahria Town`}
+    cta="WhatsApp us about admission"
+    href={whatsappLink(waMsg)}
+    target="_blank"
+    rel="noopener"
+  />
+</HomeLayout>
+
+<style>
+  .facts {
+    background: var(--c-card);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .facts__grid {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .facts__item {
+    padding: 22px 16px;
+    border-left: 1px solid var(--c-border);
+  }
+  .facts__item:first-child {
+    border-left: 0;
+  }
+  .facts__k {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .facts__v {
+    margin: 6px 0 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--c-primary-ink);
+  }
+  @media (max-width: 760px) {
+    .facts__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .facts__item:nth-child(3) {
+      border-left: 0;
+    }
+    .facts__item:nth-child(n + 3) {
+      border-top: 1px solid var(--c-border);
+    }
+  }
+
+  .guide {
+    background: var(--c-bg);
+    padding-block: var(--section-y);
+  }
+  .guide__lead {
+    margin: 0 auto;
+    max-width: 70ch;
+    font-size: clamp(18px, 1.9vw, 21px);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__h2 {
+    margin: 56px 0 24px;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.1;
+    color: var(--c-primary-ink);
+  }
+  .guide__text {
+    max-width: 70ch;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+  .guide__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .guide__grid--2 {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .gcard {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .gcard__title {
+    margin: 0 0 8px;
+    font-size: 19px;
+    color: var(--c-primary-ink);
+  }
+  .gcard__body {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--c-text);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    gap: 12px;
+  }
+  .gallery__item {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--c-panel);
+  }
+  .gallery__item--lead {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 700px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 150px;
+    }
+  }
+
+  .fees {
+    margin-top: 20px;
+    overflow-x: auto;
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+  }
+  .fees__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  .fees__table th,
+  .fees__table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--c-border);
+    color: var(--c-text);
+  }
+  .fees__table tr:last-child td {
+    border-bottom: 0;
+  }
+  .fees__table th {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .fees__pay {
+    font-weight: 700;
+    color: var(--c-primary-ink) !important;
+  }
+  .fees__tag {
+    margin-left: 10px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--c-accent);
+    color: var(--c-primary-ink);
+  }
+
+  .visit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .visit__col {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .visit__label {
+    margin: 0 0 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .visit__text {
+    margin: 0 0 8px;
+    line-height: 1.6;
+    color: var(--c-primary-ink);
+    font-weight: 500;
+  }
+  .visit__text a {
+    color: inherit;
+  }
+  .guide__actions {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .guide__plink {
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+</style>

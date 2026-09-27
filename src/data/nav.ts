@@ -35,6 +35,8 @@ export const footerPrograms: NavLink[] = [
   { label: 'Oct/Nov 2026 Retakes', href: '/november-2026-retakes/' },
   { label: 'O Level Tuition Lahore', href: '/o-level-tuition-lahore/' },
   { label: 'O Level Tuition Karachi', href: '/o-level-tuition-karachi/' },
+  { label: 'Junior Campus (Grade 2–8)', href: '/junior-campus/' },
+  { label: 'Junior Classes Online (Grade 6–8)', href: '/junior-classes/' },
   { label: 'Aitchison Test Prep', href: '/aitchison-test/' },
   { label: 'Cadet College Prep', href: '/cadet-colleges-test/' },
   { label: 'Saudi Arabia Tuition', href: '/igcse-tuition/saudi-arabia/' },

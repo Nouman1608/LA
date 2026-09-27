@@ -40,6 +40,26 @@ export const site = {
   },
 } as const;
 
+/**
+ * Junior Campus — on-campus after-school classes for Grade 2–8.
+ * Separate building from the main academy, so it keeps its own address, hours and fees.
+ */
+export const juniorCampus = {
+  name: 'Learners Academy – Junior Campus',
+  grades: 'Grade 2 to Grade 8',
+  address: {
+    street: '70 Commercial, Umer Block, Maj. Aziz Bhatti Ave E, Sector B, Bahria Town',
+    locality: 'Lahore',
+    region: 'Punjab',
+    postalCode: '54000',
+    country: 'Pakistan',
+  },
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Learners+Academy+-+Junior+Campus+Bahria+Town+Lahore',
+  hours: { days: 'Monday to Friday', open: '14:00', close: '21:00', label: '2:00 PM – 9:00 PM' },
+  fee: { perSubject: 15000, label: '₨15,000', multiDiscount: '20% off when you take 2 or more subjects' },
+  subjects: ['Maths', 'English', 'Science', 'Urdu'],
+} as const;
+
 /** Pre-built WhatsApp deep link with a default message. */
 export function whatsappLink(message = "Hi! I'd like to ask about classes at Learners Academy."): string {
   return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(message)}`;
