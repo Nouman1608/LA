@@ -40,13 +40,56 @@ function consentRegionFor(country: unknown): 'optin' | 'optout' {
   return OPT_IN_COUNTRIES.has(cc) ? 'optin' : 'optout';
 }
 
+/**
+ * WordPress leftover URLs — 404 fallback (7 Oct 2026).
+ *
+ * WordPress exposed /feed/, /amp/, /embed/, /page/N/ and similar children under
+ * every post and page. Google still requests them and GSC "Not found (404)"
+ * validation kept failing: the old `/:slug/feed/ /blog/:slug/` rule only works
+ * when <slug> is a blog post (so /igcse/feed/ -> /blog/igcse/ -> 404), and
+ * patching each URL in _redirects runs into the Pages rule cap.
+ *
+ * So when a request 404s and its path is one of these suffixes, strip the
+ * suffix and 301 to the parent page if the parent resolves (directly or via
+ * its own _redirects rule); otherwise 301 to /blog/ (feeds) or / (the rest).
+ * Only ever touches responses that would have been 404s.
+ */
+const WP_SUFFIX = /^(.*?\/)(?:feed(?:\/(?:rss2?|atom|rdf))?|rss2?|atom|amp|embed|trackback|page\/?\d+|comment-page-\d+)\/?$/i;
+
+async function wpLeftoverRedirect(
+  request: Request,
+  assets: { fetch: (req: Request) => Promise<Response> } | undefined,
+): Promise<Response | null> {
+  const url = new URL(request.url);
+  const match = url.pathname.match(WP_SUFFIX);
+  if (!match) return null;
+  const parent = match[1];
+  const isFeed = /^(?:feed|rss|atom)/i.test(url.pathname.slice(parent.length));
+  let target = isFeed ? '/blog/' : '/';
+  if (parent !== '/' && assets) {
+    try {
+      const res = await assets.fetch(new Request(new URL(parent, url.origin), { redirect: 'manual' }));
+      if (res.status === 200) target = parent;
+      else if (res.status >= 300 && res.status < 400) target = res.headers.get('location') || target;
+    } catch {
+      // keep the hub-page fallback
+    }
+  }
+  return new Response(null, { status: 301, headers: { location: target } });
+}
+
 interface MiddlewareContext {
   request: Request & { cf?: { country?: string } };
+  env: { ASSETS?: { fetch: (req: Request) => Promise<Response> } };
   next: () => Promise<Response>;
 }
 
-export const onRequest = async ({ request, next }: MiddlewareContext): Promise<Response> => {
+export const onRequest = async ({ request, env, next }: MiddlewareContext): Promise<Response> => {
   const response = await next();
+  if (response.status === 404 && (request.method === 'GET' || request.method === 'HEAD')) {
+    const redirect = await wpLeftoverRedirect(request, env?.ASSETS);
+    if (redirect) return redirect;
+  }
   const contentType = response.headers.get('content-type') || '';
   if (!contentType.toLowerCase().includes('text/html')) return response;
   if (consentRegionFor(request.cf?.country) !== 'optout') return response;
