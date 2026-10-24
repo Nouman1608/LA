@@ -17,7 +17,7 @@ Results day is stressful enough without also being several time zones away from 
 
 * Read the grade against the school's own predicted grade and grade boundaries for that exam series, not last year's boundaries — they shift.
 * If a subject is close to a grade boundary, a remark is usually worth requesting before deciding on a retake — it's cheaper and faster.
-* If a retake is the right call, check the next available exam series for your board (Cambridge, Edexcel or AQA) and register within the window your school or exam centre sets. Our [private candidate registration guide](/blog/private-candidate-registration-pakistan-oct-nov-2026/) covers the Pakistan-side deadlines if you're registering through the British Council.
+* If a retake is the right call, check the next available exam series for your board (Cambridge, Edexcel or AQA) and register within the window your school or exam centre sets.
 
 ## In the following weeks
 

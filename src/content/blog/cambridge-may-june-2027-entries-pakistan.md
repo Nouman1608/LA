@@ -12,7 +12,7 @@ Oct/Nov 2026 exams are under way or about to start for many students, but those 
 Cambridge has not publicly released the May/June 2027 timetable. A provisional timetable exists only on Cambridge's school-facing portal. Based on past series, the usual pattern is:
 
 - **Exam window:** roughly late April to early June. For reference, the May/June 2026 series ran 23 April to 9 June 2026.
-- **Final entries deadline:** around February 2027 (an estimate, not an official date).
+- **Final entries deadline:** around February 2027 for Cambridge's international deadline (an estimate, not an official date). Private candidates in Pakistan register through the British Council, whose deadlines are earlier than the international ones, so expect a date before this and confirm it with them as soon as registration opens.
 - **Late entries:** around mid-April 2027 (an estimate; late fees normally apply).
 - **Results:** around mid-August. For reference, May/June 2026 results were released on 18–19 August 2026.
 
@@ -20,7 +20,7 @@ Please treat all 2027 dates as provisional until your school or the British Coun
 
 ## School candidate or private candidate?
 
-How you register depends on your situation. School candidates are entered by their school's exams officer, so ask your school for their internal deadline, which is usually earlier than Cambridge's. Private candidates must register through an authorised centre in Pakistan, such as the British Council, and must book their own exam slots. For the process, see our guide to [private candidate registration in Pakistan](/blog/private-candidate-registration-pakistan-oct-nov-2026/). Check the centre's current fees and deadlines directly, because they change each year.
+How you register depends on your situation. School candidates are entered by their school's exams officer, so ask your school for their internal deadline, which is usually earlier than Cambridge's. Private candidates must register through an authorised centre in Pakistan, such as the British Council, and must book their own exam slots. Check the centre's current fees and deadlines directly, because they change each year.
 
 ## A realistic six-month plan
 
